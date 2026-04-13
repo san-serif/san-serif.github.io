@@ -1,11 +1,204 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Portfolio | san serif">
+	<main class="wrapper">
+		<section class="grid">
+
+			{/* SAJEON */}
+			<a href="https://apps.apple.com/app/sajeon-korean-dictionary/id6761698356" class="card sajeon">
+				<img src="/sajeon-icon.png" alt="Sajeon" class="app-icon hero-icon" />
+				<div class="card-content">
+					<span class="category">iOS, iPadOS, macOS / KR</span>
+					<h2>Sajeon</h2>
+					<p>A beautiful, offline-first Korean dictionary designed for deep focus. Sajeon strips away the clutter of traditional reference apps, offering lightning-fast search, custom vocabulary tracking, and a native experience that keeps you entirely in the flow of learning.</p>
+				</div>
+			</a>
+
+			{/* TOKEITANGO */}
+			<a href="https://apps.apple.com/us/app/japanese-flashcards-tokeitango/id1492526803" class="card tokei">
+				<img src="/tokeitango-icon.png" alt="TokeiTango" class="app-icon standard-icon" />
+				<div class="card-content">
+					<span class="category">watchOS / JP</span>
+					<h2>TokeiTango</h2>
+					<p>Track your Japanese immersion time and review essential JLPT vocabulary from your wrist, driven by haptic feedback.</p>
+				</div>
+			</a>
+
+			{/* EOHWI */}
+			<a href="https://apps.apple.com/us/app/korean-flashcards-eohwi/id6478456641" class="card eohwi">
+				<img src="/eohwi-icon.png" alt="Eohwi" class="app-icon standard-icon" />
+				<div class="card-content">
+					<span class="category">watchOS / KR</span>
+					<h2>Eohwi</h2>
+					<p>Master TOPIK vocabulary on the go. Bite-sized Korean flashcards and smart spaced repetition directly on your Apple Watch.</p>
+				</div>
+			</a>
+
+			{/* ZUNGZI */}
+			<a href="https://apps.apple.com/us/app/chinese-flashcards-zungzi/id1496948615" class="card zungzi">
+				<img src="/zungzi-icon.png" alt="Zungzi" class="app-icon standard-icon" />
+				<div class="card-content">
+					<span class="category">watchOS / CN</span>
+					<h2>Zungzi</h2>
+					<p>Conquer Chinese Hanzi from anywhere. Practice HSK characters with quick-glance reviews and visual tonal cues.</p>
+				</div>
+			</a>
+
+			{/* UTILITIES */}
+			<a href="https://apps.apple.com/us/app-bundle/asian-language-menubar/id1793885201?mt=12" class="card utilities">
+				<div class="icons-row">
+					<img src="/jbar-icon.png" alt="JBar" class="app-icon mini" />
+					<img src="/kbar-icon.png" alt="KBar" class="app-icon mini" />
+					<img src="/cbar-icon.png" alt="CBar" class="app-icon mini" />
+				</div>
+				<div class="content">
+					<span class="category">macOS / JP, KR, CN</span>
+					<h2>JBar / KBar / CBar</h2>
+					<p>Minimal menubar utilities that keep your target language seamlessly integrated into your daily workflow.</p>
+				</div>
+			</a>
+
+		</section>
+	</main>
 </Layout>
+
+<style>
+.wrapper {
+	padding-bottom: 100px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-template-rows: minmax(240px, auto) minmax(240px, auto);
+	gap: 20px;
+}
+
+/* BASE CARD (Now as <a> tag) */
+.card {
+	background: #fcfcfc;
+	border: 1px solid #f0f0f0;
+	border-radius: 32px; 
+	padding: 32px;
+	display: flex;
+	flex-direction: column;
+	text-decoration: none; /* Remove underline from links */
+	min-width: 0;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-content, .content {
+	display: flex;
+	flex-direction: column;
+	margin-top: auto; 
+}
+
+/* HOVER STATES */
+.card:hover {
+	transform: translateY(-6px);
+	border-color: #d1d1d1;
+	background: #ffffff;
+	box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+}
+
+.sajeon {
+	grid-column: 1;
+	grid-row: 1 / span 2;
+	background: #f9f9fb;
+}
+
+.tokei { grid-column: 2; grid-row: 1; background: #fffaf5; }
+.eohwi { grid-column: 3; grid-row: 1; background: #f7fff9; }
+.zungzi { grid-column: 4; grid-row: 1; }
+
+.utilities {
+	grid-column: 2 / 5;
+	grid-row: 2;
+	flex-direction: row;
+	align-items: center;
+	gap: 40px;
+}
+
+/* ICONS */
+.app-icon {
+	border-radius: 22.5%; 
+	box-shadow: 0 6px 16px rgba(0,0,0,0.06); 
+	object-fit: cover;
+	flex-shrink: 0;
+}
+
+.hero-icon {
+	width: 96px; 
+	height: 96px;
+	margin-bottom: 32px; 
+}
+
+.standard-icon {
+	width: 72px;
+	height: 72px;
+	margin-bottom: 24px;
+}
+
+.mini {
+	width: 54px;
+	height: 54px;
+}
+
+.icons-row {
+	display: flex;
+	gap: 16px;
+	margin-bottom: 24px;
+}
+
+/* TYPOGRAPHY */
+.category {
+	display: block;
+	font-size: 0.7rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #999;
+	margin-bottom: 8px;
+}
+
+h2 {
+	margin: 0 0 12px 0;
+	font-size: 1.25rem; /* Slightly smaller */
+	font-weight: 600;   /* Much more elegant Semibold weight */
+	letter-spacing: -0.01em;
+	color: #111;
+}
+
+p {
+	margin: 0;
+	font-size: 0.9rem;
+	color: #777; /* Slightly softer grey for the description */
+	line-height: 1.5;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+	.grid {
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+	}
+
+	.card {
+		grid-column: auto !important;
+		grid-row: auto !important;
+	}
+
+	.utilities {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 24px;
+	}
+	
+	.utilities .content {
+		margin-top: 0;
+	}
+}
+</style>

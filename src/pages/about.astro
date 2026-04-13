@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About | san serif">
+	<main class="wrapper">
+
+		<section class="bio">
+			<header>
+				<h1>san serif</h1>
+			</header>
+
+			<div class="content">
+				<p>
+					The name <strong>san</strong> is inspired by the character <strong>山</strong> (shān) — a mountain. It serves as a constant reminder of the discipline required to navigate the complexities of Japanese, Korean, and Chinese. 
+				</p>
+				
+				<p>
+					Based in Sydney, I am a finance professional by day and a developer by night. I build what I need for my own journey, focusing on making the ascent of language learning more efficient and focused.
+				</p>
+
+				<div class="divider"></div>
+
+				<div class="philosophy-section">
+					<h3>The Philosophy</h3>
+					<p>
+						san serif is an indie studio dedicated to building high-utility, Apple-native apps. I build what I need for my own journey, focusing on solving the friction points that standard tools ignore.
+					</p>
+				</div>
+
+				<div class="divider"></div>
+
+				<div class="footer-bio">
+					<p>Building tools for the journey</p>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.wrapper { max-width: 850px; margin: 0 auto; padding: 80px 20px; }
+	
+	h1 { font-size: 3rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 50px; }
+	
+	.content p { font-size: 1.1rem; line-height: 1.7; color: #333; margin-bottom: 2rem; }
+	.content strong { font-weight: 600; color: #000; }
+	
+	.divider { height: 1px; background: #f0f0f0; margin: 50px 0; }
+
+	.philosophy-section { max-width: 600px; }
+	h3 { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1rem; color: #999; margin-bottom: 15px; font-weight: 700; }
+	.philosophy-section p { font-size: 1rem; color: #555; line-height: 1.6; }
+
+	.footer-bio p { font-size: 0.95rem; color: #bbb; letter-spacing: 0.02em; font-weight: 500; }
+
+	@media (max-width: 600px) {
+		h1 { font-size: 2.5rem; }
+	}
+</style>

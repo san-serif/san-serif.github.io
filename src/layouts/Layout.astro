@@ -1,23 +1,86 @@
+---
+const pathname = new URL(Astro.request.url).pathname;
+const { title } = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="en-AU">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 	</head>
 	<body>
+		<nav class="nav wrapper">
+			<div class="brand">
+				<a href="/" class="logo">
+					<img src="/sanserif.jpg" alt="san serif" class="logo-img" />
+				</a>
+				<p class="subtitle">Language apps & culture notes</p>
+			</div>
+			<div class="links">
+				<a href="/" class={pathname === "/" ? "active" : ""}>Portfolio</a>
+				<a href="/notes" class={pathname.startsWith("/notes") ? "active" : ""}>Notes</a>
+				<a href="/about" class={pathname === "/about" ? "active" : ""}>About</a>
+			</div>
+		</nav>
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
-	body {
+<style is:global>
+	* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+	
+	html, body {
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		padding: 0;
+		background: #ffffff;
+		color: #1a1a1a;
+		font-family: "Inter", -apple-system, sans-serif;
+	}
+
+	.wrapper { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+	.nav { 
+		display: flex; 
+		justify-content: space-between; 
+		align-items: flex-start; 
+		padding-top: 60px; /* Reduced padding for a tighter top */
+		margin-bottom: 80px; 
+	}
+
+	.brand { display: flex; flex-direction: column; }
+	
+	.logo-img {
+		/* THE FIX: Restricted height for an elegant, small-brand feel */
+		height: 60px; 
+		width: auto;
+		display: block;
+	}
+
+	.subtitle { 
+		font-size: 0.8rem; 
+		color: #999; 
+		margin-top: 10px; 
+		font-weight: 400; 
+	}
+	
+	.links { display: flex; gap: 30px; padding-top: 6px; }
+
+	.links a { 
+		color: #888; 
+		font-size: 0.9rem; 
+		transition: color 0.2s; 
+		font-weight: 500;
+	}
+
+	.links a.active { color: #000; font-weight: 600; }
+	.links a:hover { color: #000; }
+
+	@media (max-width: 600px) {
+		.nav { padding-top: 40px; margin-bottom: 40px; gap: 24px; flex-direction: column; }
 	}
 </style>

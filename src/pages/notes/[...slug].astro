@@ -1,0 +1,110 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	const notes = await getCollection('notes');
+	return notes.map(entry => ({
+		params: { slug: entry.id }, 
+		props: { entry },
+	}));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Layout title={`${entry.data.title} | san serif`}>
+	<main class="wrapper">
+		<article class="post">
+			<header class="post-header">
+				{/* 1. Category and Date */}
+				<span class="type">
+					{entry.data.category ? `${entry.data.category} / ` : ''}{entry.data.date}
+				</span>
+				
+				<h1>{entry.data.title}</h1>
+				
+				{/* 2. The Tags Array */}
+				{entry.data.tags && entry.data.tags.length > 0 && (
+					<div class="tags">
+						{entry.data.tags.map(tag => (
+							<span class="tag">#{tag}</span>
+						))}
+					</div>
+				)}
+			</header>
+			
+			<section class="analysis">
+				<Content />
+			</section>
+		</article>
+	</main>
+</Layout>
+
+<style>
+	.wrapper { max-width: 750px; margin: 0 auto; padding: 40px 20px 100px; }
+	
+	.post-header { margin-bottom: 60px; }
+	
+	.type { 
+		font-size: 0.75rem; 
+		text-transform: uppercase; 
+		letter-spacing: 0.12em; 
+		color: #999; 
+		font-weight: 700; 
+		display: block; 
+		margin-bottom: 12px; 
+	}
+
+	h1 { 
+		font-size: 3rem; 
+		font-weight: 700; 
+		letter-spacing: -0.05em; 
+		line-height: 1.1; 
+		margin: 0 0 20px 0; 
+		color: #000;
+	}
+
+	.tags { display: flex; gap: 12px; }
+	
+	.tag { 
+		font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+		font-size: 0.8rem; 
+		color: #bbb; 
+	}
+	
+	/* MARKDOWN STYLES */
+	.analysis :global(p) { font-size: 1.15rem; line-height: 1.7; color: #333; margin-bottom: 2rem; }
+	
+	.analysis :global(h3) { 
+		font-size: 1.2rem; 
+		text-transform: uppercase; 
+		letter-spacing: 0.05em; 
+		color: #000; 
+		margin: 3.5rem 0 1.2rem 0; 
+		border-bottom: 1px solid #f0f0f0; 
+		padding-bottom: 8px; 
+	}
+	
+	.analysis :global(img) { 
+		display: block;
+		max-width: 100%; 
+		height: auto;
+		margin: 3.5rem auto; 
+		border-radius: 12px; 
+		border: 1px solid #f0f0f0; 
+	}
+
+	.analysis :global(blockquote) { 
+		border-left: 2px solid #000; 
+		padding-left: 24px; 
+		margin: 3rem 0; 
+		font-style: italic; 
+		color: #555; 
+	}
+
+	.analysis :global(ul) { margin-bottom: 2rem; padding-left: 20px; }
+	.analysis :global(li) { margin-bottom: 12px; font-size: 1.1rem; color: #444; }
+	.analysis :global(strong) { color: #000; font-weight: 700; }
+</style>

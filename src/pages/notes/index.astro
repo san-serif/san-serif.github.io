@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+// Fetch and sort the collection
+const notes = await getCollection('notes');
+const sortedNotes = notes.sort(
+	(a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<Layout title="Notes | san serif">
+	<main class="wrapper">
+		<header class="page-header">
+			<h1>Culture Notes</h1>
+			<p class="page-subtitle">Beyond the dictionary: exploring the unspoken rules and nuances of language.</p>
+		</header>
+
+		<section class="notes-list">
+			{sortedNotes.map(note => (
+				<article class="note-item">
+					<div class="note-meta">
+						<span class="date">{note.data.date}</span>
+						{/* Category added here */}
+						{note.data.category && (
+							<span class="category-label">{note.data.category}</span>
+						)}
+					</div>
+					
+					<div class="note-content">
+						<a href={`/notes/${note.id}`}>
+							<h2>{note.data.title}</h2>
+						</a>
+						<p>{note.data.description}</p>
+						
+						{/* Tags added here */}
+						{note.data.tags && note.data.tags.length > 0 && (
+							<div class="tags-row">
+								{note.data.tags.map(tag => (
+									<span class="tag">#{tag}</span>
+								))}
+							</div>
+						)}
+					</div>
+				</article>
+			))}
+		</section>
+	</main>
+</Layout>
+
+<style>
+	.wrapper { max-width: 850px; margin: 0 auto; padding: 40px 20px 100px; }
+	
+	.page-header { margin-bottom: 60px; }
+	h1 { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 10px; }
+	.page-subtitle { color: #888; font-size: 1.1rem; }
+
+	.notes-list { border-top: 1px solid #f0f0f0; }
+	
+	.note-item { 
+		display: grid; 
+		grid-template-columns: 150px 1fr; 
+		padding: 40px 0; 
+		border-bottom: 1px solid #f0f0f0; 
+	}
+	
+	.note-meta { display: flex; flex-direction: column; gap: 8px; }
+	.date { font-size: 0.85rem; color: #bbb; }
+	
+	.category-label { 
+		font-size: 0.65rem; 
+		font-weight: 800; 
+		text-transform: uppercase; 
+		letter-spacing: 0.1em; 
+		color: #000; 
+	}
+
+	h2 { font-size: 1.4rem; font-weight: 600; margin: 0 0 10px 0; transition: color 0.2s ease; line-height: 1.3; }
+	h2:hover { color: #555; }
+	
+	p { font-size: 1rem; color: #666; line-height: 1.5; margin-bottom: 12px; }
+
+	.tags-row { display: flex; gap: 12px; }
+	.tag { 
+		font-family: ui-monospace, monospace; 
+		font-size: 0.75rem; 
+		color: #bbb; 
+	}
+
+	@media (max-width: 600px) {
+		.note-item { grid-template-columns: 1fr; gap: 15px; }
+		.note-meta { flex-direction: row; align-items: center; justify-content: space-between; }
+	}
+</style>
