@@ -1,0 +1,230 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="TokeiTango | san serif">
+	<main class="wrapper">
+		
+		<section class="app-hero">
+			
+			<div class="video-container">
+				<div class="video-glow"></div>
+				
+				<video autoplay loop muted playsinline class="hero-watch-video">
+					<source src="/videos/hero-smooth.mov" type="video/quicktime">
+					<source src="/videos/hero-smooth.webm" type="video/webm">
+				</video>
+			</div>
+			
+			<div class="app-intro">
+				<h1>TokeiTango</h1>
+				<p class="description">
+					Japanese vocabulary flashcards refined for watchOS. Discreet, haptic-driven study sessions designed for the persistent learner.
+				</p>
+				
+				<a href="https://apps.apple.com/us/app/japanese-flashcards-tokeitango/id1492526803" class="app-store-link">
+					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
+				</a>
+			</div>
+
+		</section>
+
+		<div class="divider"></div>
+
+		<section class="details-grid">
+			
+			<div class="detail-card">
+				<div class="floating-container">
+					<img src="/images/tokei-complication.png" alt="Native Presence" class="modular-image" />
+				</div>
+				<h3>Native Presence</h3>
+				<p>Frictionless utility. The middle modular complication places your study progress directly on the dial.</p>
+			</div>
+
+			<div class="detail-card">
+				<div class="floating-container">
+					<img src="/images/tokei-jlpt.png" alt="JLPT Precision" class="modular-image" />
+				</div>
+				<h3>JLPT Precision</h3>
+				<p>From N5 to N1. Track your mastery across the complete spectrum with a structured and persistent path.</p>
+			</div>
+
+			<div class="detail-card">
+				<div class="floating-container">
+					<img src="/images/tokei-sentence.png" alt="Contextual Flow" class="modular-image" />
+				</div>
+				<h3>Contextual Flow</h3>
+				<p>Every entry is supported by example sentences, bridging the gap between a definition and a conversation.</p>
+			</div>
+
+		</section>
+
+	</main>
+</Layout>
+
+<style>
+	.wrapper {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	h1, p {
+		margin-block: 0;
+	}
+
+	/* --- HERO FIXED (NO OVERLAP) --- */
+	.app-hero { 
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+
+		/* THIS is the key fix */
+		padding-top: 30px;
+		gap: 24px;
+	}
+
+	.video-container { 
+		position: relative;
+		width: 100%;
+		max-width: 480px;
+		display: flex;
+		justify-content: center;
+
+		/* IMPORTANT: no negative margins */
+		margin-top: 0;
+
+		/* subtle lift only (safe version of your old effect) */
+		transform: translateY(-10px);
+	}
+
+	.video-glow {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		aspect-ratio: 1;
+		background: radial-gradient(circle, rgba(0,0,0,0.08) 0%, rgba(255,255,255,0) 65%);
+		z-index: -1;
+		pointer-events: none;
+	}
+
+	.hero-watch-video { 
+		width: 100%;
+		height: auto;
+		opacity: 0.85;
+		filter: drop-shadow(0 30px 60px rgba(0,0,0,0.12));
+		mix-blend-mode: multiply;
+		transition: opacity 0.6s ease;
+	}
+
+	.hero-watch-video:hover { opacity: 1; }
+
+	/* TEXT */
+	.app-intro {
+		z-index: 2;
+	}
+
+	h1 {
+		font-size: 3.5rem;
+		font-weight: 600;
+		letter-spacing: -0.05em;
+		margin-bottom: 10px;
+		color: #111;
+	}
+
+	.description {
+		max-width: 580px;
+		font-size: 1.2rem;
+		color: #555;
+		line-height: 1.6;
+		margin-bottom: 30px;
+	}
+
+	/* rest unchanged */
+	.app-store-link {
+		display: inline-block;
+		transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+
+	.app-store-link:hover { transform: scale(1.04) translateY(-4px); }
+
+	.badge-svg {
+		height: 52px;
+		width: auto;
+		display: block;
+		filter: drop-shadow(0 12px 25px rgba(0,0,0,0.08));
+	}
+
+	.divider {
+		height: 1px;
+		background: #eee;
+		margin: 60px 0;
+	}
+
+	.details-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 60px;
+		margin-bottom: 120px;
+	}
+
+	.detail-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.floating-container {
+		width: 100%;
+		aspect-ratio: 1.5 / 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 30px;
+	}
+
+	.modular-image {
+		width: 75%;
+		border-radius: 20px;
+		opacity: 0.85;
+		box-shadow: 0 20px 50px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+		transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+
+	.detail-card:hover .modular-image {
+		transform: scale(1.05) translateY(-10px);
+		opacity: 0.95;
+	}
+
+	h3 {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		color: #111;
+		margin-bottom: 16px;
+	}
+
+	.detail-card p {
+		font-size: 0.95rem;
+		color: #555;
+		line-height: 1.7;
+		max-width: 260px;
+		margin: 0;
+	}
+
+	@media (max-width: 900px) {
+		.details-grid {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+
+		h1 {
+			font-size: 2.8rem;
+		}
+	}
+</style>

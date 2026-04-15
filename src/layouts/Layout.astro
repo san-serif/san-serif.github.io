@@ -1,6 +1,14 @@
 ---
 const pathname = new URL(Astro.request.url).pathname;
 const { title } = Astro.props;
+
+// SMART NAV STATE (FIXED)
+const isHome =
+	pathname === "/" ||
+	(!pathname.startsWith("/notes") && !pathname.startsWith("/about"));
+
+const isNotes = pathname.startsWith("/notes");
+const isAbout = pathname.startsWith("/about");
 ---
 
 <!doctype html>
@@ -9,31 +17,35 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<title>{title}</title>
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 	</head>
+
 	<body>
 		<nav class="nav wrapper">
 			<div class="brand">
 				<a href="/" class="logo">
 					<img src="/sanserif.jpg" alt="san serif" class="logo-img" />
 				</a>
-				<p class="subtitle">Language apps & culture notes</p>
+				<p class="subtitle">language apps & culture notes</p>
 			</div>
+
 			<div class="links">
-				<a href="/" class={pathname === "/" ? "active" : ""}>Portfolio</a>
-				<a href="/notes" class={pathname.startsWith("/notes") ? "active" : ""}>Notes</a>
-				<a href="/about" class={pathname === "/about" ? "active" : ""}>About</a>
+				<a href="/" class={isHome ? "active" : ""}>Portfolio</a>
+				<a href="/notes" class={isNotes ? "active" : ""}>Notes</a>
+				<a href="/about" class={isAbout ? "active" : ""}>About</a>
 			</div>
 		</nav>
+
 		<slot />
 	</body>
 </html>
 
 <style is:global>
 	* { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
-	
+
 	html, body {
 		margin: 0;
 		padding: 0;
@@ -42,20 +54,27 @@ const { title } = Astro.props;
 		font-family: "Inter", -apple-system, sans-serif;
 	}
 
-	.wrapper { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+	.wrapper { 
+		max-width: 1100px; 
+		margin: 0 auto; 
+		padding: 0 20px; 
+	}
 
+	/* --- NAV CONTAINER --- */
 	.nav { 
 		display: flex; 
 		justify-content: space-between; 
 		align-items: flex-start; 
-		padding-top: 60px; /* Reduced padding for a tighter top */
+		padding-top: 60px;
 		margin-bottom: 80px; 
 	}
 
-	.brand { display: flex; flex-direction: column; }
-	
+	.brand { 
+		display: flex; 
+		flex-direction: column; 
+	}
+
 	.logo-img {
-		/* THE FIX: Restricted height for an elegant, small-brand feel */
 		height: 60px; 
 		width: auto;
 		display: block;
@@ -67,20 +86,54 @@ const { title } = Astro.props;
 		margin-top: 10px; 
 		font-weight: 400; 
 	}
-	
-	.links { display: flex; gap: 30px; padding-top: 6px; }
 
-	.links a { 
-		color: #888; 
-		font-size: 0.9rem; 
-		transition: color 0.2s; 
-		font-weight: 500;
+	/* --- CAPSULE NAV --- */
+	.links { 
+		display: flex; 
+		gap: 10px; 
+		padding: 6px;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.6);
+		backdrop-filter: blur(12px);
+		border: 1px solid rgba(0, 0, 0, 0.08);
+		align-items: center;
 	}
 
-	.links a.active { color: #000; font-weight: 600; }
-	.links a:hover { color: #000; }
+	.links a { 
+		color: #888;
+		font-size: 0.85rem;
+		font-weight: 500;
+		text-decoration: none;
 
+		padding: 8px 14px;
+		border-radius: 999px;
+
+		transition: all 0.25s ease;
+	}
+
+	.links a:hover { 
+		color: #111;
+		background: rgba(255, 255, 255, 0.8);
+		transform: translateY(-1px);
+	}
+
+	.links a.active { 
+		color: #111;
+		background: rgba(0, 0, 0, 0.06);
+		font-weight: 600;
+	}
+
+	/* --- RESPONSIVE --- */
 	@media (max-width: 600px) {
-		.nav { padding-top: 40px; margin-bottom: 40px; gap: 24px; flex-direction: column; }
+		.nav { 
+			padding-top: 40px; 
+			margin-bottom: 40px; 
+			gap: 24px; 
+			flex-direction: column; 
+		}
+
+		.links {
+			align-self: flex-start;
+		}
 	}
 </style>

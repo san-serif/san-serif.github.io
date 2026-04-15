@@ -19,12 +19,14 @@ import Layout from '../layouts/Layout.astro';
 			</a>
 
 			{/* TOKEITANGO */}
-			<a href="https://apps.apple.com/us/app/japanese-flashcards-tokeitango/id1492526803" class="card tokei">
-				<img src="/tokeitango-icon.png" alt="TokeiTango" class="app-icon standard-icon" />
+			<a href="/portfolio/tokeitango" class="card tokei">
+				<img src="/tokeitango-icon.png" alt="tokeitango" class="app-icon hero-icon" />
 				<div class="card-content">
 					<span class="category">watchOS / JP</span>
-					<h2>TokeiTango</h2>
-					<p>JLPT vocabulary study sessions, reimagined for the wrist. Discreet, haptic-driven reviews designed for immersion on the go.</p>
+					<h2>Tokeitango</h2>
+					<p>
+						JLPT vocabulary and study sessions, reimagined for the wrist. Discreet, haptic-driven reviews designed for immersion on the go.
+					</p>
 				</div>
 			</a>
 
@@ -78,7 +80,7 @@ import Layout from '../layouts/Layout.astro';
 	gap: 20px;
 }
 
-/* BASE CARD (Now as <a> tag) */
+/* BASE CARD */
 .card {
 	background: #fcfcfc;
 	border: 1px solid #f0f0f0;
@@ -86,7 +88,7 @@ import Layout from '../layouts/Layout.astro';
 	padding: 32px;
 	display: flex;
 	flex-direction: column;
-	text-decoration: none; /* Remove underline from links */
+	text-decoration: none;
 	min-width: 0;
 	cursor: pointer;
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -155,21 +157,24 @@ import Layout from '../layouts/Layout.astro';
 	margin-bottom: 24px;
 }
 
-/* TYPOGRAPHY */
+/* --- TYPOGRAPHY FIX --- */
 .category {
 	display: block;
-	font-size: 0.7rem;
+	font-size: 0.725rem;
 	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.05em;
+	
+	/* The "Force Case" command */
+	text-transform: none !important; 
+	
+	letter-spacing: 0.08em; 
 	color: #999;
 	margin-bottom: 8px;
 }
 
 h2 {
 	margin: 0 0 12px 0;
-	font-size: 1.25rem; /* Slightly smaller */
-	font-weight: 600;   /* Much more elegant Semibold weight */
+	font-size: 1.25rem;
+	font-weight: 600;
 	letter-spacing: -0.01em;
 	color: #111;
 }
@@ -177,7 +182,7 @@ h2 {
 p {
 	margin: 0;
 	font-size: 0.9rem;
-	color: #777; /* Slightly softer grey for the description */
+	color: #777;
 	line-height: 1.5;
 }
 
