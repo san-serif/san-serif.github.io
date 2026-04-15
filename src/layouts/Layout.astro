@@ -2,7 +2,7 @@
 const pathname = new URL(Astro.request.url).pathname;
 const { title } = Astro.props;
 
-// SMART NAV STATE (FIXED)
+// SMART NAV STATE
 const isHome =
 	pathname === "/" ||
 	(!pathname.startsWith("/notes") && !pathname.startsWith("/about"));
@@ -49,9 +49,16 @@ const isAbout = pathname.startsWith("/about");
 	html, body {
 		margin: 0;
 		padding: 0;
-		background: #ffffff;
+		/* The "San Serif" Grey: Matches the Sajeon card and hides video flashes */
+		background: #f9f9fb; 
 		color: #1a1a1a;
 		font-family: "Inter", -apple-system, sans-serif;
+	}
+
+	/* THE TRANSPARENCY GUARD: Forces browsers to respect video alpha channels */
+	video {
+		background-color: transparent !important;
+		-webkit-mask-image: -webkit-radial-gradient(white, black); /* Fixes some Safari rounded corner bugs */
 	}
 
 	.wrapper { 
@@ -78,6 +85,8 @@ const isAbout = pathname.startsWith("/about");
 		height: 60px; 
 		width: auto;
 		display: block;
+		/* Keeps the logo clean against the off-white bg */
+		mix-blend-mode: multiply;
 	}
 
 	.subtitle { 
@@ -93,9 +102,10 @@ const isAbout = pathname.startsWith("/about");
 		gap: 10px; 
 		padding: 6px;
 		border-radius: 999px;
-		background: rgba(255, 255, 255, 0.6);
+		/* Cleaned up for the #f9f9fb background */
+		background: rgba(255, 255, 255, 0.8);
 		backdrop-filter: blur(12px);
-		border: 1px solid rgba(0, 0, 0, 0.08);
+		border: 1px solid rgba(0, 0, 0, 0.05);
 		align-items: center;
 	}
 
@@ -104,16 +114,14 @@ const isAbout = pathname.startsWith("/about");
 		font-size: 0.85rem;
 		font-weight: 500;
 		text-decoration: none;
-
 		padding: 8px 14px;
 		border-radius: 999px;
-
 		transition: all 0.25s ease;
 	}
 
 	.links a:hover { 
 		color: #111;
-		background: rgba(255, 255, 255, 0.8);
+		background: rgba(255, 255, 255, 1);
 		transform: translateY(-1px);
 	}
 
