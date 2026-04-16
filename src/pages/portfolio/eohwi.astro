@@ -1,0 +1,264 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Eohwi | san serif">
+	<main class="wrapper">
+		
+		<section class="app-hero">
+			
+			<div class="video-container">
+				<div class="video-glow"></div>
+				
+			<video autoplay loop muted playsinline poster="/images/eohwi-poster.jpg" class="hero-watch-video">
+				    <source src="/videos/eohwi.mp4" type="video/mp4">
+				</video>
+			</div>
+			
+			<div class="app-intro">
+				<h1>Eohwi</h1>
+				<p class="description">
+					Korean vocabulary mastery on your wrist. Smart spaced repetition and TOPIK-aligned flashcards designed for consistent, discreet learning on the Apple Watch.
+				</p>
+				
+				<a href="https://apps.apple.com/us/app/korean-flashcards-eohwi/id6478456641" class="app-store-link">
+					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
+				</a>
+			</div>
+
+		</section>
+
+		<div class="divider"></div>
+
+		<section class="details-grid">
+			
+			<div class="detail-card">
+				<div class="floating-container">
+					<img src="/images/eohwi-formality.png" alt="Speech Levels" class="modular-image" />
+				</div>
+				<h3>Speech Levels</h3>
+				<p>Toggle example sentences between formal, polite, and casual forms. Master Korean across all social contexts and communication styles.</p>
+			</div>
+
+			<div class="detail-card">
+				<div class="floating-container">
+					<img src="/images/eohwi-bookmarks.png" alt="Bookmarking" class="modular-image" />
+				</div>
+				<h3>Save & Review</h3>
+				<p>Bookmark words as you learn to create your personal collection. Revisit your saved vocabulary anytime for focused review.</p>
+			</div>
+
+			<div class="detail-card">
+				<div class="floating-container">
+					<img src="/images/eohwi-etymology.png" alt="Etymology" class="modular-image" />
+				</div>
+				<h3>Etymology</h3>
+				<p>Discover the roots and historical context of Korean words. Understanding origins deepens retention and reveals language patterns.</p>
+			</div>
+
+		</section>
+
+	</main>
+</Layout>
+
+<style>
+	.wrapper {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	h1, p {
+		margin-block: 0;
+	}
+
+	/* --- HERO CONTAINER --- */
+	.app-hero { 
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding-top: 30px;
+		gap: 24px;
+
+		/* FIX 1: Isolation sandwich ensures video doesn't bleed into global layers */
+		isolation: isolate; 
+	}
+
+	.video-container { 
+		position: relative;
+		width: 100%;
+		max-width: 480px;
+		display: flex;
+		justify-content: center;
+		margin-top: 0;
+		transform: translateY(-10px);
+		transition: opacity 0.6s ease, transform 0.6s ease;
+		background: transparent !important;
+	}
+
+	.video-container:hover {
+		opacity: 1;
+		transform: translateY(-12px);
+	}
+
+	.video-glow {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		aspect-ratio: 1;
+		pointer-events: none;
+	}
+
+	.hero-watch-video { 
+		width: 100%; 
+		height: auto; 
+		display: block;
+		
+		/* FIX 2: Hardware acceleration triggers for the transparency engine */
+		transform: translateZ(0);
+		will-change: contents;
+		backface-visibility: hidden;
+
+		background: transparent !important;
+		outline: none;
+		border: none;
+	}
+
+	/* --- TEXT & TYPOGRAPHY --- */
+	.app-intro {
+		z-index: 2;
+	}
+
+	h1 {
+		font-size: 3.5rem;
+		font-weight: 600;
+		letter-spacing: -0.05em;
+		margin-bottom: 10px;
+		color: #111;
+	}
+
+	.description {
+		max-width: 580px;
+		font-size: 1.2rem;
+		color: #555;
+		line-height: 1.6;
+		margin-bottom: 30px;
+	}
+
+	.app-store-link {
+		display: inline-block;
+		transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+
+	.app-store-link:hover { transform: scale(1.04) translateY(-4px); }
+
+	.badge-svg {
+		height: 52px;
+		width: auto;
+		display: block;
+		filter: drop-shadow(0 12px 25px rgba(0,0,0,0.08));
+	}
+
+	/* --- DIVIDER & GRID --- */
+	.divider {
+		height: 1px;
+		background: #ffffff;
+		margin: 60px 0;
+	}
+
+	.details-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 60px;
+		margin-bottom: 120px;
+	}
+
+	.detail-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.floating-container {
+		width: 100%;
+		aspect-ratio: 1.5 / 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 32px;
+	}
+
+	.modular-image {
+		width: 100%;
+		height: auto;
+		display: block;
+		object-fit: contain;
+	}
+
+	h3 {
+		font-size: 1.3rem;
+		font-weight: 600;
+		margin: 0 0 12px 0;
+		color: #111;
+		letter-spacing: -0.02em;
+	}
+
+	.detail-card p {
+		font-size: 0.95rem;
+		color: #555;
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	/* --- RESPONSIVE --- */
+	@media (max-width: 900px) {
+		.details-grid {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+
+		h1 {
+			font-size: 2.5rem;
+		}
+
+		.description {
+			font-size: 1rem;
+		}
+	}
+
+	@media (max-width: 600px) {
+		.app-hero {
+			padding-top: 20px;
+		}
+
+		h1 {
+			font-size: 2rem;
+		}
+
+		.description {
+			font-size: 0.95rem;
+			margin-bottom: 20px;
+		}
+
+		.video-container {
+			max-width: 100%;
+		}
+
+		.divider {
+			margin: 40px 0;
+		}
+
+		.details-grid {
+			gap: 30px;
+			margin-bottom: 60px;
+		}
+
+		h3 {
+			font-size: 1.1rem;
+		}
+	}
+</style>

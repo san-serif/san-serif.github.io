@@ -31,7 +31,7 @@ import Layout from '../layouts/Layout.astro';
 			</a>
 
 			{/* EOHWI */}
-			<a href="https://apps.apple.com/us/app/korean-flashcards-eohwi/id6478456641" class="card eohwi">
+			<a href="/portfolio/eohwi" class="card eohwi">
 				<img src="/eohwi-icon.png" alt="Eohwi" class="app-icon standard-icon" />
 				<div class="card-content">
 					<span class="category">watchOS / KR</span>
@@ -82,8 +82,8 @@ import Layout from '../layouts/Layout.astro';
 
 /* BASE CARD */
 .card {
-	background: #fcfcfc;
-	border: 1px solid #f0f0f0;
+	background: #ffffff;
+	border: 1px solid rgba(0, 0, 0, 0.2);
 	border-radius: 32px; 
 	padding: 32px;
 	display: flex;
@@ -103,20 +103,19 @@ import Layout from '../layouts/Layout.astro';
 /* HOVER STATES */
 .card:hover {
 	transform: translateY(-6px);
-	border-color: #d1d1d1;
+	border-color: rgba(0, 0, 0, 0.1);
 	background: #ffffff;
-	box-shadow: 0 20px 40px rgba(0,0,0,0.06);
 }
 
 .sajeon {
 	grid-column: 1;
 	grid-row: 1 / span 2;
-	background: #f9f9fb;
+	background: #ffffff;
 }
 
-.tokei { grid-column: 2; grid-row: 1; background: #fffaf5; }
-.eohwi { grid-column: 3; grid-row: 1; background: #f7fff9; }
-.zungzi { grid-column: 4; grid-row: 1; }
+.tokei { grid-column: 2; grid-row: 1; background: #ffffff; }
+.eohwi { grid-column: 3; grid-row: 1; background: #ffffff; }
+.zungzi { grid-column: 4; grid-row: 1; background: #ffffff; }
 
 .utilities {
 	grid-column: 2 / 5;
@@ -124,12 +123,12 @@ import Layout from '../layouts/Layout.astro';
 	flex-direction: row;
 	align-items: center;
 	gap: 40px;
+	background: #ffffff;
 }
 
 /* ICONS */
 .app-icon {
 	border-radius: 22.5%; 
-	box-shadow: 0 6px 16px rgba(0,0,0,0.06); 
 	object-fit: cover;
 	flex-shrink: 0;
 }
