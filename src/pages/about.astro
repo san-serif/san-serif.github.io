@@ -13,7 +13,7 @@ import Layout from '../layouts/Layout.astro';
 		<section class="bio">
 			<header class="hero-header">
 				<!-- The Fuji Asset: Anchored to the right -->
-				<img src="/images/fuji-bg.png" alt="" class="fuji-bg" />
+				<img src="/images/fuji.png" alt="" class="fuji-bg" />
 				<h1>san serif</h1>
 			</header>
 
@@ -68,7 +68,7 @@ import Layout from '../layouts/Layout.astro';
 		/* Anchored to the right to avoid overlapping the "san" */
 		top: -70px; 
 		right: -40px; 
-		width: 380px;
+		width: 480px;
 		
 		/* VISIBILITY SETTINGS */
 		z-index: 0;           /* Set to 0 so it's above the background but below h1 */
@@ -126,10 +126,10 @@ import Layout from '../layouts/Layout.astro';
 	@media (max-width: 700px) {
 		h1 { font-size: 2.6rem; }
 		.fuji-bg {
-			width: 250px;
+			width: 400px;
 			top: -40px;
 			right: -10px;
-			opacity: 0.1; /* Keep it even fainter on mobile */
+			opacity: 1; /* Keep it even fainter on mobile */
 		}
 	}
 </style>

@@ -42,12 +42,17 @@ import Layout from '../../layouts/Layout.astro';
 		<section class="details-grid">
 			
 			<div class="detail-card">
-				<div class="floating-container">
-					<img src="/images/eohwi-formality.png" alt="Speech Levels" class="modular-image" />
-				</div>
-				<h3>Speech Levels</h3>
-				<p>Toggle example sentences between formal, polite, and casual forms. Master Korean across all social contexts and communication styles.</p>
+			    <div class="floating-container image-swap">
+			        <!-- Primary: The Formal version (e.g., 하십시오체) -->
+			        <img src="/images/eohwi-formal.png" alt="Formal Korean (Sumnida)" class="modular-image primary" />
+        
+			        <!-- Secondary: The Polite version (e.g., 해요체) -->
+			        <img src="/images/eohwi-polite.png" alt="Polite Korean (A/Oyo)" class="modular-image secondary" />
+			    </div>
+			    <h3>Speech Levels</h3>
+			    <p>Toggle example sentences between formal, polite, and casual forms. Master Korean across all social contexts and communication styles.</p>
 			</div>
+			
 
 			<div class="detail-card">
 				<div class="floating-container">
@@ -241,4 +246,33 @@ import Layout from '../../layouts/Layout.astro';
 			font-size: 2.8rem;
 		}
 	}
+	
+	/* --- IMAGE SWAP LOGIC --- */
+
+	/* 1. Set the container to relative so the images stack on top of each other */
+	.image-swap {
+	    position: relative;
+	}
+
+	/* 2. Position the secondary image directly on top of the primary */
+	.modular-image.secondary {
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%) scale(1); /* Matches your default modular-image centering */
+	    opacity: 0; /* Hidden by default */
+	    pointer-events: none; /* Let the hover pass through to the card */
+	}
+
+	/* 3. The Hover State: Fade out the primary, fade in the secondary */
+	.detail-card:hover .modular-image.primary {
+	    opacity: 0;
+	    transform: scale(1.05) translateY(-10px); /* Keeps your existing hover animation */
+	}
+
+	.detail-card:hover .modular-image.secondary {
+	    opacity: 0.95; /* Matches your existing .modular-image:hover opacity */
+	    transform: translate(-50%, -60%) scale(1.05); /* Combines the centering + your translateY */
+	}
+	
 </style>
