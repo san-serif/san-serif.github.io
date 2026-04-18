@@ -1,8 +1,7 @@
 ---
-/* 
-  ABOUT PAGE - san serif
+/* ABOUT PAGE - san serif
   Independent studio biography and philosophy.
-  Asset: public/images/fuji-bg.png (100% opacity grey export)
+  Asset: public/images/fuji.png
 */
 import Layout from '../layouts/Layout.astro';
 ---
@@ -12,8 +11,7 @@ import Layout from '../layouts/Layout.astro';
 
 		<section class="bio">
 			<header class="hero-header">
-				<!-- The Fuji Asset: Anchored to the right -->
-				<img src="/images/fuji.png" alt="" class="fuji-bg" />
+				<img src="/images/fuji.png" alt="Mt Fuji Sketch" class="fuji-bg" />
 				<h1>san serif</h1>
 			</header>
 
@@ -51,32 +49,33 @@ import Layout from '../layouts/Layout.astro';
 	.wrapper { 
 		max-width: 850px; 
 		margin: 0 auto; 
-		padding: 80px 20px; 
+		/* Keeps the whole section high up on the screen */
+		padding: 20px 20px 80px; 
 	}
 
 	/* --- HERO / MOUNTAIN SECTION --- */
 	.hero-header {
-		position: relative; 
-		margin-bottom: 80px;
 		display: flex;
-		align-items: flex-end;
-		overflow: visible;
+		flex-direction: column; 
+		align-items: flex-start;
+		margin-bottom: 60px;
 	}
 
 	.fuji-bg {
-		position: absolute;
-		/* Anchored to the right to avoid overlapping the "san" */
-		top: -70px; 
-		right: -40px; 
 		width: 480px;
+		opacity: 1;
+		filter: grayscale(100%);
+		mix-blend-mode: multiply; 
 		
-		/* VISIBILITY SETTINGS */
-		z-index: 0;           /* Set to 0 so it's above the background but below h1 */
-		opacity: 1;        /* Increased slightly so it's visible on all monitors */
+		/* Pulls the image to the top of the viewport */
+		margin-top: -30px; 
+		margin-left: -20px;
+		
+		/* Adds the requested space between mountain and heading */
+		margin-bottom: 15px; 
 		
 		pointer-events: none; 
 		user-select: none;
-		filter: grayscale(100%);
 	}
 	
 	/* --- TYPOGRAPHY --- */
@@ -86,8 +85,6 @@ import Layout from '../layouts/Layout.astro';
 		letter-spacing: -0.04em; 
 		margin: 0;
 		color: #000;
-		position: relative;   /* Required for z-index */
-		z-index: 10;          /* Guarantees text is always on top */
 	}
 	
 	.content p { 
@@ -101,7 +98,6 @@ import Layout from '../layouts/Layout.astro';
 	
 	/* --- DECORATIVE --- */
 	.divider { height: 1px; background: #eee; margin: 50px 0; }
-
 	.philosophy-section { max-width: 600px; }
 
 	h3 { 
@@ -124,12 +120,14 @@ import Layout from '../layouts/Layout.astro';
 
 	/* --- RESPONSIVE --- */
 	@media (max-width: 700px) {
+		.wrapper { padding-top: 10px; }
 		h1 { font-size: 2.6rem; }
 		.fuji-bg {
-			width: 400px;
-			top: -40px;
-			right: -10px;
-			opacity: 1; /* Keep it even fainter on mobile */
+			width: 100%;
+			max-width: 400px;
+			margin-top: -10px;
+			/* Ensures breathing room remains on mobile */
+			margin-bottom: 10px; 
 		}
 	}
 </style>
