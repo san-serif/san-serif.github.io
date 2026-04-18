@@ -1,36 +1,44 @@
 ---
+/* 
+  ABOUT PAGE - san serif
+  Independent studio biography and philosophy.
+*/
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="About | san serif">
 	<main class="wrapper">
 
+		<!-- SECTION: BIO HEADER -->
 		<section class="bio">
 			<header>
 				<h1>san serif</h1>
 			</header>
 
 			<div class="content">
+				<!-- The Brand Story: Explaining 'san' (山) -->
 				<p>
-					The name <strong>san</strong> comes from the character <strong>山 (san)</strong>  meaning “mountain”. It serves as a reminder of the discipline required when navigating the complexities of Japanese, Korean, and Chinese.
+					The name <strong>san</strong> comes from the character <strong>山 (san)</strong> meaning “mountain”. It serves as a reminder of the discipline required when navigating the complexities of Japanese, Korean, and Chinese.
 				</p>
 				
+				<!-- The Studio Mission -->
 				<p>
-					Based in Sydney, san serif is an independent studio focused on building high-utility tools for language learning and culture. Each product is designed to remove friction from the learning process and make progress feel more deliberate.
+					Based in Sydney, san serif is an independent studio focused on building high-utility tools for language learning and culture. Each product is designed to remove friction from the learning process and support consistent, deliberate progress.
 				</p>
 
 				<div class="divider"></div>
 
+				<!-- THE PHILOSOPHY: Core Design & Product Pillars -->
 				<div class="philosophy-section">
 					<h3>The Philosophy</h3>
 					<p>
-						san serif builds focused, Apple-native tools for language learning. Each product is designed to reduce friction and support consistent, structured progress.
-						
+						User-friendly, Apple-native tools for language learning. Minimal friction. Structured progress. Long-term retention.
 					</p>
 				</div>
 
 				<div class="divider"></div>
 
+				<!-- FOOTER: Final brand sign-off -->
 				<div class="footer-bio">
 					<p>Building tools for the journey</p>
 				</div>
@@ -41,12 +49,14 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <style>
+	/* --- LAYOUT CONFIG --- */
 	.wrapper { 
 		max-width: 850px; 
 		margin: 0 auto; 
 		padding: 80px 20px; 
 	}
 	
+	/* --- TYPOGRAPHY --- */
 	h1 { 
 		font-size: 3rem; 
 		font-weight: 700; 
@@ -66,12 +76,14 @@ import Layout from '../layouts/Layout.astro';
 		color: #000; 
 	}
 	
+	/* --- DECORATIVE ELEMENTS --- */
 	.divider { 
 		height: 1px; 
-		background: #ffffff; 
+		background: #eee; /* Changed from #ffffff to be visible on white BG */
 		margin: 50px 0; 
 	}
 
+	/* --- PHILOSOPHY SECTION --- */
 	.philosophy-section { 
 		max-width: 600px; 
 	}
@@ -91,6 +103,7 @@ import Layout from '../layouts/Layout.astro';
 		line-height: 1.6; 
 	}
 
+	/* --- FOOTER BIO --- */
 	.footer-bio p { 
 		font-size: 0.95rem; 
 		color: #bbb; 
@@ -98,6 +111,7 @@ import Layout from '../layouts/Layout.astro';
 		font-weight: 500; 
 	}
 
+	/* --- RESPONSIVE --- */
 	@media (max-width: 600px) {
 		h1 { 
 			font-size: 2.5rem; 

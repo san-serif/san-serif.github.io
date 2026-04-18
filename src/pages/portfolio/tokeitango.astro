@@ -10,9 +10,18 @@ import Layout from '../../layouts/Layout.astro';
 			<div class="video-container">
 				<div class="video-glow"></div>
 				
-			<video autoplay loop muted playsinline poster="/images/tokeitango-poster.jpg" class="hero-watch-video">
-				    <source src="/videos/tokeitango.mp4" type="video/mp4">
-				</video>
+			<video 
+			  autoplay 
+			  loop 
+			  muted 
+			  playsinline 
+			  webkit-playsinline
+			  poster="/images/tokeitango-poster.jpg" 
+			  class="hero-watch-video"
+			  style="background-color: transparent !important;"
+			>
+			  <source src="/videos/tokeitango.mp4" type="video/mp4">
+			</video>
 			</div>
 			
 			<div class="app-intro">
@@ -166,7 +175,7 @@ import Layout from '../../layouts/Layout.astro';
 	.divider {
 		height: 1px;
 		background: #ffffff;
-		margin: 60px 0;
+		margin: 30px 0; /* reduced from 60px */
 	}
 
 	.details-grid {
@@ -189,9 +198,9 @@ import Layout from '../../layouts/Layout.astro';
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 30px;
+		margin-bottom: 2px; /* reduced from 30px */
 	}
-
+	
 	.modular-image {
 		width: 75%;
 		border-radius: 20px;
