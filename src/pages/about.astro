@@ -2,6 +2,7 @@
 /* 
   ABOUT PAGE - san serif
   Independent studio biography and philosophy.
+  Asset: public/images/fuji-bg.png (100% opacity grey export)
 */
 import Layout from '../layouts/Layout.astro';
 ---
@@ -9,26 +10,24 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="About | san serif">
 	<main class="wrapper">
 
-		<!-- SECTION: BIO HEADER -->
 		<section class="bio">
-			<header>
+			<header class="hero-header">
+				<!-- The Fuji Asset: Anchored to the right -->
+				<img src="/images/fuji-bg.png" alt="" class="fuji-bg" />
 				<h1>san serif</h1>
 			</header>
 
 			<div class="content">
-				<!-- The Brand Story: Explaining 'san' (山) -->
 				<p>
 					The name <strong>san</strong> comes from the character <strong>山 (san)</strong> meaning “mountain”. It serves as a reminder of the discipline required when navigating the complexities of Japanese, Korean, and Chinese.
 				</p>
 				
-				<!-- The Studio Mission -->
 				<p>
 					Based in Sydney, san serif is an independent studio focused on building high-utility tools for language learning and culture. Each product is designed to remove friction from the learning process and support consistent, deliberate progress.
 				</p>
 
 				<div class="divider"></div>
 
-				<!-- THE PHILOSOPHY: Core Design & Product Pillars -->
 				<div class="philosophy-section">
 					<h3>The Philosophy</h3>
 					<p>
@@ -38,7 +37,6 @@ import Layout from '../layouts/Layout.astro';
 
 				<div class="divider"></div>
 
-				<!-- FOOTER: Final brand sign-off -->
 				<div class="footer-bio">
 					<p>Building tools for the journey</p>
 				</div>
@@ -55,13 +53,41 @@ import Layout from '../layouts/Layout.astro';
 		margin: 0 auto; 
 		padding: 80px 20px; 
 	}
+
+	/* --- HERO / MOUNTAIN SECTION --- */
+	.hero-header {
+		position: relative; 
+		margin-bottom: 80px;
+		display: flex;
+		align-items: flex-end;
+		overflow: visible;
+	}
+
+	.fuji-bg {
+		position: absolute;
+		/* Anchored to the right to avoid overlapping the "san" */
+		top: -70px; 
+		right: -40px; 
+		width: 380px;
+		
+		/* VISIBILITY SETTINGS */
+		z-index: 0;           /* Set to 0 so it's above the background but below h1 */
+		opacity: 1;        /* Increased slightly so it's visible on all monitors */
+		
+		pointer-events: none; 
+		user-select: none;
+		filter: grayscale(100%);
+	}
 	
 	/* --- TYPOGRAPHY --- */
 	h1 { 
-		font-size: 3rem; 
+		font-size: 3.2rem; 
 		font-weight: 700; 
-		letter-spacing: -0.03em; 
-		margin-bottom: 50px; 
+		letter-spacing: -0.04em; 
+		margin: 0;
+		color: #000;
+		position: relative;   /* Required for z-index */
+		z-index: 10;          /* Guarantees text is always on top */
 	}
 	
 	.content p { 
@@ -71,22 +97,12 @@ import Layout from '../layouts/Layout.astro';
 		margin-bottom: 2rem; 
 	}
 	
-	.content strong { 
-		font-weight: 600; 
-		color: #000; 
-	}
+	.content strong { font-weight: 600; color: #000; }
 	
-	/* --- DECORATIVE ELEMENTS --- */
-	.divider { 
-		height: 1px; 
-		background: #eee; /* Changed from #ffffff to be visible on white BG */
-		margin: 50px 0; 
-	}
+	/* --- DECORATIVE --- */
+	.divider { height: 1px; background: #eee; margin: 50px 0; }
 
-	/* --- PHILOSOPHY SECTION --- */
-	.philosophy-section { 
-		max-width: 600px; 
-	}
+	.philosophy-section { max-width: 600px; }
 
 	h3 { 
 		font-size: 0.75rem; 
@@ -97,13 +113,8 @@ import Layout from '../layouts/Layout.astro';
 		font-weight: 700; 
 	}
 	
-	.philosophy-section p { 
-		font-size: 1rem; 
-		color: #555; 
-		line-height: 1.6; 
-	}
-
-	/* --- FOOTER BIO --- */
+	.philosophy-section p { font-size: 1rem; color: #555; line-height: 1.6; }
+	
 	.footer-bio p { 
 		font-size: 0.95rem; 
 		color: #bbb; 
@@ -112,9 +123,13 @@ import Layout from '../layouts/Layout.astro';
 	}
 
 	/* --- RESPONSIVE --- */
-	@media (max-width: 600px) {
-		h1 { 
-			font-size: 2.5rem; 
+	@media (max-width: 700px) {
+		h1 { font-size: 2.6rem; }
+		.fuji-bg {
+			width: 250px;
+			top: -40px;
+			right: -10px;
+			opacity: 0.1; /* Keep it even fainter on mobile */
 		}
 	}
 </style>

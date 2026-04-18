@@ -11,7 +11,7 @@ Single's Inferno isn't just a reality show; it is a concentrated look at Korean 
 ### 1. The Pre-Game: 화이팅!
 Before any challenge or date, you hear the universal cry of **화이팅!** (*hwaiting!*). Derived from the English "fighting" it has been re-indexed in Korean to mean "you have got this" or "good luck." On the island, it functions as a social glue to reduce tension before high-stakes physical or romantic competition.
 
-### 2. The Ideal Shape (이상형)
+### 2. The Ideal Type (이상형)
 The most common question on the island is about one's **이상형** (*isanghyeong*). 
 * **이상** (ideal) + **형** (shape/type).
 
@@ -53,7 +53,7 @@ The dialogue in the camp is dominated by reactive words that signal agreement, s
 * **귀여워** (*gwiyeowo*): cute
 * **아이고** (*aigo*): oh no / geez
 
-### 6. The Exit Protocol: Final Selection
+### 6. The Final Selection
 The show concludes with a final commitment of intent:
 
 ![The Final Selection](/images/exit-protocol.JPG)
