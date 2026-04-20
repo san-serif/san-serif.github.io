@@ -2,22 +2,21 @@
 title: "Single's Inferno and the Language of Attraction"
 date: "April 11, 2026"
 description: "A breakdown of the specific Korean vocabulary and social protocols used in Single's Inferno."
-category: "Culture"
-tags: ["Korean", "RealityTV"]
+category: ["KOREAN", "CULTURE"]
 ---
 
 Single's Inferno isn't just a reality show; it is a concentrated look at Korean social dynamics. For a language learner, the show provides a clear view of how specific phrases and speech levels dictate attraction, authority, and group consensus.
 
-### 1. The Pre-Game: 화이팅!
+### The Pre-Game: 화이팅!
 Before any challenge or date, you hear the universal cry of **화이팅!** (*hwaiting!*). Derived from the English "fighting" it has been re-indexed in Korean to mean "you have got this" or "good luck." On the island, it functions as a social glue to reduce tension before high-stakes physical or romantic competition.
 
-### 2. The Ideal Type (이상형)
+### The Ideal Type (이상형)
 The most common question on the island is about one's **이상형** (*isanghyeong*). 
 * **이상** (ideal) + **형** (shape/type).
 
 Contestants often shorten this to just **상?** (*sang?*) when asking someone about their visual or personality blueprint. In the Inferno (**지옥** / *ji-ok*), where social indicators like age and job are hidden, your *sang* is the primary way others perceive your compatibility and status.
 
-### 3. The Paradise Protocol
+### The Paradise Protocol
 The transition to **천국도** (*cheongukdo*) follows a specific linguistic script. When a contestant reveals their Paradise pick, they use this iconic line:
 
 ![Paradise Selection](/images/paradise-selection.JPG)
@@ -35,14 +34,14 @@ Once in Paradise, the interrogation begins to establish hierarchy:
 * **몇 살이세요?** (*myeot sariseyo?* / how old are you?)
 * **무슨 일을 하세요?** (*museun ireul haseyo?* / what do you do?)
 
-### 4. The Debrief: 어땠어?
+### The Debrief: 어땠어?
 Upon returning from Paradise to the Inferno (**솔로지옥** / *sollo ji-ok*), the group immediately engages in a status report:
 
 * **재밌었어? / 어땠어?** (*jaemisseosseo? / ottesseo?*): did you have fun? / how was it?
 * **많이 얘기했어?** (*mani yaegihaesseo?*): did you talk a lot?
 * **분위기 어땠어? / 잘 맞았어?** (*bunwigi ottesseo? / jal majasseo?*): how was the vibe? / did you click?
 
-### 5. Reactive Slang
+### Reactive Slang
 The dialogue in the camp is dominated by reactive words that signal agreement, shock, or consensus:
 
 * **진짜?** (*jinjja?*): really?
@@ -53,7 +52,7 @@ The dialogue in the camp is dominated by reactive words that signal agreement, s
 * **귀여워** (*gwiyeowo*): cute
 * **아이고** (*aigo*): oh no / geez
 
-### 6. The Final Selection
+### The Final Selection
 The show concludes with a final commitment of intent:
 
 ![The Final Selection](/images/exit-protocol.JPG)

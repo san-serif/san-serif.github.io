@@ -28,10 +28,10 @@ import Layout from '../../layouts/Layout.astro';
 				<h1>Zungzi</h1>
 
 				<p class="description">
-					Modern Chinese flashcards built for the Apple Watch. A high-frequency character tool designed to help you master tones and Hanzi in the gaps of your day.
+					Modern Chinese <a class="note-link" href="/notes/flashcards-and-the-science-of-vocabulary-retention?ref=zungzi">flashcards</a> built for the Apple Watch. A high-frequency character tool designed to help you master tones and Hanzi in the gaps of your day.
 				</p>
 
-				<a href="#" class="app-store-link">
+				<a href="https://apps.apple.com/us/app/chinese-flashcards-zungzi/id1496948615" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
 			</div>
@@ -42,13 +42,9 @@ import Layout from '../../layouts/Layout.astro';
 
 		<section class="details-grid">
 
-			<!-- Updated Tone Precision Card with Image Swap -->
 			<div class="detail-card">
 				<div class="floating-container image-swap">
-					<!-- Primary: Pinyin cues -->
 					<img src="/images/zungzi-tones.png" alt="Pinyin Tone Cues" class="modular-image primary" />
-					
-					<!-- Secondary: Jyutping cues -->
 					<img src="/images/zungzi-tones-jyutping.png" alt="Jyutping Tone Cues" class="modular-image secondary" />
 				</div>
 				<h3>Tone Precision</h3>
@@ -66,16 +62,12 @@ import Layout from '../../layouts/Layout.astro';
 
 			<div class="detail-card">
 			    <div class="floating-container image-swap">
-			        <!-- The Default (Traditional/Full) Image -->
 			        <img src="/images/zungzi-stroke.png" alt="Traditional Strokes" class="modular-image primary" />
-        
-			        <!-- The Alternative (Simplified) Image -->
 			        <img src="/images/zungzi-simplified.png" alt="Simplified Strokes" class="modular-image secondary" />
 			    </div>
 			    <h3>Hanzi Clarity</h3>
 			    <p>Support for both simplified and traditional Chinese characters, designed for clear reading at a glance.</p>
 			</div>
-			
 
 		</section>
 
@@ -93,7 +85,6 @@ import Layout from '../../layouts/Layout.astro';
 		margin-block: 0;
 	}
 
-	/* --- HERO CONTAINER --- */
 	.app-hero { 
 		display: flex;
 		flex-direction: column;
@@ -101,8 +92,6 @@ import Layout from '../../layouts/Layout.astro';
 		text-align: center;
 		padding-top: 30px;
 		gap: 24px;
-
-		/* FIX 1: Isolation sandwich ensures video doesn't bleed into global layers */
 		isolation: isolate; 
 	}
 
@@ -137,18 +126,14 @@ import Layout from '../../layouts/Layout.astro';
 		width: 100%; 
 		height: auto; 
 		display: block;
-		
-		/* FIX 2: Hardware acceleration triggers for the transparency engine */
 		transform: translateZ(0);
 		will-change: contents;
 		backface-visibility: hidden;
-
 		background: transparent !important;
 		outline: none;
 		border: none;
 	}
 
-	/* --- TEXT & TYPOGRAPHY --- */
 	.app-intro {
 		z-index: 2;
 	}
@@ -169,6 +154,20 @@ import Layout from '../../layouts/Layout.astro';
 		margin-bottom: 30px;
 	}
 
+	/* FIXED: High-specificity selector to kill blue links in all states */
+	a.note-link,
+	a.note-link:link,
+	a.note-link:visited,
+	a.note-link:active {
+		color: #555 !important;
+		text-decoration: underline !important;
+		text-underline-offset: 4px;
+	}
+
+	a.note-link:hover {
+		color: #111 !important;
+	}
+
 	.app-store-link {
 		display: inline-block;
 		transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -183,11 +182,10 @@ import Layout from '../../layouts/Layout.astro';
 		filter: drop-shadow(0 12px 25px rgba(0,0,0,0.08));
 	}
 
-	/* --- DIVIDER & GRID --- */
 	.divider {
 		height: 1px;
 		background: #ffffff;
-		margin: 30px 0; /* reduced from 60px */
+		margin: 30px 0;
 	}
 
 	.details-grid {
@@ -210,7 +208,7 @@ import Layout from '../../layouts/Layout.astro';
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 2px; /* reduced from 30px */
+		margin-bottom: 2px;
 	}
 	
 	.modular-image {
@@ -248,38 +246,27 @@ import Layout from '../../layouts/Layout.astro';
 			grid-template-columns: 1fr;
 			gap: 40px;
 		}
-
-		h1 {
-			font-size: 2.8rem;
-		}
+		h1 { font-size: 2.8rem; }
 	}
 	
-	/* --- IMAGE SWAP LOGIC --- */
+	.image-swap { position: relative; }
 
-	/* 1. Set the container to relative so the images stack on top of each other */
-	.image-swap {
-	    position: relative;
-	}
-
-	/* 2. Position the secondary image directly on top of the primary */
 	.modular-image.secondary {
 	    position: absolute;
 	    top: 50%;
 	    left: 50%;
-	    transform: translate(-50%, -50%) scale(1); /* Matches your default modular-image centering */
-	    opacity: 0; /* Hidden by default */
-	    pointer-events: none; /* Let the hover pass through to the card */
+	    transform: translate(-50%, -50%) scale(1);
+	    opacity: 0;
+	    pointer-events: none;
 	}
 
-	/* 3. The Hover State: Fade out the primary, fade in the secondary */
 	.detail-card:hover .modular-image.primary {
 	    opacity: 0;
-	    transform: scale(1.05) translateY(-10px); /* Keeps your existing hover animation */
+	    transform: scale(1.05) translateY(-10px);
 	}
 
 	.detail-card:hover .modular-image.secondary {
-	    opacity: 0.95; /* Matches your existing .modular-image:hover opacity */
-	    transform: translate(-50%, -60%) scale(1.05); /* Combines the centering + your translateY */
+	    opacity: 0.95;
+	    transform: translate(-50%, -60%) scale(1.05);
 	}
-	
 </style>

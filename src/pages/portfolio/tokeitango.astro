@@ -27,7 +27,7 @@ import Layout from '../../layouts/Layout.astro';
 			<div class="app-intro">
 				<h1>TokeiTango</h1>
 				<p class="description">
-					Japanese vocabulary flashcards refined for watchOS. Discreet, haptic-driven study sessions designed for the persistent learner.
+					Japanese vocabulary <a href="/notes/flashcards-and-the-science-of-vocabulary-retention">flashcards</a> refined for watchOS. Discreet, haptic-driven study sessions designed for the persistent learner.
 				</p>
 				
 				<a href="https://apps.apple.com/us/app/japanese-flashcards-tokeitango/id1492526803" class="app-store-link">
@@ -94,8 +94,6 @@ import Layout from '../../layouts/Layout.astro';
 		text-align: center;
 		padding-top: 30px;
 		gap: 24px;
-
-		/* FIX 1: Isolation sandwich ensures video doesn't bleed into global layers */
 		isolation: isolate; 
 	}
 
@@ -130,12 +128,9 @@ import Layout from '../../layouts/Layout.astro';
 		width: 100%; 
 		height: auto; 
 		display: block;
-		
-		/* FIX 2: Hardware acceleration triggers for the transparency engine */
 		transform: translateZ(0);
 		will-change: contents;
 		backface-visibility: hidden;
-
 		background: transparent !important;
 		outline: none;
 		border: none;
@@ -162,6 +157,20 @@ import Layout from '../../layouts/Layout.astro';
 		margin-bottom: 30px;
 	}
 
+	/* Prevent blue links in description */
+	/* Force link to match description text exactly */
+	.description a {
+		color: #555;
+		text-decoration: underline;
+		text-underline-offset: 4px;
+		text-decoration-thickness: 1px;
+	}
+
+	.description a:hover {
+		color: #111;
+	}
+	
+
 	.app-store-link {
 		display: inline-block;
 		transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -180,7 +189,7 @@ import Layout from '../../layouts/Layout.astro';
 	.divider {
 		height: 1px;
 		background: #ffffff;
-		margin: 30px 0; /* reduced from 60px */
+		margin: 30px 0;
 	}
 
 	.details-grid {
@@ -203,7 +212,7 @@ import Layout from '../../layouts/Layout.astro';
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 2px; /* reduced from 30px */
+		margin-bottom: 2px;
 	}
 	
 	.modular-image {
@@ -248,31 +257,27 @@ import Layout from '../../layouts/Layout.astro';
 	}
 	
 	/* --- IMAGE SWAP LOGIC --- */
-
-	/* 1. Set the container to relative so the images stack on top of each other */
 	.image-swap {
 	    position: relative;
 	}
 
-	/* 2. Position the secondary image directly on top of the primary */
 	.modular-image.secondary {
 	    position: absolute;
 	    top: 50%;
 	    left: 50%;
-	    transform: translate(-50%, -50%) scale(1); /* Matches your default modular-image centering */
-	    opacity: 0; /* Hidden by default */
-	    pointer-events: none; /* Let the hover pass through to the card */
+	    transform: translate(-50%, -50%) scale(1);
+	    opacity: 0;
+	    pointer-events: none;
 	}
 
-	/* 3. The Hover State: Fade out the primary, fade in the secondary */
 	.detail-card:hover .modular-image.primary {
 	    opacity: 0;
-	    transform: scale(1.05) translateY(-10px); /* Keeps your existing hover animation */
+	    transform: scale(1.05) translateY(-10px);
 	}
 
 	.detail-card:hover .modular-image.secondary {
-	    opacity: 0.95; /* Matches your existing .modular-image:hover opacity */
-	    transform: translate(-50%, -60%) scale(1.05); /* Combines the centering + your translateY */
+	    opacity: 0.95;
+	    transform: translate(-50%, -60%) scale(1.05);
 	}
 	
 </style>
