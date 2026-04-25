@@ -5,7 +5,8 @@ import Layout from '../../layouts/Layout.astro';
 export async function getStaticPaths() {
 	const notes = await getCollection('notes');
 	return notes.map(entry => ({
-		params: { slug: entry.id }, 
+		// Using slug for cleaner URLs, falling back to ID
+		params: { slug: entry.slug || entry.id }, 
 		props: { entry },
 	}));
 }
@@ -18,14 +19,15 @@ const { Content } = await render(entry);
 	<main class="wrapper">
 		<article class="post">
 			<header class="post-header">
-				{/* 1. Category and Date */}
+				{/* Category and Note Order index */}
 				<span class="type">
-					{entry.data.category ? `${entry.data.category} / ` : ''}{entry.data.date}
+					{entry.data.category ? `${entry.data.category.join(' + ')} / ` : ''}
+					{entry.data.order ? `Note ${entry.data.order}` : ''}
 				</span>
 				
 				<h1>{entry.data.title}</h1>
 				
-				{/* 2. The Tags Array */}
+				{/* Tags Array */}
 				{entry.data.tags && entry.data.tags.length > 0 && (
 					<div class="tags">
 						{entry.data.tags.map(tag => (
@@ -83,7 +85,7 @@ const { Content } = await render(entry);
 		letter-spacing: 0.05em; 
 		color: #000; 
 		margin: 3.5rem 0 1.2rem 0; 
-		border-bottom: 1px solid #ffffff; 
+		border-bottom: 1px solid #eaeaea; 
 		padding-bottom: 8px; 
 	}
 	
@@ -93,7 +95,6 @@ const { Content } = await render(entry);
 		height: auto;
 		margin: 3.5rem auto; 
 		border-radius: 12px; 
-		border: 1px solid #ffffff; 
 	}
 
 	.analysis :global(blockquote) { 
@@ -107,4 +108,9 @@ const { Content } = await render(entry);
 	.analysis :global(ul) { margin-bottom: 2rem; padding-left: 20px; }
 	.analysis :global(li) { margin-bottom: 12px; font-size: 1.1rem; color: #444; }
 	.analysis :global(strong) { color: #000; font-weight: 700; }
+
+	/* TABLE STYLES FOR THE GLOSSARY */
+	.analysis :global(table) { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+	.analysis :global(th) { text-align: left; font-size: 0.8rem; text-transform: uppercase; color: #999; padding: 12px; border-bottom: 1px solid #eee; }
+	.analysis :global(td) { padding: 12px; border-bottom: 1px solid #eee; font-size: 1rem; }
 </style>

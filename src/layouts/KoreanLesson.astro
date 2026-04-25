@@ -1,0 +1,111 @@
+---
+// src/layouts/KoreanLesson.astro
+const { title, description } = Astro.props;
+---
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    
+    <style is:global>
+      /* 1. Reset everything so the browser doesn't make it look like a 1995 blog */
+      body { margin: 0; padding: 0; font-family: -apple-system, sans-serif; background: #fff; color: #000; }
+      
+      /* 2. KILL THE BLUE LINKS */
+      a, .reader-link, .vocab-link { 
+        color: black !important; 
+        text-decoration: none !important; 
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* 3. Your Specific UI Styles */
+      .app-header-controls { display: flex; align-items: center; gap: 16px; margin-bottom: 2rem; padding: 1rem 0; border-bottom: 1px solid #eee; }
+      .segmented-control { display: flex; background: #f0f0f0; border-radius: 8px; padding: 2px; }
+      .segment { border: none; background: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; color: #888; display: flex; align-items: center; }
+      .segment.active { background: white; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+
+      .toggle-container { display: flex; align-items: center; gap: 8px; }
+      .toggle-label { font-family: serif; font-size: 1.4rem; }
+      .toggle-switch { width: 34px; height: 18px; background: #ddd; border-radius: 18px; border: none; position: relative; cursor: pointer; }
+      .toggle-switch.active { background: #000; }
+      .switch-handle { width: 14px; height: 14px; background: #fff; border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: 0.2s; }
+      .toggle-switch.active .switch-handle { transform: translateX(16px); }
+
+      .sentence-block { margin-bottom: 2.5rem; }
+      .kr-row { display: flex; align-items: center; gap: 8px; }
+      .reader-link { font-size: 1.4rem; font-weight: 500; cursor: pointer; }
+      .rom { display: none; color: #999; font-family: monospace; font-size: 0.9rem; margin-top: 4px; }
+      .en-row { color: #666; font-size: 1.1rem; margin-top: 2px; }
+      
+      .tts-btn { background: none; border: none; cursor: pointer; color: #ccc; padding: 4px; }
+      .tts-btn:hover { color: #000; }
+
+      table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+      td { padding: 12px 0; border-bottom: 1px solid #f5f5f5; }
+    </style>
+  </head>
+  <body>
+    <main style="max-width: 650px; margin: 0 auto; padding: 2rem;">
+      <header style="margin-bottom: 2rem;">
+        <h1 style="font-size: 2.5rem; margin: 0 0 0.5rem 0;">{title}</h1>
+        <p style="font-size: 1.2rem; color: #666;">{description}</p>
+      </header>
+
+      <slot />
+
+      <iframe id="link-handler" style="display:none;"></iframe>
+    </main>
+
+    <script is:inline>
+      // ATTACH TO WINDOW - This is the only way onclick works in Astro
+      window.synth = window.speechSynthesis;
+
+      window.setLevel = function(level) {
+        // Fix active button state
+        document.querySelectorAll('#level-picker .segment').forEach(btn => btn.classList.remove('active'));
+        if (event && event.currentTarget) {
+          event.currentTarget.classList.add('active');
+        }
+
+        // Update the content
+        document.querySelectorAll('.dynamic-text').forEach(el => {
+          const newText = el.getAttribute(`data-${level}`);
+          const newRom = el.getAttribute(`data-${level}-rom`);
+          if (newText) el.querySelector('.reader-link').innerText = newText;
+          if (newRom) el.querySelector('.rom').innerText = newRom;
+        });
+      };
+
+      window.toggleRom = function() {
+        const btn = document.getElementById('rom-toggle');
+        const roms = document.querySelectorAll('.rom');
+        btn.classList.toggle('active');
+        const isVisible = btn.classList.contains('active');
+        roms.forEach(r => r.style.display = isVisible ? 'block' : 'none');
+      };
+
+      window.openSajeonReader = function(el) {
+        const text = el.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+          const url = `sajeon://reader?text=${encodeURIComponent(text)}&t=${Date.now()}`;
+          document.getElementById('link-handler').src = url;
+        });
+      };
+
+      window.speak = function(text) {
+        window.synth.cancel();
+        const utter = new SpeechSynthesisUtterance(text);
+        utter.lang = 'ko-KR';
+        utter.rate = 0.85;
+        window.synth.speak(utter);
+      };
+
+      window.speakActive = function(btn) {
+        const text = btn.closest('.dynamic-text').querySelector('.reader-link').innerText;
+        window.speak(text);
+      };
+    </script>
+  </body>
+</html>

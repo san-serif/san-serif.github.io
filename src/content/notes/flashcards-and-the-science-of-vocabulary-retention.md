@@ -1,6 +1,6 @@
 ---
 title: "Flashcards and the Science of Vocabulary Retention"
-date: "April 20, 2026"
+order: 1
 description: "Why Spaced Repetition Systems (SRS) and active recall are the only ways to beat the memory loss effect."
 category: ["LEARNING"]
 ---
@@ -13,6 +13,8 @@ To plug the leak, you need more than just repetition: you need Spaced Repetition
 The secret to memory is not how often you review, but when you review. Spaced Repetition is a technique where you review information at increasing intervals. If you learn a word today, you review it tomorrow, then in four days, then two weeks.
 
 By spacing out your reviews, you catch the memory right at the edge of the leak. Each successful review resets the curve, making the memory stronger and the next interval longer. Eventually, the word moves from your short-term bucket into permanent long-term storage.
+
+
 
 ### Active Recall and the Feedback Loop
 For Spaced Repetition to work, it must be paired with Active Recall and honest self-assessment.
@@ -40,9 +42,9 @@ Flashcards build that direct visual link, removing the translation step and help
 
 ### SRS Flashcard Tools
 
-*   [TokeiTango](/portfolio/tokeitango): JLPT aligned Japanese vocabulary.
-*   [Eohwi](/portfolio/eohwi): Korean retention based on the TOPIK 6000 core vocabulary.
-*   [Zungzi](/portfolio/zungzi): Mastery of the Chinese HSK 3.0 curriculum.
+* [TokeiTango](/portfolio/tokeitango): JLPT aligned Japanese vocabulary.
+* [Eohwi](/portfolio/eohwi): Korean retention based on the TOPIK 6000 core vocabulary.
+* [Zungzi](/portfolio/zungzi): Mastery of the Chinese HSK 3.0 curriculum.
 
 <script>
     const urlParams = new URLSearchParams(window.location.search);
