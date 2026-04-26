@@ -134,10 +134,9 @@ The ending of the "to be" verb changes based on whether a word ends in a consona
 
   function openSajeonReader(linkEl) {
     const text = linkEl.innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      const url = `sajeon://reader?text=${encodeURIComponent(text)}&t=${new Date().getTime()}`;
-      document.getElementById('link-handler').src = url;
-    });
+    // Deep link now uses 'q' and skips clipboard dependency
+    const url = `sajeon://reader?q=${encodeURIComponent(text)}&t=${new Date().getTime()}`;
+    document.getElementById('link-handler').src = url;
   }
 
   function speakActive(btn) {
