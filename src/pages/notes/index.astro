@@ -9,8 +9,8 @@ import Layout from '../../layouts/Layout.astro';
 
 const notes = await getCollection('notes');
 
-// Default Sort: Ascending (0, 1, 2...)
-const sortedNotes = notes.sort((a, b) => a.data.order - b.data.order);
+// Default Sort: Descending (Highest order first)
+const sortedNotes = notes.sort((a, b) => b.data.order - a.data.order);
 
 // Extract unique categories for the filter bar
 const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
@@ -27,7 +27,7 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 			
 			<div class="controls-container">
 				<div class="filter-group">
-					<span class="control-label">EXPLORE BY TAG:</span>
+					<span class="control-label">EXPLORE BY CATEGORY:</span>
 					<div class="tag-cloud" id="tag-cloud">
 						{allCategories.map(cat => (
 							<button class="filter-tag" data-tag={cat.toLowerCase()}>
@@ -39,7 +39,7 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 
 				<div class="sort-group">
 					<span class="control-label">ORDER:</span>
-					<button id="sort-toggle" data-order="asc">OLDEST FIRST ↑</button>
+					<button id="sort-toggle" data-order="desc">NEWEST FIRST ↓</button>
 				</div>
 			</div>
 		</header>
@@ -105,7 +105,6 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 	function applyFilters() {
 		items.forEach(item => {
 			const itemTags = item.getAttribute('data-category').split(',');
-			// Match if no tags selected OR if item has AT LEAST ONE of the active tags
 			const isVisible = activeTags.size === 0 || [...activeTags].some(t => itemTags.includes(t));
 			item.classList.toggle('hidden', !isVisible);
 		});
@@ -125,7 +124,7 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 			return newOrder === 'asc' ? valA - valB : valB - valA;
 		});
 
-		// Re-append to DOM in new order
+		container.innerHTML = '';
 		sortedItems.forEach(el => container.appendChild(el));
 	});
 </script>
@@ -155,7 +154,6 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 		margin-bottom: 30px;
 	}
 
-	/* CONTROLS AREA */
 	.controls-container {
 		border-top: 1px solid #eee;
 		padding: 24px 0;
@@ -206,7 +204,6 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 		text-underline-offset: 4px;
 	}
 
-	/* LIST AREA */
 	.notes-list { border-top: 2px solid #000; }
 
 	.note-item {
@@ -215,14 +212,13 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 		padding: 40px 0;
 		border-bottom: 1px solid #eee;
 		transition: all 0.25s cubic-bezier(0.2, 1, 0.3, 1);
-		border-left: 0px solid #000;
 	}
 
 	.note-item.hidden { display: none; }
 
 	.note-item:hover {
 		padding-left: 25px;
-		border-left: 6px solid #000;
+		box-shadow: inset 6px 0 0 0 #000;
 		border-bottom-color: #000;
 	}
 
@@ -263,6 +259,6 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 
 	@media (max-width: 700px) {
 		.note-item { grid-template-columns: 1fr; gap: 15px; padding: 30px 0; }
-		.note-item:hover { padding-left: 15px; }
+		.note-item:hover { padding-left: 15px; box-shadow: inset 4px 0 0 0 #000; }
 	}
 </style>

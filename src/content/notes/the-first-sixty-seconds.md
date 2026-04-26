@@ -55,10 +55,9 @@ In Seoul, "What do you do?" isn't just small talk. It’s a way to figure out ho
 </div>
 
 ### How to Introduce Yourself
+Introductions typically follow the pattern: (**저는 [Noun]이에요 / 예요.**)
 
 The ending of the "to be" verb changes based on whether a word ends in a consonant (**Batchim**).
-
-
 
 * Use **이에요** for consonants (e.g., 사람 + 이에요 → **사람이에요**).
 * Use **예요** for vowels (e.g., 뭐 + 예요 → **뭐예요**).
@@ -83,13 +82,13 @@ The ending of the "to be" verb changes based on whether a word ends in a consona
 
 ### Real World Examples
 
-<div class="sentence-block dynamic-text" data-formal="저는 김민수입니다. 학생입니다." data-formal-rom="jeoneun gimminsuimnida. haksaengimnida." data-polite="저는 민수예요. 학생이에요." data-polite-rom="jeoneun minsuyeyo. haksaengieyo." data-casual="나 민수야. 학생이야.">
+<div class="sentence-block dynamic-text" data-formal="저는 김민수입니다. 학생입니다." data-formal-rom="jeoneun gimminsuimnida. haksaengimnida." data-polite="저는 민수예요. 학생이에요." data-polite-rom="jeoneun minsuyeyo. haksaengieyo." data-casual="나 민수야. 학생이야." data-casual-rom="na minsuya. haksaeng-iya.">
   <div class="kr-row"><a href="javascript:void(0)" class="reader-link" onclick="openSajeonReader(this)">저는 민수예요. 학생이에요.</a><button class="tts-btn" onclick="speakActive(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></button></div>
   <div class="rom">jeoneun minsuyeyo. haksaengieyo.</div>
   <div class="en-row">I am Minsu. I am a student.</div>
 </div>
 
-<div class="sentence-block dynamic-text" data-formal="제 성함은 박지혜입니다. 한국 사람입니다." data-formal-rom="je seonghameun bakjihyeimnida. hanguk saramimnida." data-polite="제 이름은 지혜예요. 한국 사람이에요." data-polite-rom="je ireumeun jihyeyeyo. hanguk saramieyo." data-casual="내 이름은 지혜야. 한국 사람이야.">
+<div class="sentence-block dynamic-text" data-formal="제 성함은 박지혜입니다. 한국 사람입니다." data-formal-rom="je seonghameun bakjihyeimnida. hanguk saramimnida." data-polite="제 이름은 지혜예요. 한국 사람이에요." data-polite-rom="je ireumeun jihyeyeyo. hanguk saramieyo." data-casual="내 이름은 지혜야. 한국 사람이야." data-casual-rom="nae ireumeun jihyeya. hanguk saramiya.">
   <div class="kr-row"><a href="javascript:void(0)" class="reader-link" onclick="openSajeonReader(this)">제 이름은 지혜예요. 한국 사람이에요.</a><button class="tts-btn" onclick="speakActive(this)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg></button></div>
   <div class="rom">je ireumeun jihyeyeyo. hanguk saramieyo.</div>
   <div class="en-row">My name is Jihye. I am Korean.</div>
@@ -120,11 +119,16 @@ The ending of the "to be" verb changes based on whether a word ends in a consona
     document.querySelectorAll('#level-picker .segment').forEach(btn => btn.classList.remove('active'));
     event.currentTarget.classList.add('active');
     
+    const isRomActive = document.getElementById('rom-toggle').classList.contains('active');
+    
     document.querySelectorAll('.dynamic-text').forEach(el => {
       const newText = el.getAttribute(`data-${level}`);
       const newRom = el.getAttribute(`data-${level}-rom`);
       el.querySelector('.reader-link').innerText = newText;
-      el.querySelector('.rom').innerText = newRom;
+      
+      const romEl = el.querySelector('.rom');
+      romEl.innerText = newRom;
+      romEl.style.display = isRomActive ? 'block' : 'none';
     });
   }
 
