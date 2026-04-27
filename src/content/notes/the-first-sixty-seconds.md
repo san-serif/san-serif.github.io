@@ -2,7 +2,7 @@
 title: "The First Sixty Seconds"
 order: 2
 description: "In Korea, social interactions start with a quick exchange to figure out how to address one another."
-category: ["LEARNING", "KOREAN"]
+category: ["LEARN", "KOREAN"]
 ---
 
 <div class="app-header-controls">

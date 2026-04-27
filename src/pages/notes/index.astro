@@ -9,11 +9,28 @@ import Layout from '../../layouts/Layout.astro';
 
 const notes = await getCollection('notes');
 
-// Default Sort: Ascending (0, 1, 2...)
-const sortedNotes = notes.sort((a, b) => a.data.order - b.data.order);
+// 1. Default Sort: Newest First (Descending: 2, 1, 0)
+const sortedNotes = notes.sort((a, b) => b.data.order - a.data.order);
 
-// Extract unique categories for the filter bar
-const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
+// 2. Define preferred category order
+const manualOrder = ['LEARN', 'CHINESE', 'JAPANESE', 'KOREAN', 'CULTURE', 'TRAVEL'];
+
+// 3. Extract unique categories and apply the custom sort
+const allCategories = [...new Set(notes.flatMap(n => n.data.category))]
+  .sort((a, b) => {
+    const posA = manualOrder.indexOf(a.toUpperCase());
+    const posB = manualOrder.indexOf(b.toUpperCase());
+
+    // If both are in the manual list, sort by their position in that list
+    if (posA !== -1 && posB !== -1) return posA - posB;
+    
+    // If only one is in the manual list, prioritize it
+    if (posA !== -1) return -1;
+    if (posB !== -1) return 1;
+
+    // Fallback to alphabetical for anything else
+    return a.localeCompare(b);
+  });
 ---
 
 <Layout title="Notes | san serif">
@@ -38,8 +55,8 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 				</div>
 
 				<div class="sort-group">
-					<span class="control-label">ORDER:</span>
-					<button id="sort-toggle" data-order="asc">OLDEST FIRST ↑</button>
+				    <span class="control-label">ORDER:</span>
+				    <button id="sort-toggle" data-order="desc">NEWEST FIRST ↓</button>
 				</div>
 			</div>
 		</header>
@@ -105,7 +122,6 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 	function applyFilters() {
 		items.forEach(item => {
 			const itemTags = item.getAttribute('data-category').split(',');
-			// Match if no tags selected OR if item has AT LEAST ONE of the active tags
 			const isVisible = activeTags.size === 0 || [...activeTags].some(t => itemTags.includes(t));
 			item.classList.toggle('hidden', !isVisible);
 		});
@@ -114,7 +130,8 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 	// 2. Client-Side Sorting Logic
 	sortBtn.addEventListener('click', () => {
 		const currentOrder = sortBtn.getAttribute('data-order');
-		const newOrder = currentOrder === 'asc' ? 'desc' : 'asc';
+		// Toggle logic: if currently desc, next is asc.
+		const newOrder = currentOrder === 'desc' ? 'asc' : 'desc';
 		
 		sortBtn.setAttribute('data-order', newOrder);
 		sortBtn.innerText = newOrder === 'asc' ? 'OLDEST FIRST ↑' : 'NEWEST FIRST ↓';
@@ -155,7 +172,6 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 		margin-bottom: 30px;
 	}
 
-	/* CONTROLS AREA */
 	.controls-container {
 		border-top: 1px solid #eee;
 		padding: 24px 0;
@@ -206,7 +222,6 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))].sort();
 		text-underline-offset: 4px;
 	}
 
-	/* LIST AREA */
 	.notes-list { border-top: 2px solid #000; }
 
 	.note-item {

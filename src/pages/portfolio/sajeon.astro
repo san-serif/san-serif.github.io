@@ -1,0 +1,274 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Sajeon | san serif">
+	<main class="wrapper">
+		
+		<section class="app-hero">
+			
+			<div class="video-container">
+				<div class="video-glow"></div>
+				
+			<video 
+			  autoplay 
+			  loop 
+			  muted 
+			  playsinline 
+			  webkit-playsinline
+			  poster="/images/sajeon-poster.jpg" 
+			  class="hero-watch-video"
+			  style="background-color: transparent !important;"
+			>
+			  <source src="/videos/sajeon-hero.mp4" type="video/mp4">
+			</video>
+			</div>
+			
+			<div class="app-intro">
+				<h1>Sajeon</h1>
+				<p class="description">
+					A powerful Korean dictionary that understands context. Breakdown complex sentences, master conjugations, and access reliable definitions in a native iOS experience.
+				</p>
+				
+				<a href="https://apps.apple.com/au/app/sajeon-korean-dictionary/id6761698356" class="app-store-link">
+					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
+				</a>
+			</div>
+
+		</section>
+
+		<div class="divider"></div>
+
+		<section class="details-grid">
+			
+			<div class="detail-card">
+				<div class="floating-container image-swap">
+			        <img src="/images/sajeon-search.png" alt="Search" class="modular-image primary" />
+					 <img src="/images/sajeon-search-alt.png" alt="Search" class="modular-image secondary" />
+			       
+				</div>
+			    <h3>Comprehensive Data</h3>
+			    <p>Access over 50,000 entries from Korea's most reliable linguistic database. High-quality definitions with audio and clear examples for every word.</p>
+			</div>
+			
+
+			<div class="detail-card">
+				<div class="floating-container image-swap">
+			        <img src="/images/sajeon-reader.png" alt="Conjugation" class="modular-image primary" />
+					 <img src="/images/sajeon-reader-alt.png" alt="Conjugation" class="modular-image secondary" />
+			       
+				</div>
+				<h3>Smart Reader</h3>
+				<p>Paste any sentence to instantly translate and deconstruct it. The reader identifies individual words and grammar points so you can see how the sentence actually works.</p>
+			</div>
+
+			<div class="detail-card">
+				<div class="floating-container image-swap">
+			        <img src="/images/sajeon-conjugation.png" alt="Conjugation" class="modular-image primary" />
+					 <img src="/images/sajeon-conjugation-rule.png" alt="Conjugation" class="modular-image secondary" />
+			       
+				</div>
+				<h3>Conjugation Engine</h3>
+				<p>Stop guessing verb forms. Get a full, interactive breakdown of every possible conjugation for any verb or adjective, from polite to formal levels.</p>
+			</div>
+
+		</section>
+
+	</main>
+</Layout>
+
+<style>
+	.wrapper {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	h1, p {
+		margin-block: 0;
+	}
+
+	.app-hero { 
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding-top: 30px;
+		gap: 24px;
+		isolation: isolate; 
+	}
+
+	.video-container { 
+		position: relative;
+		width: 100%;
+		max-width: 480px;
+		display: flex;
+		justify-content: center;
+		margin-top: 0;
+		transform: translateY(-10px);
+		transition: opacity 0.6s ease, transform 0.6s ease;
+		background: transparent !important;
+	}
+
+	.video-container:hover {
+		opacity: 1;
+		transform: translateY(-12px);
+	}
+
+	.video-glow {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		aspect-ratio: 1;
+		pointer-events: none;
+	}
+
+	.hero-watch-video { 
+		width: 100%; 
+		height: auto; 
+		display: block;
+		transform: translateZ(0);
+		will-change: contents;
+		backface-visibility: hidden;
+		background: transparent !important;
+		outline: none;
+		border: none;
+	}
+
+	.app-intro {
+		z-index: 2;
+	}
+
+	h1 {
+		font-size: 3.5rem;
+		font-weight: 600;
+		letter-spacing: -0.05em;
+		margin-bottom: 10px;
+		color: #111;
+	}
+
+	.description {
+		max-width: 580px;
+		font-size: 1.2rem;
+		color: #555;
+		line-height: 1.6;
+		margin-bottom: 30px;
+	}
+
+	.description a, 
+	.description a:visited {
+		color: #555 !important;
+		text-decoration: underline !important;
+		text-underline-offset: 4px;
+	}
+
+	.description a:hover {
+		color: #111 !important;
+	}
+
+	.app-store-link {
+		display: inline-block;
+		transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+
+	.app-store-link:hover { transform: scale(1.04) translateY(-4px); }
+
+	.badge-svg {
+		height: 52px;
+		width: auto;
+		display: block;
+		filter: drop-shadow(0 12px 25px rgba(0,0,0,0.08));
+	}
+
+	.divider {
+		height: 1px;
+		background: #ffffff;
+		margin: 30px 0;
+	}
+
+	.details-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 60px;
+		margin-bottom: 120px;
+	}
+
+	.detail-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.floating-container {
+		width: 100%;
+		aspect-ratio: 1.5 / 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 2px;
+	}
+	
+	.modular-image {
+		width: 75%;
+		border-radius: 20px;
+		opacity: 0.85;
+		box-shadow: 0 20px 50px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+		transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+
+	.detail-card:hover .modular-image {
+		transform: scale(1.05) translateY(-10px);
+		opacity: 0.95;
+	}
+
+	h3 {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		color: #111;
+		margin-bottom: 16px;
+	}
+
+	.detail-card p {
+		font-size: 0.95rem;
+		color: #555;
+		line-height: 1.7;
+		max-width: 260px;
+		margin: 0;
+	}
+
+	@media (max-width: 900px) {
+		.details-grid {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+		h1 { font-size: 2.8rem; }
+	}
+	
+	.image-swap {
+	    position: relative;
+	}
+
+	.modular-image.secondary {
+	    position: absolute;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%) scale(1);
+	    opacity: 0;
+	    pointer-events: none;
+	}
+
+	.detail-card:hover .modular-image.primary {
+	    opacity: 0;
+	    transform: scale(1.05) translateY(-10px);
+	}
+
+	.detail-card:hover .modular-image.secondary {
+	    opacity: 0.95;
+	    transform: translate(-50%, -60%) scale(1.05);
+	}
+</style>
