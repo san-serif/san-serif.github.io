@@ -44,7 +44,7 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))]
 			
 			<div class="controls-container">
 				<div class="filter-group">
-					<span class="control-label">EXPLORE BY TAG:</span>
+					<span class="control-label">EXPLORE BY CATEGORY:</span>
 					<div class="tag-cloud" id="tag-cloud">
 						{allCategories.map(cat => (
 							<button class="filter-tag" data-tag={cat.toLowerCase()}>
