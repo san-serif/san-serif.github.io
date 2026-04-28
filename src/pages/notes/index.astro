@@ -211,15 +211,19 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))]
 	.filter-tag.active { background: #000; color: #fff; border-color: #000; }
 
 	#sort-toggle {
-		background: none;
-		border: none;
-		font-family: ui-monospace, SFMono-Regular, monospace;
-		font-size: 0.8rem;
-		font-weight: 700;
-		cursor: pointer;
-		padding: 0;
-		text-decoration: underline;
-		text-underline-offset: 4px;
+	    background: none;
+	    border: none;
+	    color: #000;               /* 1. Force text to black */
+	    -webkit-appearance: none;  /* 2. Strip iOS default button chrome */
+	    appearance: none;          /* 3. Standard appearance reset */
+	    font-family: ui-monospace, SFMono-Regular, monospace;
+	    font-size: 0.8rem;
+	    font-weight: 700;
+	    cursor: pointer;
+	    padding: 0;
+	    text-decoration: underline;
+	    text-decoration-color: #000; /* Ensure the line is black too */
+	    text-underline-offset: 4px;
 	}
 
 	.notes-list { border-top: 2px solid #000; }

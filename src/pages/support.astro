@@ -45,6 +45,7 @@ import Layout from '../layouts/Layout.astro';
 </Layout>
 
 <script is:inline>
+	// 1. Set the dynamic redirect URL
 	const nextInput = document.getElementById('next-url');
 	if (nextInput) {
 		nextInput.value = window.location.origin + window.location.pathname + '?status=success';
@@ -53,6 +54,7 @@ import Layout from '../layouts/Layout.astro';
 	const form = document.getElementById('support-form');
 	const btn = document.getElementById('submit-btn');
 
+	// 2. Button loading state
 	if (form && btn) {
 		form.onsubmit = () => {
 			btn.innerText = 'Sending...';
@@ -61,6 +63,7 @@ import Layout from '../layouts/Layout.astro';
 		};
 	}
 
+	// 3. UI Swap on success
 	const urlParams = new URLSearchParams(window.location.search);
 	if (urlParams.get('status') === 'success') {
 		const success = document.getElementById('success-state');
@@ -126,13 +129,14 @@ import Layout from '../layouts/Layout.astro';
 		cursor: pointer; 
 	}
 
+	/* The "San Serif" Success Message */
 	.success-message p {
 		color: #000;
 		font-weight: 500;
 		font-size: 1rem;
-		border-left: 2px solid #000;
+		border-left: 2px solid #000; /* Minimal architectural accent */
 		padding-left: 20px;
-		margin: 20px 0 40px;
+		margin: 20px 0 60px;
 	}
 
 	.footer-link { 
