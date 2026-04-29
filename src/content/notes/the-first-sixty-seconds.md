@@ -130,10 +130,15 @@ The ending of the "to be" verb changes based on whether a word ends in a consona
 
   function openSajeonReader(linkEl) {
     const text = linkEl.innerText;
-    navigator.clipboard.writeText(text).then(() => {
-      const url = `sajeon://reader?q=${encodeURIComponent(text)}&t=${new Date().getTime()}`;
-      document.getElementById('link-handler').src = url;
-    });
+    const url = `sajeon://reader?q=${encodeURIComponent(text)}`;
+    
+    // THE FIX: Instead of window.location.href, we create an invisible native link
+    // and click it. This bypasses iOS Safari's strict redirect blocker.
+    const tempLink = document.createElement('a');
+    tempLink.href = url;
+    document.body.appendChild(tempLink);
+    tempLink.click();
+    document.body.removeChild(tempLink);
   }
 
   function speakActive(btn) {
@@ -156,6 +161,7 @@ The ending of the "to be" verb changes based on whether a word ends in a consona
     synth.speak(utter);
   }
 </script>
+
 
 <style>
   .app-header-controls { display: flex; align-items: center; gap: 16px; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
