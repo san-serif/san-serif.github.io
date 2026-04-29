@@ -37,6 +37,9 @@ import Layout from '../layouts/Layout.astro';
 
 				<div class="footer-bio">
 					<p>Building tools for the journey</p>
+					<a href="https://x.com/sanserif_studio" target="_blank" rel="noopener noreferrer" class="social-link" title="Follow on X">
+						<img src="/logo-black.png" alt="X Logo" class="x-icon" />
+					</a>
 				</div>
 			</div>
 		</section>
@@ -49,7 +52,6 @@ import Layout from '../layouts/Layout.astro';
 	.wrapper { 
 		max-width: 850px; 
 		margin: 0 auto; 
-		/* Keeps the whole section high up on the screen */
 		padding: 20px 20px 80px; 
 	}
 
@@ -66,14 +68,9 @@ import Layout from '../layouts/Layout.astro';
 		opacity: 1;
 		filter: grayscale(100%);
 		mix-blend-mode: multiply; 
-		
-		/* Pulls the image to the top of the viewport */
 		margin-top: -30px; 
 		margin-left: -20px;
-		
-		/* Adds the requested space between mountain and heading */
 		margin-bottom: 15px; 
-		
 		pointer-events: none; 
 		user-select: none;
 	}
@@ -111,11 +108,37 @@ import Layout from '../layouts/Layout.astro';
 	
 	.philosophy-section p { font-size: 1rem; color: #555; line-height: 1.6; }
 	
+	/* --- FOOTER / SOCIAL --- */
+	.footer-bio {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
 	.footer-bio p { 
 		font-size: 0.95rem; 
 		color: #bbb; 
 		letter-spacing: 0.02em; 
-		font-weight: 500; 
+		font-weight: 500;
+		margin: 0;
+	}
+
+	.social-link {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+	}
+
+	.x-icon {
+		/* SHRUNK: Smaller footprint to match text height */
+		width: 14px;
+		height: 14px;
+		opacity: 0.3; 
+		transition: opacity 0.2s ease;
+	}
+
+	.social-link:hover .x-icon {
+		opacity: 1; 
 	}
 
 	/* --- RESPONSIVE --- */
@@ -126,7 +149,6 @@ import Layout from '../layouts/Layout.astro';
 			width: 100%;
 			max-width: 400px;
 			margin-top: -10px;
-			/* Ensures breathing room remains on mobile */
 			margin-bottom: 10px; 
 		}
 	}
