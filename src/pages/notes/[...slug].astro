@@ -15,7 +15,7 @@ const { entry } = Astro.props;
 const { Content } = await render(entry);
 ---
 
-<Layout title={`${entry.data.title} | san serif`}>
+<Layout title={`${entry.data.title} | san serif`} description={entry.data.description}>
 	<main class="wrapper">
 		<article class="post">
 			<header class="post-header">

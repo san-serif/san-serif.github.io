@@ -1,6 +1,13 @@
 ---
 const pathname = new URL(Astro.request.url).pathname;
-const { title } = Astro.props;
+const {
+	title,
+	description = "Independent studio building high-utility Apple-native apps for learning Korean, Japanese, and Chinese, plus culture notes on the languages themselves.",
+	image = "/sanserif.jpg",
+} = Astro.props;
+
+const canonicalURL = new URL(pathname, Astro.site);
+const ogImageURL = new URL(image, Astro.site);
 
 // SMART NAV STATE
 const isHome =
@@ -17,6 +24,20 @@ const isAbout = pathname.startsWith("/about");
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="san serif" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:image" content={ogImageURL} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImageURL} />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
