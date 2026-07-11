@@ -1,0 +1,69 @@
+---
+title: "What Are You Doing? (을/를 해요)"
+order: 10
+description: "저는 피자를 먹어요. Action verbs run on the same -아요/-어요 endings as everything else, and 을/를 tells you which noun is on the receiving end."
+category: ["LEARN", "KOREAN"]
+---
+
+import KoreanLessonHead from '../../components/korean/KoreanLessonHead.astro';
+import SentenceBlock from '../../components/korean/SentenceBlock.astro';
+import VocabTable from '../../components/korean/VocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<KoreanLessonHead />
+
+Every verb you've met so far, 이다, 아니다, 있다, has been describing a state. This lesson is the first one with actual verbs: eating, drinking, watching, reading. They follow the same shape you already know (polite -아요/-어요, formal -ㅂ니다/-습니다, casual bare stem) and the object of the sentence just needs 을 or 를 stuck to the end, 을 after a consonant, 를 after a vowel, so you always know which noun is being acted on.
+
+Picking -아요 or -어요 isn't random either: it comes down to the last vowel in the verb stem. If that vowel is ㅏ or ㅗ, attach -아요. Every other vowel takes -어요. That's why 먹다 (stem 먹, vowel ㅓ) becomes 먹어요, while a stem like 오 (in 오다, to come) would take -아요. A handful of verbs bend the rule further: ㅂ-stems like 어렵다 (difficult) become 어려워요, not 어려아요, and 르-stems like 빠르다 (fast) double up into 빨라요. You'll meet more of these as you go.
+
+<SentenceBlock formal="무엇을 합니까?" formalRom="mueoseul hamnikka?" polite="뭐 해요?" politeRom="mwo haeyo?" casual="뭐 해?" casualRom="mwo hae?" english="What are you doing?" />
+
+<Hint>을/를 is one of the first things Korean speakers drop in fast, casual conversation. 밥 먹어? ("eating?") is far more natural between friends than the textbook-complete 밥을 먹어?. The particle matters for clarity when a sentence has more than one noun that could be the object, but with a single obvious noun, context carries the meaning just fine without it.</Hint>
+
+### Eating and Drinking
+
+<SentenceBlock formal="저는 피자를 먹습니다." formalRom="jeoneun pijareul meokseumnida." polite="저는 피자를 먹어요." politeRom="jeoneun pijareul meogeoyo." casual="나는 피자를 먹어." casualRom="naneun pijareul meogeo." english="I eat pizza." />
+
+<SentenceBlock formal="물을 마십니다." formalRom="mureul masimnida." polite="물을 마셔요." politeRom="mureul masyeoyo." casual="물을 마셔." casualRom="mureul masyeo." english="I drink water." />
+
+<SentenceBlock formal="커피를 마십니다." formalRom="keopireul masimnida." polite="커피를 마셔요." politeRom="keopireul masyeoyo." casual="커피를 마셔." casualRom="keopireul masyeo." english="I drink coffee." />
+
+### Watching, Reading, Listening
+
+Three of these verbs are irregular in a way that only shows up when the ending starts with a consonant, not a vowel. 듣다 (to listen) turns its ㄷ into ㄹ before a vowel, so 들어요 in the polite form but 듣습니다 in the formal one, since -습니다 starts with a consonant and never triggers the change.
+
+<SentenceBlock formal="텔레비전을 봅니다." formalRom="tellebijeoneul bomnida." polite="텔레비전을 봐요." politeRom="tellebijeoneul bwayo." casual="텔레비전을 봐." casualRom="tellebijeoneul bwa." english="I watch television." />
+
+<SentenceBlock formal="지금 책을 읽습니다." formalRom="jigeum chaegeul ikseumnida." polite="지금 책을 읽어요." politeRom="jigeum chaegeul ilgeoyo." casual="지금 책을 읽어." casualRom="jigeum chaegeul ilgeo." english="I'm reading a book right now." />
+
+<SentenceBlock formal="음악을 듣습니다." formalRom="eumageul deutseumnida." polite="음악을 들어요." politeRom="eumageul deureoyo." casual="음악을 들어." casualRom="eumageul deureo." english="I listen to music." />
+
+### Meeting, Making, Studying
+
+<SentenceBlock formal="친구를 만납니다." formalRom="chingureul mannamnida." polite="친구를 만나요." politeRom="chingureul mannayo." casual="친구를 만나." casualRom="chingureul manna." english="I'm meeting a friend." />
+
+<SentenceBlock formal="비빔밥을 만듭니다." formalRom="bibimbabeul mandeumnida." polite="비빔밥을 만들어요." politeRom="bibimbabeul mandeureoyo." casual="비빔밥을 만들어." casualRom="bibimbabeul mandeureo." english="I'm making bibimbap." />
+
+<SentenceBlock formal="한국어를 공부합니다." formalRom="hangugeoreul gongbuhamnida." polite="한국어를 공부해요." politeRom="hangugeoreul gongbuhaeyo." casual="한국어를 공부해." casualRom="hangugeoreul gongbuhae." english="I study Korean." />
+
+<Hint>공부하다, 운동하다, 요리하다, 일하다: notice they're all just a noun (study, exercise, cooking, work) plus 하다 (to do). This is Korean's cheat code for making new verbs. Learn a random noun and there's a decent chance sticking 하다 on the end gives you a real, usable verb for free.</Hint>
+
+### Vocabulary
+
+<VocabTable words={[
+  { korean: "먹다", rom: "meokda", english: "to eat" },
+  { korean: "마시다", rom: "masida", english: "to drink" },
+  { korean: "보다", rom: "boda", english: "to watch, to see" },
+  { korean: "읽다", rom: "ilkda", english: "to read" },
+  { korean: "듣다", rom: "deutda", english: "to listen" },
+  { korean: "만나다", rom: "mannada", english: "to meet" },
+  { korean: "만들다", rom: "mandeulda", english: "to make" },
+  { korean: "공부하다", rom: "gongbuhada", english: "to study" },
+  { korean: "일하다", rom: "ilhada", english: "to work" },
+  { korean: "자다", rom: "jada", english: "to sleep" },
+  { korean: "쉬다", rom: "swida", english: "to rest" },
+  { korean: "놀다", rom: "nolda", english: "to play, to hang out" },
+  { korean: "운동하다", rom: "undonghada", english: "to exercise" },
+  { korean: "청소하다", rom: "cheongsohada", english: "to clean" },
+  { korean: "산책하다", rom: "sanchaekhada", english: "to take a walk" },
+]} />

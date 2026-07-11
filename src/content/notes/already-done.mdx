@@ -1,0 +1,51 @@
+---
+title: "Already Done (-았/었어요)"
+order: 20
+description: "먹어요 → 먹었어요. Every verb you've learned so far has only ever existed in the present. This is the lesson where the past finally opens up."
+category: ["LEARN", "KOREAN"]
+---
+
+import KoreanLessonHead from '../../components/korean/KoreanLessonHead.astro';
+import SentenceBlock from '../../components/korean/SentenceBlock.astro';
+import VocabTable from '../../components/korean/VocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<KoreanLessonHead />
+
+Past tense slots 았 or 었 in between the stem and the ending you already know, using the exact same vowel-harmony rule from What Are You Doing?: stems with ㅏ or ㅗ take 았, everything else takes 었. Swap -어요 for -았어요/-었어요 and you've moved the whole sentence into the past.
+
+<SentenceBlock formal="어제 친구를 만났습니다." formalRom="eoje chingureul mannatseumnida." polite="어제 친구를 만났어요." politeRom="eoje chingureul mannasseoyo." casual="어제 친구를 만났어." casualRom="eoje chingureul mannasseo." english="I met a friend yesterday." />
+
+<SentenceBlock formal="영화가 좋았습니다." formalRom="yeonghwaga joatseumnida." polite="영화가 좋았어요." politeRom="yeonghwaga joasseoyo." casual="영화가 좋았어." casualRom="yeonghwaga joasseo." english="The movie was good." />
+
+<SentenceBlock formal="친구하고 공원에서 자전거를 탔습니다." formalRom="chinguhago gongwoneseo jajeongeoreul tatseumnida." polite="친구하고 공원에서 자전거를 탔어요." politeRom="chinguhago gongwoneseo jajeongeoreul tasseoyo." casual="친구하고 공원에서 자전거를 탔어." casualRom="chinguhago gongwoneseo jajeongeoreul tasseo." english="I rode a bike with a friend at the park." />
+
+<SentenceBlock formal="어제 밥을 먹었습니다." formalRom="eoje babeul meogeotseumnida." polite="어제 밥을 먹었어요." politeRom="eoje babeul meogeosseoyo." casual="어제 밥을 먹었어." casualRom="eoje babeul meogeosseo." english="I ate a meal yesterday." />
+
+<SentenceBlock formal="어제 책을 읽었습니다." formalRom="eoje chaegeul ilgeotseumnida." polite="어제 책을 읽었어요." politeRom="eoje chaegeul ilgeosseoyo." casual="어제 책을 읽었어." casualRom="eoje chaegeul ilgeosseo." english="I read a book yesterday." />
+
+<SentenceBlock formal="어제 케이크를 만들었습니다." formalRom="eoje keikeureul mandeureotseumnida." polite="어제 케이크를 만들었어요." politeRom="eoje keikeureul mandeureosseoyo." casual="어제 케이크를 만들었어." casualRom="eoje keikeureul mandeureosseo." english="I made a cake yesterday." />
+
+<Hint>The polite and casual past differ by exactly one syllable, 요, the same relationship as every present-tense pair you've already learned. If you can hear 먹었어요 versus 먹었어, you already know the whole pattern. Nothing new to memorize there, just apply the trick you already have.</Hint>
+
+Every 하다 verb breaks the vowel-harmony rule the same irregular way: 하다's past is always 했, never 하았. This matters constantly, since 공부하다, 운동하다, 요리하다, 일하다, every noun-plus-하다 verb from What Are You Doing?, follows it.
+
+<SentenceBlock formal="어제 한국어를 공부했습니다." formalRom="eoje hangugeoreul gongbuhaetseumnida." polite="어제 한국어를 공부했어요." politeRom="eoje hangugeoreul gongbuhaesseoyo." casual="어제 한국어를 공부했어." casualRom="eoje hangugeoreul gongbuhaesseo." english="I studied Korean yesterday." />
+
+<SentenceBlock formal="어제 수영을 했습니다." formalRom="eoje suyeongeul haetseumnida." polite="어제 수영을 했어요." politeRom="eoje suyeongeul haesseoyo." casual="어제 수영을 했어." casualRom="eoje suyeongeul haesseo." english="I swam yesterday." />
+
+<Hint>했어요 shows up so often that it's tempting to bolt it onto everything, but it only ever means "did," never "was" or "went." 되다 (to become), 가다 (to go), 이다 (to be) all keep their own separate past-tense stems, 됐어요, 갔어요, 이었어요/였어요. 하다's irregularity doesn't spread to other verbs.</Hint>
+
+### Vocabulary
+
+<VocabTable words={[
+  { korean: "지난주", rom: "jinanju", english: "last week" },
+  { korean: "지난달", rom: "jinandal", english: "last month" },
+  { korean: "올해", rom: "olhae", english: "this year" },
+  { korean: "다음 주", rom: "daeum ju", english: "next week" },
+  { korean: "작년", rom: "jangnyeon", english: "last year" },
+  { korean: "내년", rom: "naenyeon", english: "next year" },
+  { korean: "예전에", rom: "yejeone", english: "in the past, formerly" },
+  { korean: "최근에", rom: "choegeune", english: "recently" },
+  { korean: "옛날", rom: "yennal", english: "the old days, long ago" },
+]} />

@@ -1,0 +1,80 @@
+---
+title: "One, Please (하나 주세요)"
+order: 12
+description: "플랫화이트 하나 주세요. Ordering runs on a completely different number system than money does, the native Korean one: 하나, 둘, 셋, not 일, 이, 삼."
+category: ["LEARN", "KOREAN"]
+---
+
+import KoreanLessonHead from '../../components/korean/KoreanLessonHead.astro';
+import SentenceBlock from '../../components/korean/SentenceBlock.astro';
+import VocabTable from '../../components/korean/VocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<KoreanLessonHead />
+
+Counting Won covered Sino-Korean numbers, the set for money, dates, and phone numbers. Ordering something uses a completely different set: native Korean numbers, the ones Korean had before it ever borrowed from Chinese. You'll recognize them because they don't chain together the same predictable way Sino-Korean does. They're irregular, they're older, and they're what you reach for at a counter.
+
+### A Different Way to Count
+
+<VocabTable words={[
+  { korean: "하나", rom: "hana", english: "one" },
+  { korean: "둘", rom: "dul", english: "two" },
+  { korean: "셋", rom: "set", english: "three" },
+  { korean: "넷", rom: "net", english: "four" },
+  { korean: "다섯", rom: "daseot", english: "five" },
+  { korean: "여섯", rom: "yeoseot", english: "six" },
+  { korean: "일곱", rom: "ilgop", english: "seven" },
+  { korean: "여덟", rom: "yeodeol", english: "eight" },
+  { korean: "아홉", rom: "ahop", english: "nine" },
+  { korean: "열", rom: "yeol", english: "ten" },
+]} />
+
+<Hint>Native numbers cover counting objects, telling someone's age, and the hour on a clock (한 시, 두 시...). Sino-Korean covers money, dates, and phone numbers. There's real overlap and no shortcut around memorizing which is which, but as a rule of thumb: if you could hold it up and count it on your fingers, it's probably native Korean.</Hint>
+
+The first four numbers change shape when they're directly attached to a counter word: 하나 becomes 한, 둘 becomes 두, 셋 becomes 세, 넷 becomes 네. That's why you'll see 한 잔 (one cup) instead of 하나 잔.
+
+### Please Give Me One
+
+<SentenceBlock formal="플랫화이트 하나 주십시오." formalRom="peullaeteuhwaiteu hana jusipsio." polite="플랫화이트 하나 주세요." politeRom="peullaeteuhwaiteu hana juseyo." casual="플랫화이트 하나 줘." casualRom="peullaeteuhwaiteu hana jwo." english="Please give me one flat white." />
+
+<SentenceBlock formal="물 한 잔 주십시오." formalRom="mul han jan jusipsio." polite="물 한 잔 주세요." politeRom="mul han jan juseyo." casual="물 한 잔 줘." casualRom="mul han jan jwo." english="Please give me a glass of water." />
+
+### I'm Buying, It's Cheap, It's Expensive
+
+<SentenceBlock formal="가방 삽니다." formalRom="gabang samnida." polite="가방 사요." politeRom="gabang sayo." casual="가방 사." casualRom="gabang sa." english="I'm buying a bag." />
+
+<SentenceBlock formal="라면 쌉니다." formalRom="ramyeon ssamnida." polite="라면 싸요." politeRom="ramyeon ssayo." casual="라면 싸." casualRom="ramyeon ssa." english="The ramen is cheap." />
+
+<SentenceBlock formal="케이크 비쌉니다." formalRom="keikeu bissamnida." polite="케이크 비싸요." politeRom="keikeu bissayo." casual="케이크 비싸." casualRom="keikeu bissa." english="The cake is expensive." />
+
+<Hint>싸다 (cheap) and 비싸다 (expensive) aren't opposites built from the same root the way you might expect. 비싸다 isn't "not cheap," it's its own word. Korean just happens to have two short, unrelated adjectives sitting at opposite ends of price, the same way English has "cheap" and "expensive" rather than "expensive" and "un-expensive."</Hint>
+
+### How Many?
+
+개 isn't the only counter. Korean picks a different one depending on what's being counted: 명 for people, 마리 for animals, 병 for bottles, 권 for books, 장 for flat things like paper or tickets. The question and answer both follow the same shape as everything above, just with 몇 (how many) standing in for the number.
+
+<SentenceBlock formal="사과가 몇 개입니까?" formalRom="sagwaga myeot gaeimnikka?" polite="사과가 몇 개예요?" politeRom="sagwaga myeot gaeyeyo?" casual="사과가 몇 개야?" casualRom="sagwaga myeot gaeya?" english="How many apples are there?" />
+
+<SentenceBlock formal="사과가 두 개입니다." formalRom="sagwaga du gaeimnida." polite="사과가 두 개예요." politeRom="sagwaga du gaeyeyo." casual="사과가 두 개야." casualRom="sagwaga du gaeya." english="There are two apples." />
+
+<SentenceBlock formal="학생이 몇 명 있습니까?" formalRom="haksaengi myeot myeong isseumnikka?" polite="학생이 몇 명 있어요?" politeRom="haksaengi myeot myeong isseoyo?" casual="학생이 몇 명 있어?" casualRom="haksaengi myeot myeong isseo?" english="How many students are there?" />
+
+<SentenceBlock formal="고양이가 세 마리 있습니다." formalRom="goyangiga se mari isseumnida." polite="고양이가 세 마리 있어요." politeRom="goyangiga se mari isseoyo." casual="고양이가 세 마리 있어." casualRom="goyangiga se mari isseo." english="There are three cats." />
+
+<Hint>개 is the fallback counter. If you blank on whether a book takes 권 or a bottle takes 병, reaching for 개 instead is a mistake native speakers make sense of instantly, and one plenty of Koreans make themselves in casual speech. Getting the counter wrong is far less disruptive than getting the number wrong.</Hint>
+
+### Vocabulary
+
+<VocabTable words={[
+  { korean: "개", rom: "gae", english: "counter for general objects" },
+  { korean: "잔", rom: "jan", english: "counter for cups, glasses" },
+  { korean: "명", rom: "myeong", english: "counter for people (neutral)" },
+  { korean: "분", rom: "bun", english: "counter for people (polite)" },
+  { korean: "마리", rom: "mari", english: "counter for animals" },
+  { korean: "병", rom: "byeong", english: "counter for bottles" },
+  { korean: "권", rom: "gwon", english: "counter for books" },
+  { korean: "장", rom: "jang", english: "counter for flat objects (paper, tickets)" },
+  { korean: "빵", rom: "ppang", english: "bread" },
+  { korean: "과자", rom: "gwaja", english: "snack" },
+  { korean: "한강공원", rom: "hangang-gongwon", english: "Hangang Park" },
+]} />

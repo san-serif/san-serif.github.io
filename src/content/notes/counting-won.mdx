@@ -1,0 +1,96 @@
+---
+title: "Counting Won (일, 이, 삼)"
+order: 7
+description: "얼마예요? Korean actually runs on two separate number systems. This lesson covers the Sino-Korean set, the one you need for money, floors, months, and phone numbers."
+category: ["LEARN", "KOREAN"]
+---
+
+import KoreanLessonHead from '../../components/korean/KoreanLessonHead.astro';
+import SentenceBlock from '../../components/korean/SentenceBlock.astro';
+import VocabTable from '../../components/korean/VocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<KoreanLessonHead />
+
+Korean didn't settle on one way to count. There's a native Korean set for things like age and counting objects one by one, and a separate Sino-Korean set, borrowed from Chinese centuries ago, for anything with a fixed, official feel: money, addresses, phone numbers, dates. This lesson is entirely the second kind. The good news is that it's the more regular of the two, built from ten digits and a small set of place values that combine like Lego.
+
+### The Ten Digits
+
+Once you have 일 through 구 and 십, every number up to 99 is just multiplication and addition read left to right. 이십 (2 x 10) is twenty, 이십삼 (2 x 10 + 3) is twenty-three. No "twenty-one, twenty-two" style irregularity to memorize.
+
+<VocabTable words={[
+  { korean: "영", rom: "yeong", english: "zero" },
+  { korean: "공", rom: "gong", english: "zero (used reading phone numbers)" },
+  { korean: "일", rom: "il", english: "one" },
+  { korean: "이", rom: "i", english: "two" },
+  { korean: "삼", rom: "sam", english: "three" },
+  { korean: "사", rom: "sa", english: "four" },
+  { korean: "오", rom: "o", english: "five" },
+  { korean: "육", rom: "yuk", english: "six" },
+  { korean: "칠", rom: "chil", english: "seven" },
+  { korean: "팔", rom: "pal", english: "eight" },
+  { korean: "구", rom: "gu", english: "nine" },
+  { korean: "십", rom: "sip", english: "ten" },
+  { korean: "백", rom: "baek", english: "hundred" },
+  { korean: "천", rom: "cheon", english: "thousand" },
+  { korean: "만", rom: "man", english: "ten thousand" },
+  { korean: "억", rom: "eok", english: "hundred million" },
+  { korean: "조", rom: "jo", english: "trillion" },
+]} />
+
+One trap: 만 marks *ten thousand*, not a thousand. Korean prices jump from 천 (thousand) straight to 만 (ten thousand) with nothing in between, which is why Korean money always sounds enormous in direct translation. 오만 원 isn't "five money," it's 50,000 won.
+
+<Hint>Once a price is obviously a price, Koreans drop 원 the same way an English speaker drops "dollars" and just says "that'll be five fifty." A barista might just say 오천 오백 (5,500) and trust you to know it means won, not a bare number floating in space.</Hint>
+
+### How Much Is It?
+
+<SentenceBlock formal="얼마입니까?" formalRom="eolmaimnikka?" polite="얼마예요?" politeRom="eolmayeyo?" casual="얼마야?" casualRom="eolmaya?" english="How much is it?" />
+
+<SentenceBlock formal="오천 원입니다." formalRom="ocheon wonimnida." polite="오천 원이에요." politeRom="ocheon wonieyo." casual="오천 원이야." casualRom="ocheon woniya." english="It's 5,000 won." />
+
+<SentenceBlock formal="구백오십 원입니다." formalRom="gubaegosip wonimnida." polite="구백오십 원이에요." politeRom="gubaegosip wonieyo." casual="구백오십 원이야." casualRom="gubaegosip woniya." english="It's 950 won." />
+
+### Floors and Room Numbers
+
+The same digits, attached to a different counter word, cover floors (층), room numbers (호), and bus or gate numbers (번).
+
+<SentenceBlock formal="몇 층입니까?" formalRom="myeot cheungimnikka?" polite="몇 층이에요?" politeRom="myeot cheungieyo?" casual="몇 층이야?" casualRom="myeot cheungiya?" english="What floor is it on?" />
+
+<SentenceBlock formal="육 층입니다." formalRom="yuk cheungimnida." polite="육 층이에요." politeRom="yuk cheungieyo." casual="육 층이야." casualRom="yuk cheungiya." english="It's the 6th floor." />
+
+<SentenceBlock formal="이백이 호입니다." formalRom="ibaegi hoimnida." polite="이백이 호예요." politeRom="ibaegi hoyeyo." casual="이백이 호야." casualRom="ibaegi hoya." english="It's number 202." />
+
+<SentenceBlock formal="삼백사십 번입니다." formalRom="sambaeksasip beonimnida." polite="삼백사십 번이에요." politeRom="sambaeksasip beonieyo." casual="삼백사십 번이야." casualRom="sambaeksasip beoniya." english="It's number 340." />
+
+<Hint>Phone numbers break the "read it as one big number" rule. 010-3456-7890 isn't a single quantity, so Koreans recite it digit by digit: 공일공, 삼사오육, 칠팔구공. And in that context 0 is almost always 공, not 영, the same way English speakers say "oh" instead of "zero" reading out a phone number.</Hint>
+
+### What Month Is It?
+
+<SentenceBlock formal="몇 월입니까?" formalRom="myeot worimnikka?" polite="몇 월이에요?" politeRom="myeot worieyo?" casual="몇 월이야?" casualRom="myeot woriya?" english="What month is it?" />
+
+<SentenceBlock formal="십이월입니다." formalRom="sibiworimnida." polite="십이월이에요." politeRom="sibiworieyo." casual="십이월이야." casualRom="sibiworiya." english="It's December." />
+
+Months are just number + 월, with two exceptions that break the pattern purely for ease of pronunciation: June is 유월, not 육월, and October is 시월, not 십월.
+
+<VocabTable heading="Months" words={[
+  { korean: "일월", rom: "irwol", english: "January" },
+  { korean: "이월", rom: "iwol", english: "February" },
+  { korean: "삼월", rom: "samwol", english: "March" },
+  { korean: "사월", rom: "sawol", english: "April" },
+  { korean: "오월", rom: "owol", english: "May" },
+  { korean: "유월", rom: "yuwol", english: "June" },
+  { korean: "칠월", rom: "chirwol", english: "July" },
+  { korean: "팔월", rom: "parwol", english: "August" },
+  { korean: "구월", rom: "guwol", english: "September" },
+  { korean: "시월", rom: "siwol", english: "October" },
+  { korean: "십일월", rom: "sibirwol", english: "November" },
+  { korean: "십이월", rom: "sibiwol", english: "December" },
+]} />
+
+<VocabTable heading="Money & Shopping" words={[
+  { korean: "가격", rom: "gagyeok", english: "price" },
+  { korean: "계산하다", rom: "gyesanhada", english: "to calculate, to pay" },
+  { korean: "신용카드", rom: "sinyongkadeu", english: "credit card" },
+  { korean: "현금", rom: "hyeongeum", english: "cash" },
+  { korean: "전화번호", rom: "jeonhwabeonho", english: "phone number" },
+]} />

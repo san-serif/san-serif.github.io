@@ -1,0 +1,59 @@
+---
+title: "Old News, New News (은/는 vs 이/가)"
+order: 6
+description: "사과가 있어요 vs 그 사과는 맛있어요. English never forces you to choose between introducing something and commenting on it. Korean forces that choice in every sentence."
+category: ["LEARN", "KOREAN"]
+---
+
+import KoreanLessonHead from '../../components/korean/KoreanLessonHead.astro';
+import SentenceBlock from '../../components/korean/SentenceBlock.astro';
+import VocabTable from '../../components/korean/VocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<KoreanLessonHead />
+
+By now 은/는 and 이/가 have both shown up constantly without much explanation of why one appeared instead of the other. Here's the actual rule. 이/가 marks the subject when it's new or unknown information, the thing you're pointing out for the first time. 은/는 marks the topic when it's already known, the thing the conversation has settled on talking about. English doesn't force this choice. Korean makes you make it in every single sentence.
+
+### Introducing vs. Commenting
+
+<SentenceBlock formal="여기 사과가 있습니다." formalRom="yeogi sagaga isseumnida." polite="여기 사과가 있어요." politeRom="yeogi sagaga isseoyo." casual="여기 사과가 있어." casualRom="yeogi sagaga isseo." english="Here's an apple." />
+
+<SentenceBlock formal="그 사과는 맛있습니다." formalRom="geu saganeun masisseumnida." polite="그 사과는 맛있어요." politeRom="geu saganeun masisseoyo." casual="그 사과는 맛있어." casualRom="geu saganeun masisseo." english="That apple is delicious." />
+
+<Hint>This is the classic story-opening pattern in Korean: 가 to introduce a character or object for the first time, 는 for every mention after that. The first line of a fairy tale almost always uses 가; every sentence about that same character afterward switches to 는.</Hint>
+
+### Answering "Who"
+
+Question words like 누구 (who) almost always pull 이/가, because the answer is by definition new information. 누구 even contracts with 가 irregularly, dropping a syllable: 누구가 becomes 누가.
+
+<SentenceBlock formal="누가 선생님입니까?" formalRom="nuga seonsaengnimimnikka?" polite="누가 선생님이에요?" politeRom="nuga seonsaengnimieyo?" casual="누가 선생님이야?" casualRom="nuga seonsaengnimiya?" english="Who is the teacher?" />
+
+<SentenceBlock formal="안나 씨가 선생님입니다." formalRom="anna ssiga seonsaengnimimnida." polite="안나 씨가 선생님이에요." politeRom="anna ssiga seonsaengnimieyo." casual="안나 씨가 선생님이야." casualRom="anna ssiga seonsaengnimiya." english="Anna is the teacher." />
+
+Swap that same sentence to 는 and the meaning shifts. 안나 씨는 선생님이에요 doesn't answer "who's the teacher," it responds to something like "what does Anna do?" Anna is already the topic; her job is the new part.
+
+<SentenceBlock formal="안나 씨는 선생님입니다." formalRom="anna ssineun seonsaengnimimnida." polite="안나 씨는 선생님이에요." politeRom="anna ssineun seonsaengnimieyo." casual="안나 씨는 선생님이야." casualRom="anna ssineun seonsaengnimiya." english="As for Anna, she's the teacher." />
+
+### Contrast
+
+는 has a second job that has nothing to do with old versus new information: setting up a contrast between two things.
+
+<SentenceBlock formal="저는 커피를 좋아합니다." formalRom="jeoneun keopireul joahamnida." polite="저는 커피를 좋아해요." politeRom="jeoneun keopireul joahaeyo." casual="나는 커피를 좋아해." casualRom="naneun keopireul joahae." english="I like coffee." />
+
+<SentenceBlock formal="동생은 차를 좋아합니다." formalRom="dongsaengeun chareul joahamnida." polite="동생은 차를 좋아해요." politeRom="dongsaengeun chareul joahaeyo." casual="동생은 차를 좋아해." casualRom="dongsaengeun chareul joahae." english="My younger sibling likes tea." />
+
+<Hint>Said back to back like this, 는 quietly implies "unlike me." Two 는 markers in neighboring sentences almost always signal a comparison, even without a word for "but" anywhere in the sentence. This is why 는 can sound pointed in a way 이/가 never does: naming someone as a topic right after naming someone else invites the listener to compare them.</Hint>
+
+### Vocabulary
+
+<VocabTable words={[
+  { korean: "사과", rom: "sagwa", english: "apple" },
+  { korean: "맛있다", rom: "masitda", english: "to be delicious" },
+  { korean: "맛없다", rom: "madeopda", english: "to be not tasty" },
+  { korean: "차", rom: "cha", english: "tea" },
+  { korean: "누가", rom: "nuga", english: "who (subject form of 누구)" },
+  { korean: "뭐가", rom: "mwoga", english: "what (subject form of 뭐)" },
+  { korean: "어디가", rom: "eodiga", english: "where (subject form of 어디)" },
+  { korean: "반면에", rom: "banmyeone", english: "on the other hand" },
+  { korean: "그런데", rom: "geureonde", english: "but, by the way" },
+]} />

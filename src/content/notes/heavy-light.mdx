@@ -1,0 +1,52 @@
+---
+title: "Heavy, Light (무거워요)"
+order: 21
+description: "무겁다 → 무거워요. The ㅂ-irregular pattern that's been showing up in hints since How's the Weather? finally gets its own lesson, plus what happens when you push it into the past."
+category: ["LEARN", "KOREAN"]
+---
+
+import KoreanLessonHead from '../../components/korean/KoreanLessonHead.astro';
+import SentenceBlock from '../../components/korean/SentenceBlock.astro';
+import VocabTable from '../../components/korean/VocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<KoreanLessonHead />
+
+Any adjective stem ending in ㅂ drops it and replaces it with 우 before an -아요/-어요 ending, then contracts with 어요 into 워요. 무겁다 (heavy) becomes 무거워요, never 무겁어요. This is the full version of the pattern that's been sitting in hints since How's the Weather?.
+
+<SentenceBlock formal="가방이 무겁습니다." formalRom="gabangi mugeopseumnida." polite="가방이 무거워요." politeRom="gabangi mugeowoyo." casual="가방이 무거워." casualRom="gabangi mugeowo." english="The bag is heavy." />
+
+<SentenceBlock formal="이 가방은 가볍습니다." formalRom="i gabangeun gabyeopseumnida." polite="이 가방은 가벼워요." politeRom="i gabangeun gabyeowoyo." casual="이 가방은 가벼워." casualRom="i gabangeun gabyeowo." english="This bag is light." />
+
+<SentenceBlock formal="숙제가 어렵습니다." formalRom="sukjega eoryeopseumnida." polite="숙제가 어려워요." politeRom="sukjega eoryeowoyo." casual="숙제가 어려워." casualRom="sukjega eoryeowo." english="The homework is difficult." />
+
+<SentenceBlock formal="한국 음식이 맵습니다." formalRom="hanguk eumsigi maepseumnida." polite="한국 음식이 매워요." politeRom="hanguk eumsigi maewoyo." casual="한국 음식이 매워." casualRom="hanguk eumsigi maewo." english="Korean food is spicy." />
+
+<SentenceBlock formal="제주도가 아름답습니다." formalRom="jejudoga areumdapseumnida." polite="제주도가 아름다워요." politeRom="jejudoga areumdawoyo." casual="제주도가 아름다워." casualRom="jejudoga areumdawo." english="Jeju Island is beautiful." />
+
+<Hint>Any two-syllable adjective ending in 겁다, 럽다, 롭다, or 웁다 is very likely ㅂ-irregular. It's one of the most common irregular shapes in the language, common enough that guessing 워요 the first time you meet a new ㅂ-ending adjective is usually the right bet.</Hint>
+
+Not every adjective plays this game. 하다-adjectives, 따뜻하다 (warm), 시원하다 (cool) from How's the Weather?, conjugate completely predictably, always contracting to 해요 no matter what.
+
+<SentenceBlock formal="날씨가 따뜻합니다." formalRom="nalssiga ttatteuthamnida." polite="날씨가 따뜻해요." politeRom="nalssiga ttatteuthaeyo." casual="날씨가 따뜻해." casualRom="nalssiga ttatteuthae." english="The weather is warm." />
+
+<SentenceBlock formal="어제 날씨가 더웠습니다." formalRom="eoje nalssiga deowotseumnida." polite="어제 날씨가 더웠어요." politeRom="eoje nalssiga deowosseoyo." casual="어제 날씨가 더웠어." casualRom="eoje nalssiga deowosseo." english="Yesterday the weather was hot." />
+
+<Hint>더웠어요 stacks two things you now know: the ㅂ-irregular shift (덥 becomes 더우) and the past tense from Already Done (그 + 었어요). Irregular verbs don't get a pass on tense, they just carry the irregularity into whatever ending comes next.</Hint>
+
+### Vocabulary
+
+<VocabTable words={[
+  { korean: "무겁다", rom: "mugeopda", english: "to be heavy" },
+  { korean: "가볍다", rom: "gabyeopda", english: "to be light" },
+  { korean: "쉽다", rom: "swipda", english: "to be easy" },
+  { korean: "어렵다", rom: "eoryeopda", english: "to be difficult" },
+  { korean: "맵다", rom: "maepda", english: "to be spicy" },
+  { korean: "아름답다", rom: "areumdapda", english: "to be beautiful" },
+  { korean: "따뜻하다", rom: "ttatteuthada", english: "to be warm" },
+  { korean: "숙제", rom: "sukje", english: "homework" },
+  { korean: "귀엽다", rom: "gwiyeopda", english: "to be cute" },
+  { korean: "무섭다", rom: "museopda", english: "to be scary" },
+  { korean: "부드럽다", rom: "budeureopda", english: "to be soft" },
+  { korean: "딱딱하다", rom: "ttakttakhada", english: "to be hard, stiff" },
+]} />

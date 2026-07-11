@@ -1,0 +1,38 @@
+---
+// A lightbulb callout for native-speaker insight: how Koreans actually use
+// the grammar point above in real speech, as opposed to the textbook rule.
+// Usage in an .mdx lesson: <Hint>Some insight about real usage.</Hint>
+---
+
+<div class="hint-box">
+  <div class="hint-icon">💡</div>
+  <div class="hint-body">
+    <div class="hint-label">In Real Life</div>
+    <div class="hint-content"><slot /></div>
+  </div>
+</div>
+
+<style>
+  .hint-box {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: #fffbea;
+    border: 1px solid #f3e3ad;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin: 2rem 0;
+  }
+  .hint-icon { font-size: 1.25rem; line-height: 1.4; flex-shrink: 0; }
+  .hint-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: #9a7b1a;
+    margin-bottom: 4px;
+  }
+  .hint-content { font-size: 0.95rem; line-height: 1.65; color: #5c4a15; }
+  .hint-content :global(p) { margin: 0; }
+  .hint-content :global(strong) { color: #3d3008; }
+</style>

@@ -1,0 +1,66 @@
+---
+title: "Whose Is It? (이/그/저)"
+order: 9
+description: "이 시계는 누구 시계예요? Korean has three words for \"that\" depending on distance, and asks whose something is without ever needing a word for \"whose.\""
+category: ["LEARN", "KOREAN"]
+---
+
+import KoreanLessonHead from '../../components/korean/KoreanLessonHead.astro';
+import SentenceBlock from '../../components/korean/SentenceBlock.astro';
+import VocabTable from '../../components/korean/VocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<KoreanLessonHead />
+
+English collapses distance into two words, "this" and "that." Korean keeps three, because it's tracking not just distance from you but distance from the person you're talking to. And there's no dedicated word for "whose" at all: you just say 누구 (who) directly in front of the object, and Korean reads it as a possessive automatically.
+
+<VocabTable heading="Demonstratives" words={[
+  { korean: "이", rom: "i", english: "this (near me)" },
+  { korean: "그", rom: "geu", english: "that (near you)" },
+  { korean: "저", rom: "jeo", english: "that over there (far from both of us)" },
+]} />
+
+### Whose Is This?
+
+<SentenceBlock formal="이 시계는 누구 시계입니까?" formalRom="i sigyeneun nugu sigyeimnikka?" polite="이 시계는 누구 시계예요?" politeRom="i sigyeneun nugu sigyeyeyo?" casual="이 시계는 누구 시계야?" casualRom="i sigyeneun nugu sigyeya?" english="Whose watch is this?" />
+
+<SentenceBlock formal="유진 씨 시계입니다." formalRom="yujin ssi sigyeimnida." polite="유진 씨 시계예요." politeRom="yujin ssi sigyeyeyo." casual="유진 씨 시계야." casualRom="yujin ssi sigyeya." english="It's Yujin's watch." />
+
+<SentenceBlock formal="저 책은 누구 책입니까?" formalRom="jeo chaegeun nugu chaegimnikka?" polite="저 책은 누구 책이에요?" politeRom="jeo chaegeun nugu chaegieyo?" casual="저 책은 누구 책이야?" casualRom="jeo chaegeun nugu chaegiya?" english="Whose book is that, over there?" />
+
+<SentenceBlock formal="제 책입니다." formalRom="je chaegimnida." polite="제 책이에요." politeRom="je chaegieyo." casual="내 책이야." casualRom="nae chaegiya." english="It's my book." />
+
+<SentenceBlock formal="그럼 누구 펜입니까?" formalRom="geureom nugu penimnikka?" polite="그럼 누구 펜이에요?" politeRom="geureom nugu penieyo?" casual="그럼 누구 펜이야?" casualRom="geureom nugu peniya?" english="Then whose pen is it?" />
+
+<SentenceBlock formal="그 펜은 주노 씨 펜입니다." formalRom="geu peneun juno ssi penimnida." polite="그 펜은 주노 씨 펜이에요." politeRom="geu peneun juno ssi penieyo." casual="그 펜은 주노 씨 펜이야." casualRom="geu peneun juno ssi peniya." english="That pen is Juno's pen." />
+
+<Hint>이 사람 / 그 사람 / 저 사람 are the polite way to refer to a third person. Close friends often compress them into 얘 (this one), 걔 (that one), 쟤 (that one over there) when gossiping about someone who isn't in the room. It's casual enough to sound rude directed at someone senior to you, so save it for people your own age.</Hint>
+
+### Is It There?
+
+있다 covers two jobs English splits into different verbs: it describes something existing somewhere, and it describes someone having something. 있어요? on its own, with no location attached, is simply "do you have it?" 없다 is the shared negative for both meanings, "to not exist" and "to not have," and it's a separate word entirely, not 안 있다.
+
+<SentenceBlock formal="수지 씨가 집에 있습니까?" formalRom="suji ssiga jibe isseumnikka?" polite="수지 씨가 집에 있어요?" politeRom="suji ssiga jibe isseoyo?" casual="수지 씨가 집에 있어?" casualRom="suji ssiga jibe isseo?" english="Is Suzy at home?" />
+
+<SentenceBlock formal="아니요, 집에 없습니다. 학교에 있습니다." formalRom="aniyo, jibe eopseumnida. hakgyoe isseumnida." polite="아니요, 집에 없어요. 학교에 있어요." politeRom="aniyo, jibe eopseoyo. hakgyoe isseoyo." casual="아니, 집에 없어. 학교에 있어." casualRom="ani, jibe eopseo. hakgyoe isseo." english="No, she's not home. She's at school." />
+
+<SentenceBlock formal="가방이 교실에 있습니까?" formalRom="gabangi gyosire isseumnikka?" polite="가방이 교실에 있어요?" politeRom="gabangi gyosire isseoyo?" casual="가방이 교실에 있어?" casualRom="gabangi gyosire isseo?" english="Is the bag in the classroom?" />
+
+<SentenceBlock formal="아니요, 가방이 교실에 없습니다." formalRom="aniyo, gabangi gyosire eopseumnida." polite="아니요, 가방이 교실에 없어요." politeRom="aniyo, gabangi gyosire eopseoyo." casual="아니, 가방이 교실에 없어." casualRom="ani, gabangi gyosire eopseo." english="No, the bag isn't in the classroom." />
+
+<Hint>것 (thing) almost never shows up in its full form out loud. It contracts to 거 in speech, and combined with the demonstratives from this lesson gives you 이거 / 그거 / 저거, "this thing / that thing / that thing over there." 이거 뭐예요? ("what's this?") is one of the most common questions you'll actually use, and it never requires knowing the object's real name.</Hint>
+
+### Vocabulary
+
+<VocabTable words={[
+  { korean: "펜", rom: "pen", english: "pen" },
+  { korean: "핸드폰", rom: "haendeupon", english: "cell phone" },
+  { korean: "지갑", rom: "jigap", english: "wallet" },
+  { korean: "돈", rom: "don", english: "money" },
+  { korean: "거울", rom: "geoul", english: "mirror" },
+  { korean: "방", rom: "bang", english: "room" },
+  { korean: "침대", rom: "chimdae", english: "bed" },
+  { korean: "주인", rom: "juin", english: "owner" },
+  { korean: "분실물", rom: "bunsilmul", english: "lost item" },
+  { korean: "찾다", rom: "chatda", english: "to find, to look for" },
+]} />

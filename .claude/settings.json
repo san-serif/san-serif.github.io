@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 - /private/tmp/claude-501/-Users-dshum-Documents-GitHub-san-serif-github-io/3c64533d-b9ee-428b-b573-b045e2a8c83b/scratchpad/baseline.html dist/notes/the-first-sixty-seconds/index.html)",
+      "Bash(python3 -)",
+      "Read(//tmp/**)",
+      "Bash(python3 - __TRACKED_VAR__/baseline.html dist/notes/the-first-sixty-seconds/index.html)",
+      "Read(//dev/**)",
+      "Bash(curl -s http://localhost:4321/notes/the-first-sixty-seconds)",
+      "Bash(sleep 2; cat /tmp/dev.log | tail -60)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -s http://localhost:4322/notes/the-first-sixty-seconds -o /tmp/dev_render.html -w \"%{http_code}\\\\n\")",
+      "Bash(kill %1)",
+      "Bash(wait)",
+      "Bash(npx astro *)",
+      "Bash(pkill -f \"astro dev\")",
+      "Bash(cat /tmp/dev3.log)",
+      "Bash(python3 -c \"print\\('checking for browser automation options'\\)\")",
+      "Bash(npx --yes playwright --version)",
+      "Bash(python3 -c \"import openpyxl; print\\('openpyxl ok'\\)\")",
+      "Bash(python3 -c \"import pandas; print\\('pandas ok'\\)\")",
+      "Bash(python3)",
+      "Bash(python3 -c ' *)",
+      "Bash(brew install *)"
+    ]
+  }
+}

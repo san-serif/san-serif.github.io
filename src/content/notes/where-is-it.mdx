@@ -1,0 +1,78 @@
+---
+title: "Where Is It? (있어요)"
+order: 8
+description: "가방이 의자 위에 있어요. Korean builds location the way you'd stack blocks: object + place + position word + 있어요, and the whole sentence just points."
+category: ["LEARN", "KOREAN"]
+---
+
+import KoreanLessonHead from '../../components/korean/KoreanLessonHead.astro';
+import SentenceBlock from '../../components/korean/SentenceBlock.astro';
+import VocabTable from '../../components/korean/VocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<KoreanLessonHead />
+
+있다 means "to exist," and once you have it, describing where anything is becomes an assembly line: name the object, name the place, drop in a position word, attach 에 to that position word, and end on 있어요. Change only the position word and you've relocated the object without touching anything else in the sentence. The same 에 also does double duty as "to," turning a place into a destination: 학교에 가요 is "I go to school," built exactly the same way as the existence sentences below.
+
+### Position Words
+
+<VocabTable words={[
+  { korean: "위", rom: "wi", english: "on top of, above" },
+  { korean: "아래", rom: "arae", english: "under, below" },
+  { korean: "밑", rom: "mit", english: "under, beneath" },
+  { korean: "앞", rom: "ap", english: "in front of" },
+  { korean: "뒤", rom: "dwi", english: "behind" },
+  { korean: "옆", rom: "yeop", english: "next to, beside" },
+  { korean: "안", rom: "an", english: "inside" },
+  { korean: "밖", rom: "bak", english: "outside" },
+  { korean: "오른쪽", rom: "oreunjjok", english: "right side" },
+  { korean: "왼쪽", rom: "oenjjok", english: "left side" },
+  { korean: "사이", rom: "sai", english: "between" },
+]} />
+
+### It's Right There
+
+<SentenceBlock formal="어디에 있습니까?" formalRom="eodie isseumnikka?" polite="어디에 있어요?" politeRom="eodie isseoyo?" casual="어디에 있어?" casualRom="eodie isseo?" english="Where is it?" />
+
+<SentenceBlock formal="학교에 갑니다." formalRom="hakgyoe gamnida." polite="학교에 가요." politeRom="hakgyoe gayo." casual="학교에 가." casualRom="hakgyoe ga." english="I go to school." />
+
+<Hint>에 marks a place something exists at or moves toward, but the instant an action happens *at* that place, it changes to 에서. 교실에 있어요 ("I'm in the classroom") describes existence, while 교실에서 공부해요 ("I study in the classroom") describes an action happening there. Swapping the two is one of the most common beginner mistakes, and native speakers will still understand you, but it's worth training your ear for.</Hint>
+
+<SentenceBlock formal="가방이 의자 위에 있습니다." formalRom="gabangi uija wie isseumnida." polite="가방이 의자 위에 있어요." politeRom="gabangi uija wie isseoyo." casual="가방이 의자 위에 있어." casualRom="gabangi uija wie isseo." english="The bag is on the chair." />
+
+<SentenceBlock formal="가방이 의자 앞에 있습니다." formalRom="gabangi uija ape isseumnida." polite="가방이 의자 앞에 있어요." politeRom="gabangi uija ape isseoyo." casual="가방이 의자 앞에 있어." casualRom="gabangi uija ape isseo." english="The bag is in front of the chair." />
+
+<SentenceBlock formal="가방이 의자 아래에 있습니다." formalRom="gabangi uija araee isseumnida." polite="가방이 의자 아래에 있어요." politeRom="gabangi uija araee isseoyo." casual="가방이 의자 아래에 있어." casualRom="gabangi uija araee isseo." english="The bag is under the chair." />
+
+<SentenceBlock formal="필통이 책상 위에 있습니다." formalRom="piltongi chaeksang wie isseumnida." polite="필통이 책상 위에 있어요." politeRom="piltongi chaeksang wie isseoyo." casual="필통이 책상 위에 있어." casualRom="piltongi chaeksang wie isseo." english="The pencil case is on the desk." />
+
+<SentenceBlock formal="책이 가방 안에 있습니다." formalRom="chaegi gabang ane isseumnida." polite="책이 가방 안에 있어요." politeRom="chaegi gabang ane isseoyo." casual="책이 가방 안에 있어." casualRom="chaegi gabang ane isseo." english="The book is in the bag." />
+
+<SentenceBlock formal="남자가 집 밖에 있습니다." formalRom="namjaga jip bakke isseumnida." polite="남자가 집 밖에 있어요." politeRom="namjaga jip bakke isseoyo." casual="남자가 집 밖에 있어." casualRom="namjaga jip bakke isseo." english="The man is outside the house." />
+
+<SentenceBlock formal="안나 씨가 유진 씨하고 책상 사이에 있습니다." formalRom="anna ssiga yujin ssihago chaeksang saie isseumnida." polite="안나 씨가 유진 씨하고 책상 사이에 있어요." politeRom="anna ssiga yujin ssihago chaeksang saie isseoyo." casual="안나 씨가 유진 씨하고 책상 사이에 있어." casualRom="anna ssiga yujin ssihago chaeksang saie isseo." english="Anna is between Eugene and the desk." />
+
+<Hint>In person, Koreans skip the whole sentence structure constantly and just point while saying 저기 ("over there"). Asked 어디 있어요?, a real answer is often just 저기요! with a finger, not a full 가방이 의자 위에 있어요. The grammar matters most when you can't point, over the phone or in writing.</Hint>
+
+### Vocabulary
+
+<VocabTable heading="Objects" words={[
+  { korean: "필통", rom: "piltong", english: "pencil case" },
+  { korean: "연필", rom: "yeonpil", english: "pencil" },
+  { korean: "지우개", rom: "jiugae", english: "eraser" },
+  { korean: "시계", rom: "sigye", english: "clock" },
+  { korean: "칠판", rom: "chilpan", english: "blackboard" },
+  { korean: "창문", rom: "changmun", english: "window" },
+  { korean: "냉장고", rom: "naengjanggo", english: "refrigerator" },
+  { korean: "달력", rom: "dallyeok", english: "calendar" },
+]} />
+
+<VocabTable heading="Places" words={[
+  { korean: "식당", rom: "sikdang", english: "restaurant" },
+  { korean: "영화관", rom: "yeonghwagwan", english: "movie theater" },
+  { korean: "카페", rom: "kape", english: "cafe" },
+  { korean: "은행", rom: "eunhaeng", english: "bank" },
+  { korean: "도서관", rom: "doseogwan", english: "library" },
+  { korean: "근처", rom: "geuncheo", english: "nearby" },
+  { korean: "건너편", rom: "geonneopyeon", english: "across from" },
+]} />
