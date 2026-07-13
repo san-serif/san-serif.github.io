@@ -109,6 +109,15 @@ const { Content } = await render(entry);
 	.analysis :global(li) { margin-bottom: 12px; font-size: 1.1rem; color: #444; }
 	.analysis :global(strong) { color: #000; font-weight: 700; }
 
+	.analysis :global(a) {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: #bbb;
+		text-underline-offset: 3px;
+		transition: text-decoration-color 0.15s;
+	}
+	.analysis :global(a:hover) { text-decoration-color: #000; }
+
 	/* TABLE STYLES FOR THE GLOSSARY */
 	.analysis :global(table) { width: 100%; border-collapse: collapse; margin: 2rem 0; }
 	.analysis :global(th) { text-align: left; font-size: 0.8rem; text-transform: uppercase; color: #999; padding: 12px; border-bottom: 1px solid #eee; }

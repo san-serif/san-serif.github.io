@@ -21,15 +21,15 @@ import Layout from '../layouts/Layout.astro';
 				</p>
 				
 				<p>
-					Based in Sydney, san serif is an independent studio focused on building high-utility tools for language learning and culture. Each product is designed to remove friction from the learning process and support consistent, deliberate progress.
+					Based in Sydney, san serif is an independent studio focused on building high-utility tools for language learning and culture. It grew out of a gap we saw in language learning apps. Every product here starts with human-computer interaction principles, not a features list. Each is built to remove friction and support consistent, deliberate progress.
 				</p>
 
 				<div class="divider"></div>
 
 				<div class="philosophy-section">
-					<h3>The Philosophy</h3>
+					<h3><a href={`kaku://new?text=${encodeURIComponent('生きがい')}`} class="ikigai-link">生きがい</a> Ikigai</h3>
 					<p>
-						User-friendly, Apple-native tools for language learning. Minimal friction. Long-term retention.
+						Ikigai is a Japanese concept meaning a reason for being. Our ikigai is building user-friendly, Apple-native tools for language learning. Minimal friction. Long-term retention.
 					</p>
 				</div>
 
@@ -37,9 +37,12 @@ import Layout from '../layouts/Layout.astro';
 
 				<div class="footer-bio">
 					<p>Building tools for the journey</p>
-					<a href="https://x.com/sanserif_studio" target="_blank" rel="noopener noreferrer" class="social-link" title="Follow on X">
-						<img src="/logo-black.png" alt="X Logo" class="x-icon" />
-					</a>
+					<div class="footer-links">
+						<a href="/support" class="text-link">Support</a>
+						<a href="https://x.com/sanserif_studio" target="_blank" rel="noopener noreferrer" class="social-link" title="Follow on X">
+							<img src="/logo-black.png" alt="X Logo" class="x-icon" />
+						</a>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -97,14 +100,23 @@ import Layout from '../layouts/Layout.astro';
 	.divider { height: 1px; background: #eee; margin: 50px 0; }
 	.philosophy-section { max-width: 600px; }
 
-	h3 { 
-		font-size: 0.75rem; 
-		text-transform: uppercase; 
-		letter-spacing: 0.1rem; 
-		color: #999; 
-		margin-bottom: 15px; 
-		font-weight: 700; 
+	h3 {
+		font-size: 1.1rem;
+		letter-spacing: -0.01em;
+		color: #000;
+		margin-bottom: 15px;
+		font-weight: 700;
 	}
+
+	.ikigai-link {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: #ccc;
+		text-underline-offset: 3px;
+		transition: text-decoration-color 0.15s;
+	}
+
+	.ikigai-link:hover { text-decoration-color: #000; }
 	
 	.philosophy-section p { font-size: 1rem; color: #555; line-height: 1.6; }
 	
@@ -115,12 +127,32 @@ import Layout from '../layouts/Layout.astro';
 		align-items: center;
 	}
 
-	.footer-bio p { 
-		font-size: 0.95rem; 
-		color: #bbb; 
-		letter-spacing: 0.02em; 
+	.footer-bio p {
+		font-size: 0.95rem;
+		color: #bbb;
+		letter-spacing: 0.02em;
 		font-weight: 500;
 		margin: 0;
+	}
+
+	.footer-links {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+	}
+
+	.text-link {
+		font-size: 0.85rem;
+		color: #999;
+		text-decoration: underline;
+		text-decoration-color: #ccc;
+		text-underline-offset: 3px;
+		transition: text-decoration-color 0.15s, color 0.15s;
+	}
+
+	.text-link:hover {
+		color: #000;
+		text-decoration-color: #000;
 	}
 
 	.social-link {
