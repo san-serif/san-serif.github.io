@@ -22,7 +22,7 @@ const tableId = `vocab-${Math.random().toString(36).slice(2, 9)}`;
 
 // Only a contiguous run of kanji immediately before [reading] becomes the
 // ruby base; kana, romaji, and punctuation around it are left untouched.
-const FURIGANA_PATTERN = /([一-鿿]+)\[([^\[\]]+)\]/g;
+const FURIGANA_PATTERN = /([一-鿿々]+)\[([^\[\]]+)\]/g;
 ---
 
 {heading && <h4 class="vocab-heading">{heading}</h4>}

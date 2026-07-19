@@ -18,7 +18,7 @@ const { furigana, romaji, english } = Astro.props;
 
 // Only a contiguous run of kanji immediately before [reading] becomes the
 // ruby base; kana, romaji, and punctuation around it are left untouched.
-const FURIGANA_PATTERN = /([一-鿿]+)\[([^\[\]]+)\]/g;
+const FURIGANA_PATTERN = /([一-鿿々]+)\[([^\[\]]+)\]/g;
 const furiganaHtml = furigana.replace(FURIGANA_PATTERN, '<ruby>$1<rt>$2</rt></ruby>');
 const plain = furigana.replace(FURIGANA_PATTERN, '$1');
 ---

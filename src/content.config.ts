@@ -14,6 +14,10 @@ const notes = defineCollection({
 		category: z.array(z.string()),
 		// Adding tags as an optional array to match your template
 		tags: z.array(z.string()).optional(),
+		// Proficiency level badge: JLPT (N5-N1) for Japanese, TOPIK (TOPIK 1-6)
+		// for Korean. One generic field so the template/badge logic doesn't
+		// need to branch per language or per test.
+		level: z.string().optional(),
 	}),
 });
 

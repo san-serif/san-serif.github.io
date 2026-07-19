@@ -13,6 +13,13 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+const LEVEL_CLASSES: Record<string, string> = {
+	'N5': 'level-n5', 'N4': 'level-n4', 'N3': 'level-n3', 'N2': 'level-n2', 'N1': 'level-n1',
+	'TOPIK I': 'level-topik1', 'TOPIK II': 'level-topik2',
+};
+const levelClass = entry.data.level ? LEVEL_CLASSES[entry.data.level] ?? '' : '';
+const levelLabel = entry.data.level?.startsWith('N') ? `JLPT ${entry.data.level}` : entry.data.level;
 ---
 
 <Layout title={`${entry.data.title} | san serif`} description={entry.data.description}>
@@ -20,11 +27,14 @@ const { Content } = await render(entry);
 		<article class="post">
 			<header class="post-header">
 				{/* Category and Note Order index */}
-				<span class="type">
-					{entry.data.category ? `${entry.data.category.join(' + ')} / ` : ''}
-					{entry.data.order ? `Note ${entry.data.order}` : ''}
-				</span>
-				
+				<div class="type-row">
+					<span class="type">
+						{entry.data.category ? `${entry.data.category.join(' + ')} / ` : ''}
+						{entry.data.order ? `Note ${entry.data.order}` : ''}
+					</span>
+					{entry.data.level && <span class={`level-badge ${levelClass}`}>{levelLabel}</span>}
+				</div>
+
 				<h1>{entry.data.title}</h1>
 				
 				{/* Tags Array */}
@@ -49,24 +59,46 @@ const { Content } = await render(entry);
 	
 	.post-header { margin-bottom: 60px; }
 	
-	.type { 
-		font-size: 0.75rem; 
-		text-transform: uppercase; 
-		letter-spacing: 0.12em; 
-		color: #999; 
-		font-weight: 700; 
-		display: block; 
-		margin-bottom: 12px; 
+	.type-row {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-bottom: 12px;
 	}
 
-	h1 { 
-		font-size: 3rem; 
-		font-weight: 700; 
-		letter-spacing: -0.05em; 
-		line-height: 1.1; 
-		margin: 0 0 20px 0; 
+	.type {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.12em;
+		color: #999;
+		font-weight: 700;
+	}
+
+	h1 {
+		font-size: 3rem;
+		font-weight: 700;
+		letter-spacing: -0.05em;
+		line-height: 1.1;
+		margin: 0 0 20px 0;
 		color: #000;
 	}
+
+	.level-badge {
+		display: inline-block;
+		padding: 4px 12px;
+		border-radius: 999px;
+		font-size: 0.75rem;
+		font-weight: 800;
+		letter-spacing: 0.05em;
+	}
+
+	.level-n5 { background: #CFEEDA; color: #146B3A; }
+	.level-n4 { background: #D3E4FA; color: #1F4F97; }
+	.level-n3 { background: #E7D8F5; color: #6B2A98; }
+	.level-n2 { background: #FADFB8; color: #A65200; }
+	.level-n1 { background: #F6D2D9; color: #96132F; }
+	.level-topik1 { background: #F8E3B8; color: #8A5600; }
+	.level-topik2 { background: #F8D2BE; color: #A83415; }
 
 	.tags { display: flex; gap: 12px; }
 	

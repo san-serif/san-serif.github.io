@@ -48,7 +48,11 @@
       "Bash(sed -n 230,304p /Users/dshum/Documents/GitHub/san-serif.github.io/src/content/notes/MEBJG.txt)",
       "Bash(echo \"=== が \\(ch16\\) ===\")",
       "Bash(sed -n 656,685p /Users/dshum/Documents/GitHub/san-serif.github.io/src/content/notes/MEBJG.txt)",
-      "Bash(xargs -I{} sh -c 'grep -H \"^order:\\\\|^title:\" {}')"
+      "Bash(xargs -I{} sh -c 'grep -H \"^order:\\\\|^title:\" {}')",
+      "Bash(say -v '?')",
+      "Bash(node checkvoices.mjs)",
+      "Skill(artifact-design)",
+      "Skill(artifact-design:*)"
     ]
   }
 }

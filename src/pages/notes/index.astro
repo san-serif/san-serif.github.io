@@ -1,36 +1,70 @@
 ---
-/* CULTURE NOTES - san serif 
-  - Dynamic Multi-Tag Filtering (Client-side)
-  - Bi-directional Sorting (Order-based)
-  - Static Category Discovery
+/* CULTURE NOTES - san serif
+  - Grouped by content shape, not one flat list: language courses read as a
+    syllabus in curriculum order, Culture & Notes reads as a feed in
+    recency order. `order` means two different things depending on which
+    bucket a note is in, so each bucket sorts itself accordingly instead of
+    sharing one global sort control.
+  - Dynamic Multi-Tag Filtering (client-side, AND semantics)
+  - Live text search (client-side)
 */
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
 const notes = await getCollection('notes');
 
-// 1. Default Sort: Newest First (Descending: 2, 1, 0)
-const sortedNotes = notes.sort((a, b) => b.data.order - a.data.order);
+// A note belongs to Culture & Notes if it's explicitly tagged CULTURE, or if
+// it has no language tag at all (general study-tips pieces, etc) — anything
+// that isn't a graded lesson in a language curriculum. Everything else
+// splits into its language's course by the JAPANESE/KOREAN tag.
+const isCulture = (n: typeof notes[number]) =>
+  n.data.category.includes('CULTURE') || !n.data.category.some(c => ['JAPANESE', 'KOREAN', 'CHINESE'].includes(c));
 
-// 2. Define preferred category order
-const manualOrder = ['LEARN', 'CHINESE', 'JAPANESE', 'KOREAN', 'CULTURE', 'TRAVEL'];
+const japaneseNotes = notes.filter(n => n.data.category.includes('JAPANESE') && !isCulture(n));
+const koreanNotes = notes.filter(n => n.data.category.includes('KOREAN') && !isCulture(n));
+const cultureNotes = notes.filter(isCulture).sort((a, b) => b.data.order - a.data.order);
 
-// 3. Extract unique categories and apply the custom sort
-const allCategories = [...new Set(notes.flatMap(n => n.data.category))]
-  .sort((a, b) => {
-    const posA = manualOrder.indexOf(a.toUpperCase());
-    const posB = manualOrder.indexOf(b.toUpperCase());
+const LEVEL_ORDER = ['N5', 'N4', 'N3', 'N2', 'N1', 'TOPIK I', 'TOPIK II'];
 
-    // If both are in the manual list, sort by their position in that list
-    if (posA !== -1 && posB !== -1) return posA - posB;
-    
-    // If only one is in the manual list, prioritize it
-    if (posA !== -1) return -1;
-    if (posB !== -1) return 1;
+// Group a course's notes by level, in curriculum order (level order, then
+// ascending lesson order within each level) — the reading order you'd
+// actually work through, not publish order.
+function groupByLevel(courseNotes: typeof notes) {
+  const groups = LEVEL_ORDER
+    .map(level => ({
+      level,
+      notes: courseNotes
+        .filter(n => n.data.level === level)
+        .sort((a, b) => a.data.order - b.data.order),
+    }))
+    .filter(g => g.notes.length > 0);
+  return groups;
+}
 
-    // Fallback to alphabetical for anything else
-    return a.localeCompare(b);
-  });
+const japaneseGroups = groupByLevel(japaneseNotes);
+const koreanGroups = groupByLevel(koreanNotes);
+
+// Tag cloud, split into language/type and level rows. LEARN is deliberately
+// left out — it's on 169 of 170 notes and doesn't discriminate anything as
+// a filter.
+const LANGUAGE_TAGS = ['JAPANESE', 'KOREAN', 'CHINESE', 'CULTURE'];
+const allCategories = [...new Set(notes.flatMap(n => n.data.level ? [...n.data.category, n.data.level] : n.data.category))];
+const languageTags = LANGUAGE_TAGS.filter(t => allCategories.includes(t));
+const levelTags = LEVEL_ORDER.filter(t => allCategories.includes(t));
+
+const LEVEL_CLASSES: Record<string, string> = {
+  'N5': 'level-n5', 'N4': 'level-n4', 'N3': 'level-n3', 'N2': 'level-n2', 'N1': 'level-n1',
+  'TOPIK I': 'level-topik1', 'TOPIK II': 'level-topik2',
+};
+const levelClass = (level?: string) => level ? LEVEL_CLASSES[level] ?? '' : '';
+const levelLabel = (level?: string) => level?.startsWith('N') ? `JLPT ${level}` : level;
+
+// data-category / data-search attributes shared by every row, course or
+// culture, so one filter/search script can run over both layouts at once.
+const rowCategory = (n: typeof notes[number]) =>
+  (n.data.level ? [...n.data.category, n.data.level] : n.data.category).join(',').toLowerCase();
+const rowSearch = (n: typeof notes[number]) =>
+  `${n.data.title} ${n.data.description ?? ''}`.toLowerCase();
 ---
 
 <Layout title="Notes | san serif" description="Free Korean, Japanese, and Chinese grammar lessons and culture notes, from greetings to formal register, with real example sentences, native-speaker insights, and vocabulary you'll actually use.">
@@ -41,72 +75,118 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))]
 			<p class="page-subtitle">
 				Beyond the dictionary: exploring the unspoken rules and nuances of language.
 			</p>
-			
+
+			<div class="search-row">
+				<input type="text" class="search-input" id="search-input" placeholder="Search notes by title or description…" />
+			</div>
+
 			<div class="controls-container">
-				<div class="filter-group">
-					<span class="control-label">EXPLORE BY CATEGORY:</span>
-					<div class="tag-cloud" id="tag-cloud">
-						{allCategories.map(cat => (
-							<button class="filter-tag" data-tag={cat.toLowerCase()}>
-								{cat.toUpperCase()}
-							</button>
+				<div class="filter-row">
+					<span class="control-label">LANGUAGE &amp; TYPE</span>
+					<div class="tag-cloud" id="tag-cloud-lang">
+						{languageTags.map(cat => (
+							<button class="filter-tag" data-tag={cat.toLowerCase()}>{cat}</button>
 						))}
 					</div>
 				</div>
 
-				<div class="sort-group">
-				    <span class="control-label">ORDER:</span>
-				    <button id="sort-toggle" data-order="desc">NEWEST FIRST ↓</button>
+				<div class="filter-row">
+					<span class="control-label">LEVEL</span>
+					<div class="tag-cloud" id="tag-cloud-level">
+						{levelTags.map(lvl => (
+							<button class="filter-tag" data-tag={lvl.toLowerCase()}>{levelLabel(lvl)}</button>
+						))}
+					</div>
 				</div>
 			</div>
 		</header>
 
-		<section class="notes-list" id="notes-container">
-			{sortedNotes.map(note => (
-				<article 
-					class="note-item" 
-					data-category={note.data.category.join(',').toLowerCase()}
-					data-order={note.data.order}
-				>
-
-					<div class="note-meta">
-						<span class="index">
-							{note.data.order < 10 ? `0${note.data.order}` : note.data.order}
-						</span>
-						<div class="category-list">
-							{note.data.category.map(cat => (
-								<span class="category-label-static">
-									{cat.toUpperCase()}
-								</span>
-							))}
-						</div>
+		<section class="course-section" id="section-japanese">
+			<div class="section-title">🇯🇵 Japanese Course <span class="section-count">{japaneseNotes.length} lessons</span></div>
+			{japaneseGroups.map(group => (
+				<div class="level-group" data-level-group={group.level.toLowerCase()}>
+					<div class="level-group-label">
+						<span class={`level-pill-sm ${levelClass(group.level)}`}>{levelLabel(group.level)}</span>
+						<span class="level-group-count">{group.notes.length} lessons</span>
 					</div>
-
-					<div class="note-content">
-						<a href={`/notes/${note.slug || note.id}`} class="note-link">
-							<h2>{note.data.title}</h2>
-						</a>
-						<p>{note.data.description}</p>
+					<div class="toc-list">
+						{group.notes.map(note => (
+							<a
+								href={`/notes/${note.slug || note.id}`}
+								class="toc-row"
+								data-category={rowCategory(note)}
+								data-search={rowSearch(note)}
+							>
+								<span class="toc-num">{String(note.data.order).padStart(3, '0')}</span>
+								<span class="toc-title">{note.data.title}</span>
+							</a>
+						))}
 					</div>
-
-				</article>
+				</div>
 			))}
 		</section>
+
+		<section class="course-section" id="section-korean">
+			<div class="section-title">🇰🇷 Korean Course <span class="section-count">{koreanNotes.length} lessons</span></div>
+			{koreanGroups.map(group => (
+				<div class="level-group" data-level-group={group.level.toLowerCase()}>
+					<div class="level-group-label">
+						<span class={`level-pill-sm ${levelClass(group.level)}`}>{levelLabel(group.level)}</span>
+						<span class="level-group-count">{group.notes.length} lessons</span>
+					</div>
+					<div class="toc-list">
+						{group.notes.map(note => (
+							<a
+								href={`/notes/${note.slug || note.id}`}
+								class="toc-row"
+								data-category={rowCategory(note)}
+								data-search={rowSearch(note)}
+							>
+								<span class="toc-num">{String(note.data.order).padStart(3, '0')}</span>
+								<span class="toc-title">{note.data.title}</span>
+							</a>
+						))}
+					</div>
+				</div>
+			))}
+		</section>
+
+		<section class="culture-section" id="section-culture">
+			<div class="section-title">📝 Culture &amp; Notes <span class="section-count">{cultureNotes.length} {cultureNotes.length === 1 ? 'piece' : 'pieces'}</span></div>
+			<div class="magazine-grid" id="culture-grid">
+				{cultureNotes.map(note => (
+					<a
+						href={`/notes/${note.slug || note.id}`}
+						class="mag-card"
+						data-category={rowCategory(note)}
+						data-search={rowSearch(note)}
+					>
+						<span class="mag-tag">{note.data.category.join(' · ')}</span>
+						<h4>{note.data.title}</h4>
+						<p>{note.data.description}</p>
+					</a>
+				))}
+			</div>
+		</section>
+
+		<div class="empty-state" id="empty-state">No notes match this combination. Try clearing a tag or the search.</div>
 
 	</main>
 </Layout>
 
 <script is:inline>
-	const container = document.getElementById('notes-container');
-	const sortBtn = document.getElementById('sort-toggle');
-	const items = Array.from(document.querySelectorAll('.note-item'));
+	const searchInput = document.getElementById('search-input');
+	const emptyState = document.getElementById('empty-state');
+	const tocRows = Array.from(document.querySelectorAll('.toc-row'));
+	const magCards = Array.from(document.querySelectorAll('.mag-card'));
+	const allRows = [...tocRows, ...magCards];
+	const levelGroups = Array.from(document.querySelectorAll('.level-group'));
+	const sections = Array.from(document.querySelectorAll('.course-section, .culture-section'));
 	let activeTags = new Set();
 
-	// 1. Multi-Tag Filtering Logic
 	document.querySelectorAll('.filter-tag').forEach(btn => {
 		btn.addEventListener('click', () => {
 			const tag = btn.getAttribute('data-tag');
-			
 			if (activeTags.has(tag)) {
 				activeTags.delete(tag);
 				btn.classList.remove('active');
@@ -114,37 +194,40 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))]
 				activeTags.add(tag);
 				btn.classList.add('active');
 			}
-			
 			applyFilters();
 		});
 	});
 
+	searchInput.addEventListener('input', applyFilters);
+
 	function applyFilters() {
-		items.forEach(item => {
-			const itemTags = item.getAttribute('data-category').split(',');
-			const isVisible = activeTags.size === 0 || [...activeTags].some(t => itemTags.includes(t));
-			item.classList.toggle('hidden', !isVisible);
+		const query = searchInput.value.trim().toLowerCase();
+		let visibleTotal = 0;
+
+		allRows.forEach(row => {
+			const rowTags = row.getAttribute('data-category').split(',');
+			const matchesTags = [...activeTags].every(t => rowTags.includes(t));
+			const matchesSearch = query === '' || row.getAttribute('data-search').includes(query);
+			const isVisible = matchesTags && matchesSearch;
+			row.classList.toggle('hidden', !isVisible);
+			if (isVisible) visibleTotal++;
 		});
+
+		// Collapse level-groups and whole sections once every row inside them
+		// is filtered out, so readers don't hit an orphaned "JLPT N5" header
+		// sitting above nothing.
+		levelGroups.forEach(group => {
+			const hasVisible = Array.from(group.querySelectorAll('.toc-row')).some(r => !r.classList.contains('hidden'));
+			group.classList.toggle('hidden', !hasVisible);
+		});
+
+		sections.forEach(section => {
+			const hasVisible = Array.from(section.querySelectorAll('.toc-row, .mag-card')).some(r => !r.classList.contains('hidden'));
+			section.classList.toggle('hidden', !hasVisible);
+		});
+
+		emptyState.classList.toggle('visible', visibleTotal === 0);
 	}
-
-	// 2. Client-Side Sorting Logic
-	sortBtn.addEventListener('click', () => {
-		const currentOrder = sortBtn.getAttribute('data-order');
-		// Toggle logic: if currently desc, next is asc.
-		const newOrder = currentOrder === 'desc' ? 'asc' : 'desc';
-		
-		sortBtn.setAttribute('data-order', newOrder);
-		sortBtn.innerText = newOrder === 'asc' ? 'OLDEST FIRST ↑' : 'NEWEST FIRST ↓';
-
-		const sortedItems = items.sort((a, b) => {
-			const valA = parseInt(a.getAttribute('data-order'));
-			const valB = parseInt(b.getAttribute('data-order'));
-			return newOrder === 'asc' ? valA - valB : valB - valA;
-		});
-
-		// Re-append to DOM in new order
-		sortedItems.forEach(el => container.appendChild(el));
-	});
 </script>
 
 <style>
@@ -154,7 +237,7 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))]
 		padding: 60px 20px 120px;
 	}
 
-	.page-header { margin-bottom: 40px; }
+	.page-header { margin-bottom: 48px; }
 
 	h1 {
 		font-size: 3rem;
@@ -169,31 +252,43 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))]
 		font-size: 1.1rem;
 		max-width: 800px;
 		line-height: 1.5;
-		margin-bottom: 30px;
+		margin-bottom: 28px;
 	}
+
+	.search-row { margin-bottom: 20px; }
+
+	.search-input {
+		width: 100%;
+		padding: 12px 16px;
+		border: 1px solid #eee;
+		border-radius: 10px;
+		font-family: inherit;
+		font-size: 0.95rem;
+		color: #000;
+		background: #fff;
+		transition: border-color 0.15s;
+	}
+	.search-input:focus { outline: none; border-color: #000; }
+	.search-input::placeholder { color: #bbb; }
 
 	.controls-container {
 		border-top: 1px solid #eee;
-		padding: 24px 0;
+		padding: 20px 0 4px;
 		display: flex;
 		flex-direction: column;
-		gap: 20px;
+		gap: 16px;
 	}
+
+	.filter-row { display: flex; flex-direction: column; gap: 8px; }
 
 	.control-label {
 		font-family: ui-monospace, SFMono-Regular, monospace;
 		font-size: 0.7rem;
 		color: #999;
-		margin-bottom: 10px;
-		display: block;
 		letter-spacing: 0.05em;
 	}
 
-	.tag-cloud {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
-	}
+	.tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
 
 	.filter-tag {
 		background: none;
@@ -205,83 +300,121 @@ const allCategories = [...new Set(notes.flatMap(n => n.data.category))]
 		cursor: pointer;
 		transition: all 0.2s;
 		color: #666;
+		font-family: inherit;
 	}
 
 	.filter-tag:hover { border-color: #000; color: #000; }
 	.filter-tag.active { background: #000; color: #fff; border-color: #000; }
 
-	#sort-toggle {
-	    background: none;
-	    border: none;
-	    color: #000;               /* 1. Force text to black */
-	    -webkit-appearance: none;  /* 2. Strip iOS default button chrome */
-	    appearance: none;          /* 3. Standard appearance reset */
-	    font-family: ui-monospace, SFMono-Regular, monospace;
-	    font-size: 0.8rem;
-	    font-weight: 700;
-	    cursor: pointer;
-	    padding: 0;
-	    text-decoration: underline;
-	    text-decoration-color: #000; /* Ensure the line is black too */
-	    text-underline-offset: 4px;
-	}
+	.course-section, .culture-section { margin-top: 52px; }
+	.course-section.hidden, .culture-section.hidden { display: none; }
 
-	.notes-list { border-top: 2px solid #000; }
-
-	.note-item {
-		display: grid;
-		grid-template-columns: 160px 1fr;
-		padding: 40px 0;
-		border-bottom: 1px solid #eee;
-		transition: all 0.25s cubic-bezier(0.2, 1, 0.3, 1);
-		border-left: 0px solid #000;
-	}
-
-	.note-item.hidden { display: none; }
-
-	.note-item:hover {
-		padding-left: 25px;
-		border-left: 6px solid #000;
-		border-bottom-color: #000;
-	}
-
-	.note-meta {
+	.section-title {
 		display: flex;
-		flex-direction: column;
-		gap: 8px;
-		font-family: ui-monospace, SFMono-Regular, monospace;
-	}
-
-	.index { 
-		font-size: 1rem; 
-		color: #000; 
+		align-items: baseline;
+		gap: 10px;
+		font-size: 1.5rem;
 		font-weight: 700;
-		letter-spacing: 0.1em;
-	}
-	
-	.index::before {
-		content: "NOTE ";
-		font-size: 0.65rem;
-		color: #999;
-		letter-spacing: 0.05em;
+		letter-spacing: -0.02em;
+		color: #000;
+		border-bottom: 2px solid #000;
+		padding-bottom: 14px;
+		margin-bottom: 8px;
 	}
 
-	.category-list { display: flex; flex-direction: column; gap: 4px; }
+	.section-count {
+		font-family: ui-monospace, SFMono-Regular, monospace;
+		font-size: 0.75rem;
+		color: #aaa;
+		font-weight: 400;
+	}
 
-	.category-label-static {
-		font-size: 0.65rem;
+	.level-group { margin-top: 22px; }
+	.level-group.hidden { display: none; }
+
+	.level-group-label {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 8px;
+	}
+
+	.level-pill-sm {
+		display: inline-block;
+		padding: 3px 10px;
+		border-radius: 999px;
+		font-size: 0.68rem;
 		font-weight: 800;
-		color: #bbb;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.03em;
 	}
 
-	.note-link { text-decoration: none !important; color: #000 !important; }
+	.level-n5 { background: #CFEEDA; color: #146B3A; }
+	.level-n4 { background: #D3E4FA; color: #1F4F97; }
+	.level-n3 { background: #E7D8F5; color: #6B2A98; }
+	.level-n2 { background: #FADFB8; color: #A65200; }
+	.level-n1 { background: #F6D2D9; color: #96132F; }
+	.level-topik1 { background: #F8E3B8; color: #8A5600; }
+	.level-topik2 { background: #F8D2BE; color: #A83415; }
 
-	h2 { font-size: 1.4rem; font-weight: 600; margin: 0 0 10px 0; line-height: 1.3; }
-	p { font-size: 1rem; color: #555; line-height: 1.5; }
+	.level-group-count { font-size: 0.72rem; color: #bbb; font-family: ui-monospace, SFMono-Regular, monospace; }
+
+	.toc-list { display: flex; flex-direction: column; }
+
+	.toc-row {
+		display: flex;
+		align-items: baseline;
+		gap: 14px;
+		padding: 11px 4px;
+		border-bottom: 1px solid #f2f2f2;
+		text-decoration: none !important;
+		border-radius: 6px;
+		transition: background 0.12s;
+	}
+	.toc-row:hover { background: #fafafa; }
+	.toc-row.hidden { display: none; }
+
+	.toc-num {
+		font-family: ui-monospace, SFMono-Regular, monospace;
+		font-size: 0.75rem;
+		color: #ccc;
+		width: 30px;
+		flex-shrink: 0;
+	}
+
+	.toc-title { font-size: 0.98rem; color: #222; }
+
+	.magazine-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
+		margin-top: 20px;
+	}
+
+	.mag-card {
+		display: block;
+		border: 1px solid #eee;
+		border-radius: 12px;
+		padding: 22px;
+		text-decoration: none !important;
+		transition: border-color 0.15s;
+	}
+	.mag-card:hover { border-color: #000; }
+	.mag-card.hidden { display: none; }
+
+	.mag-tag { font-size: 0.62rem; font-weight: 800; color: #bbb; letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
+	.mag-card h4 { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px 0; color: #000; line-height: 1.3; }
+	.mag-card p { font-size: 0.9rem; color: #666; line-height: 1.5; margin: 0; }
+
+	.empty-state {
+		display: none;
+		padding: 60px 0;
+		text-align: center;
+		color: #999;
+		font-size: 0.95rem;
+	}
+	.empty-state.visible { display: block; }
 
 	@media (max-width: 700px) {
-		.note-item { grid-template-columns: 1fr; gap: 15px; padding: 30px 0; }
-		.note-item:hover { padding-left: 15px; }
+		.magazine-grid { grid-template-columns: 1fr; }
 	}
 </style>

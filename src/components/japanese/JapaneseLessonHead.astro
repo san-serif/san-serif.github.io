@@ -45,12 +45,40 @@
     });
   };
 
-  window.speak = function (text) {
-    window.synth.cancel();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'ja-JP';
-    utter.rate = 0.85;
-    window.synth.speak(utter);
+  // Voices load asynchronously in some browsers (Chrome in particular), so
+  // anything that needs getVoices() to be populated waits on this first.
+  window._voicesReady = new Promise((resolve) => {
+    if (window.synth.getVoices().length) { resolve(); return; }
+    window.synth.onvoiceschanged = () => resolve();
+    setTimeout(resolve, 1000); // fallback in case the event never fires
+  });
+
+  // Prefers the higher-quality "Enhanced"/"Premium" system voices when a
+  // visitor's device happens to have them installed, falling back to
+  // whatever default Japanese voice is available otherwise. Most visitors
+  // won't have the enhanced voices downloaded, this is a best-effort
+  // upgrade, not a guarantee of natural-sounding speech.
+  window.getBestJapaneseVoice = function () {
+    const voices = window.synth.getVoices();
+    const preferredNames = ['O-Ren', 'O-Ren (Premium)', 'Otoya (Enhanced)', 'Kyoko (Enhanced)', 'Otoya (Premium)', 'Kyoko (Premium)', 'Otoya', 'Kyoko'];
+    for (const name of preferredNames) {
+      const match = voices.find(v => v.name === name);
+      if (match) return match;
+    }
+    return voices.find(v => v.lang && v.lang.startsWith('ja')) || null;
+  };
+
+  window.speak = function (text, onEnd) {
+    window._voicesReady.then(() => {
+      window.synth.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'ja-JP';
+      utter.rate = 0.85;
+      const voice = window.getBestJapaneseVoice();
+      if (voice) utter.voice = voice;
+      if (onEnd) utter.onend = onEnd;
+      window.synth.speak(utter);
+    });
   };
 
   window.speakActive = function (btn) {
@@ -62,31 +90,25 @@
   // kaku://new?text=   sends a sentence to a new, unfiled note in Kaku
   // kaku://word?text=  opens Kaku's dictionary sheet for a single word
   //
-  // iOS Safari has no reliable "is this app installed" API, so we navigate
-  // to the custom scheme and watch for the page being backgrounded
-  // (visibilitychange). If that never happens within ~1.5s, we assume Kaku
-  // isn't installed and fall back to its App Store page. This is a timing
-  // heuristic, not a guarantee: a slow app launch could still occasionally
-  // redirect to the App Store even though Kaku did open, since custom URL
-  // schemes on iOS Safari don't offer anything stronger than this.
-  const KAKU_APP_STORE_URL = 'https://apps.apple.com/au/app/japanese-notebook-kaku/id1515101339';
-
-  function openKakuDeepLink(deepLinkURL, fallbackURL) {
-    fallbackURL = fallbackURL || KAKU_APP_STORE_URL;
-    let didHide = false;
-    const onVisibilityChange = () => {
-      if (document.hidden) didHide = true;
-    };
-    document.addEventListener('visibilitychange', onVisibilityChange);
-
-    window.location.href = deepLinkURL;
-
-    setTimeout(() => {
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-      if (!didHide) {
-        window.location.href = fallbackURL;
-      }
-    }, 1500);
+  // The navigation goes through an invisible native <a> + click, not a
+  // direct window.location.href assignment — iOS Safari silently swallows
+  // the latter for custom schemes. (Same pattern as Sajeon's word/sentence
+  // links.)
+  //
+  // An earlier version also watched for visibilitychange and force-navigated
+  // to Kaku's App Store page if the tab never backgrounded within ~1.5s,
+  // guessing that meant Kaku wasn't installed. That signal isn't reliable
+  // enough on iOS Safari — it was firing the App Store fallback even when
+  // Kaku did open, on every click, regardless of install state — so it's
+  // gone. No App Store fallback at all now, matching Sajeon: if the app
+  // isn't installed, the tap silently does nothing rather than guessing
+  // wrong and yanking the user away from a page that actually worked.
+  function openKakuDeepLink(deepLinkURL) {
+    const tempLink = document.createElement('a');
+    tempLink.href = deepLinkURL;
+    document.body.appendChild(tempLink);
+    tempLink.click();
+    document.body.removeChild(tempLink);
   }
 
   window.openKakuSentence = function (sentence) {
@@ -117,7 +139,7 @@
 </script>
 
 <style is:global>
-  .app-header-controls { display: flex; align-items: center; gap: 16px; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
+  .app-header-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
   .segmented-control { display: flex; background: #f0f0f0; border-radius: 8px; padding: 2px; }
   .segment { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; background: none; border-radius: 6px; cursor: pointer; color: #888; font-size: 0.95rem; font-weight: 600; transition: 0.2s; }
   .segment.active { background: white; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
