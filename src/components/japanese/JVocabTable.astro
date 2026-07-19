@@ -1,0 +1,61 @@
+---
+// Vocabulary glossary table: word + furigana/romaji/off reading aid + TTS
+// on the left, English gloss on the right. Needs JapaneseLessonHead for
+// styles/window.speak/window.openKakuWord/window.toggleVocabTable. Rows
+// past VISIBLE_COUNT collapse behind a "show all" toggle so long tables
+// don't dominate the page by default.
+interface Word {
+  furigana: string; // bracket notation, e.g. "食[た]べる"
+  romaji: string;
+  english: string;
+}
+
+interface Props {
+  words: Word[];
+  heading?: string;
+}
+
+const { words, heading } = Astro.props;
+const VISIBLE_COUNT = 12;
+const hasMore = words.length > VISIBLE_COUNT;
+const tableId = `vocab-${Math.random().toString(36).slice(2, 9)}`;
+
+// Only a contiguous run of kanji immediately before [reading] becomes the
+// ruby base; kana, romaji, and punctuation around it are left untouched.
+const FURIGANA_PATTERN = /([一-鿿]+)\[([^\[\]]+)\]/g;
+---
+
+{heading && <h4 class="vocab-heading">{heading}</h4>}
+<table id={tableId} class="vocab-table">
+  <thead>
+    <tr>
+      <th align="left">Japanese</th>
+      <th align="left">English</th>
+    </tr>
+  </thead>
+  <tbody>
+    {words.map(({ furigana, romaji, english }, i) => {
+      const furiganaHtml = furigana.replace(FURIGANA_PATTERN, '<ruby>$1<rt>$2</rt></ruby>');
+      const plain = furigana.replace(FURIGANA_PATTERN, '$1');
+      return (
+        <tr class:list={['jp-dynamic-text', i >= VISIBLE_COUNT && 'vocab-hidden-row']} data-furigana-html={furiganaHtml} data-plain={plain} data-romaji={romaji}>
+          <td align="left">
+            <div class="jp-row">
+              <a href="javascript:void(0)" class="vocab-link reader-link" onclick="openKakuWordFromEl(this)" set:html={furiganaHtml} />
+              <button class="tts-btn" onclick="speakActive(this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+              </button>
+            </div>
+            <div class="rom"></div>
+          </td>
+          <td align="left">{english}</td>
+        </tr>
+      );
+    })}
+  </tbody>
+</table>
+{hasMore && (
+  <button class="vocab-toggle-btn" data-target={tableId} data-total={words.length} onclick="toggleVocabTable(this)">
+    Show all {words.length} words ↓
+  </button>
+)}
