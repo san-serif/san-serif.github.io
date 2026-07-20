@@ -1,10 +1,20 @@
 ---
 /* CULTURE NOTES - san serif
   - Grouped by content shape, not one flat list: language courses read as a
-    syllabus in curriculum order, Culture & Notes reads as a feed in
-    recency order. `order` means two different things depending on which
-    bucket a note is in, so each bucket sorts itself accordingly instead of
-    sharing one global sort control.
+    syllabus in curriculum order, Musings 수필 reads as a feed in recency
+    order. `order` means two different things depending on which bucket a
+    note is in, so each bucket sorts itself accordingly instead of sharing
+    one global sort control. Musings leads the page (not trailing after both
+    courses) since it's the one part of this page that's actually timely.
+  - Editorial index styling: no emoji, no "Course" label. Colour appears
+    once per level group, not smeared across every row — earned structure,
+    not decoration. Hairline rules lifted from about.astro.
+  - Nested filter tags: each language's level pills sit in the same row as
+    that language, and CULTURE/METHOD (Musings' two content types) sit
+    together in their own row — so the tag cloud's structure matches the
+    real parent/child relationship instead of flattening everything into
+    one list, which previously let someone combine e.g. JLPT N5 with
+    KOREAN into a guaranteed-empty result.
   - Dynamic Multi-Tag Filtering (client-side, AND semantics)
   - Live text search (client-side)
 */
@@ -13,54 +23,58 @@ import Layout from '../../layouts/Layout.astro';
 
 const notes = await getCollection('notes');
 
-// A note belongs to Culture & Notes if it's explicitly tagged CULTURE, or if
-// it has no language tag at all (general study-tips pieces, etc) — anything
-// that isn't a graded lesson in a language curriculum. Everything else
-// splits into its language's course by the JAPANESE/KOREAN tag.
-const isCulture = (n: typeof notes[number]) =>
-  n.data.category.includes('CULTURE') || !n.data.category.some(c => ['JAPANESE', 'KOREAN', 'CHINESE'].includes(c));
+// A note belongs to Musings 수필 if it's tagged CULTURE or METHOD, or if it
+// has no language tag at all — anything that isn't a graded note in a
+// language curriculum. Everything else splits into its language's section
+// by the JAPANESE/KOREAN tag.
+const isMusings = (n: typeof notes[number]) =>
+  n.data.category.includes('CULTURE') || n.data.category.includes('METHOD') ||
+  !n.data.category.some(c => ['JAPANESE', 'KOREAN', 'CHINESE'].includes(c));
 
-const japaneseNotes = notes.filter(n => n.data.category.includes('JAPANESE') && !isCulture(n));
-const koreanNotes = notes.filter(n => n.data.category.includes('KOREAN') && !isCulture(n));
-const cultureNotes = notes.filter(isCulture).sort((a, b) => b.data.order - a.data.order);
+const japaneseNotes = notes.filter(n => n.data.category.includes('JAPANESE') && !isMusings(n));
+const koreanNotes = notes.filter(n => n.data.category.includes('KOREAN') && !isMusings(n));
+const musingsNotes = notes.filter(isMusings).sort((a, b) => b.data.order - a.data.order);
 
 const LEVEL_ORDER = ['N5', 'N4', 'N3', 'N2', 'N1', 'TOPIK I', 'TOPIK II'];
 
-// Group a course's notes by level, in curriculum order (level order, then
+// Matches VocabTable's own collapse threshold elsewhere on the site — same
+// "Show all N ↓" pattern, not a new interaction. Only applies to the
+// default, unfiltered view; any active search or tag filter shows every
+// match regardless of this count.
+const VISIBLE_COUNT = 12;
+
+// Group a section's notes by level, in curriculum order (level order, then
 // ascending lesson order within each level) — the reading order you'd
 // actually work through, not publish order.
-function groupByLevel(courseNotes: typeof notes) {
-  const groups = LEVEL_ORDER
+function groupByLevel(sectionNotes: typeof notes) {
+  return LEVEL_ORDER
     .map(level => ({
       level,
-      notes: courseNotes
+      notes: sectionNotes
         .filter(n => n.data.level === level)
         .sort((a, b) => a.data.order - b.data.order),
     }))
     .filter(g => g.notes.length > 0);
-  return groups;
 }
 
 const japaneseGroups = groupByLevel(japaneseNotes);
 const koreanGroups = groupByLevel(koreanNotes);
 
-// Tag cloud, split into language/type and level rows. LEARN is deliberately
-// left out — it's on 169 of 170 notes and doesn't discriminate anything as
-// a filter.
-const LANGUAGE_TAGS = ['JAPANESE', 'KOREAN', 'CHINESE', 'CULTURE'];
 const allCategories = [...new Set(notes.flatMap(n => n.data.level ? [...n.data.category, n.data.level] : n.data.category))];
-const languageTags = LANGUAGE_TAGS.filter(t => allCategories.includes(t));
-const levelTags = LEVEL_ORDER.filter(t => allCategories.includes(t));
+const has = (tag: string) => allCategories.includes(tag);
+
+// "JLPT" only gets prefixed on the filter buttons, where N5 sits directly
+// next to TOPIK I and needs disambiguating. Inside a section already headed
+// "Japanese 日本語", a bare "N5" is unambiguous, so the in-page level labels
+// skip the prefix.
+const filterLevelLabel = (level: string) => level.startsWith('N') ? `JLPT ${level}` : level;
 
 const LEVEL_CLASSES: Record<string, string> = {
-  'N5': 'level-n5', 'N4': 'level-n4', 'N3': 'level-n3', 'N2': 'level-n2', 'N1': 'level-n1',
-  'TOPIK I': 'level-topik1', 'TOPIK II': 'level-topik2',
+	'N5': 'level-n5', 'N4': 'level-n4', 'N3': 'level-n3', 'N2': 'level-n2', 'N1': 'level-n1',
+	'TOPIK I': 'level-topik1', 'TOPIK II': 'level-topik2',
 };
-const levelClass = (level?: string) => level ? LEVEL_CLASSES[level] ?? '' : '';
-const levelLabel = (level?: string) => level?.startsWith('N') ? `JLPT ${level}` : level;
+const levelClass = (level: string) => LEVEL_CLASSES[level] ?? '';
 
-// data-category / data-search attributes shared by every row, course or
-// culture, so one filter/search script can run over both layouts at once.
 const rowCategory = (n: typeof notes[number]) =>
   (n.data.level ? [...n.data.category, n.data.level] : n.data.category).join(',').toLowerCase();
 const rowSearch = (n: typeof notes[number]) =>
@@ -81,92 +95,118 @@ const rowSearch = (n: typeof notes[number]) =>
 			</div>
 
 			<div class="controls-container">
-				<div class="filter-row">
-					<span class="control-label">LANGUAGE &amp; TYPE</span>
-					<div class="tag-cloud" id="tag-cloud-lang">
-						{languageTags.map(cat => (
-							<button class="filter-tag" data-tag={cat.toLowerCase()}>{cat}</button>
-						))}
-					</div>
-				</div>
+				<span class="control-label">LANGUAGE &amp; LEVEL</span>
 
-				<div class="filter-row">
-					<span class="control-label">LEVEL</span>
-					<div class="tag-cloud" id="tag-cloud-level">
-						{levelTags.map(lvl => (
-							<button class="filter-tag" data-tag={lvl.toLowerCase()}>{levelLabel(lvl)}</button>
+				{has('JAPANESE') && (
+					<div class="nested-filter-group">
+						<button class="filter-tag parent" data-tag="japanese">JAPANESE</button>
+						{(has('N5') || has('N4') || has('N3') || has('N2') || has('N1')) && <div class="filter-sep"></div>}
+						{LEVEL_ORDER.filter(l => l.startsWith('N') && has(l)).map(lvl => (
+							<button class="filter-tag child" data-tag={lvl.toLowerCase()}>{filterLevelLabel(lvl)}</button>
 						))}
 					</div>
-				</div>
+				)}
+
+				{has('KOREAN') && (
+					<div class="nested-filter-group">
+						<button class="filter-tag parent" data-tag="korean">KOREAN</button>
+						{(has('TOPIK I') || has('TOPIK II')) && <div class="filter-sep"></div>}
+						{LEVEL_ORDER.filter(l => l.startsWith('TOPIK') && has(l)).map(lvl => (
+							<button class="filter-tag child" data-tag={lvl.toLowerCase()}>{filterLevelLabel(lvl)}</button>
+						))}
+					</div>
+				)}
+
+				{(has('CULTURE') || has('METHOD')) && (
+					<div class="nested-filter-group">
+						{has('CULTURE') && <button class="filter-tag parent" data-tag="culture">CULTURE</button>}
+						{has('METHOD') && <button class="filter-tag parent" data-tag="method">METHOD</button>}
+					</div>
+				)}
 			</div>
 		</header>
 
-		<section class="course-section" id="section-japanese">
-			<div class="section-title">🇯🇵 Japanese Course <span class="section-count">{japaneseNotes.length} lessons</span></div>
-			{japaneseGroups.map(group => (
-				<div class="level-group" data-level-group={group.level.toLowerCase()}>
-					<div class="level-group-label">
-						<span class={`level-pill-sm ${levelClass(group.level)}`}>{levelLabel(group.level)}</span>
-						<span class="level-group-count">{group.notes.length} lessons</span>
-					</div>
-					<div class="toc-list">
-						{group.notes.map(note => (
-							<a
-								href={`/notes/${note.slug || note.id}`}
-								class="toc-row"
-								data-category={rowCategory(note)}
-								data-search={rowSearch(note)}
-							>
-								<span class="toc-num">{String(note.data.order).padStart(3, '0')}</span>
-								<span class="toc-title">{note.data.title}</span>
-							</a>
-						))}
-					</div>
-				</div>
-			))}
-		</section>
-
-		<section class="course-section" id="section-korean">
-			<div class="section-title">🇰🇷 Korean Course <span class="section-count">{koreanNotes.length} lessons</span></div>
-			{koreanGroups.map(group => (
-				<div class="level-group" data-level-group={group.level.toLowerCase()}>
-					<div class="level-group-label">
-						<span class={`level-pill-sm ${levelClass(group.level)}`}>{levelLabel(group.level)}</span>
-						<span class="level-group-count">{group.notes.length} lessons</span>
-					</div>
-					<div class="toc-list">
-						{group.notes.map(note => (
-							<a
-								href={`/notes/${note.slug || note.id}`}
-								class="toc-row"
-								data-category={rowCategory(note)}
-								data-search={rowSearch(note)}
-							>
-								<span class="toc-num">{String(note.data.order).padStart(3, '0')}</span>
-								<span class="toc-title">{note.data.title}</span>
-							</a>
-						))}
-					</div>
-				</div>
-			))}
-		</section>
-
-		<section class="culture-section" id="section-culture">
-			<div class="section-title">📝 Culture &amp; Notes <span class="section-count">{cultureNotes.length} {cultureNotes.length === 1 ? 'piece' : 'pieces'}</span></div>
-			<div class="magazine-grid" id="culture-grid">
-				{cultureNotes.map(note => (
+		<section class="idx-section" id="section-musings">
+			<div class="idx-lang-header">
+				<h2 class="idx-lang-title">Musings <span class="idx-lang-native">수필</span></h2>
+				<div class="idx-lang-meta" id="meta-musings" data-count={musingsNotes.length}>{musingsNotes.length} {musingsNotes.length === 1 ? 'piece' : 'pieces'} · newest first</div>
+			</div>
+			<div class="idx-misc-list">
+				{musingsNotes.map(note => (
 					<a
 						href={`/notes/${note.slug || note.id}`}
-						class="mag-card"
+						class="idx-misc-row"
 						data-category={rowCategory(note)}
 						data-search={rowSearch(note)}
 					>
-						<span class="mag-tag">{note.data.category.join(' · ')}</span>
+						<span class="idx-misc-tag">{note.data.category.join(' · ')}</span>
 						<h4>{note.data.title}</h4>
 						<p>{note.data.description}</p>
 					</a>
 				))}
 			</div>
+		</section>
+
+		<div class="idx-divider"></div>
+
+		<section class="idx-section" id="section-japanese">
+			<div class="idx-lang-header">
+				<h2 class="idx-lang-title">Japanese <span class="idx-lang-native">日本語</span></h2>
+				<div class="idx-lang-meta" id="meta-japanese">{japaneseNotes.length} notes · {japaneseGroups.map(g => g.level).join(' → ')}</div>
+			</div>
+			{japaneseGroups.map(group => (
+				<div class="idx-level-group" data-level-group={group.level.toLowerCase()}>
+					<span class={`idx-level-label ${levelClass(group.level)}`}>{group.level}</span>
+					<div class="idx-list">
+						{group.notes.map((note, i) => (
+							<a
+								href={`/notes/${note.slug || note.id}`}
+								class={`idx-row ${i >= VISIBLE_COUNT ? 'idx-row-extra' : ''}`}
+								data-category={rowCategory(note)}
+								data-search={rowSearch(note)}
+							>
+								<span class="idx-title">{note.data.title}</span>
+							</a>
+						))}
+					</div>
+					{group.notes.length > VISIBLE_COUNT && (
+						<button class="idx-show-toggle" data-total={group.notes.length} onclick="toggleLevelGroup(this)">
+							Show all {group.notes.length} →
+						</button>
+					)}
+				</div>
+			))}
+		</section>
+
+		<div class="idx-divider"></div>
+
+		<section class="idx-section" id="section-korean">
+			<div class="idx-lang-header">
+				<h2 class="idx-lang-title">Korean <span class="idx-lang-native">한국어</span></h2>
+				<div class="idx-lang-meta" id="meta-korean">{koreanNotes.length} notes · {koreanGroups.map(g => g.level).join(' → ')}</div>
+			</div>
+			{koreanGroups.map(group => (
+				<div class="idx-level-group" data-level-group={group.level.toLowerCase()}>
+					<span class={`idx-level-label ${levelClass(group.level)}`}>{group.level}</span>
+					<div class="idx-list">
+						{group.notes.map((note, i) => (
+							<a
+								href={`/notes/${note.slug || note.id}`}
+								class={`idx-row ${i >= VISIBLE_COUNT ? 'idx-row-extra' : ''}`}
+								data-category={rowCategory(note)}
+								data-search={rowSearch(note)}
+							>
+								<span class="idx-title">{note.data.title}</span>
+							</a>
+						))}
+					</div>
+					{group.notes.length > VISIBLE_COUNT && (
+						<button class="idx-show-toggle" data-total={group.notes.length} onclick="toggleLevelGroup(this)">
+							Show all {group.notes.length} →
+						</button>
+					)}
+				</div>
+			))}
 		</section>
 
 		<div class="empty-state" id="empty-state">No notes match this combination. Try clearing a tag or the search.</div>
@@ -177,11 +217,11 @@ const rowSearch = (n: typeof notes[number]) =>
 <script is:inline>
 	const searchInput = document.getElementById('search-input');
 	const emptyState = document.getElementById('empty-state');
-	const tocRows = Array.from(document.querySelectorAll('.toc-row'));
-	const magCards = Array.from(document.querySelectorAll('.mag-card'));
-	const allRows = [...tocRows, ...magCards];
-	const levelGroups = Array.from(document.querySelectorAll('.level-group'));
-	const sections = Array.from(document.querySelectorAll('.course-section, .culture-section'));
+	const idxRows = Array.from(document.querySelectorAll('.idx-row'));
+	const miscRows = Array.from(document.querySelectorAll('.idx-misc-row'));
+	const allRows = [...idxRows, ...miscRows];
+	const levelGroups = Array.from(document.querySelectorAll('.idx-level-group'));
+	const sections = Array.from(document.querySelectorAll('.idx-section'));
 	let activeTags = new Set();
 
 	document.querySelectorAll('.filter-tag').forEach(btn => {
@@ -200,34 +240,97 @@ const rowSearch = (n: typeof notes[number]) =>
 
 	searchInput.addEventListener('input', applyFilters);
 
+	// "Show all N →" per level-group, same collapse pattern VocabTable
+	// already uses elsewhere on the site. Expanding a group persists for
+	// the rest of the visit — it doesn't re-collapse just because a filter
+	// got cleared.
+	window.toggleLevelGroup = function (btn) {
+		const group = btn.closest('.idx-level-group');
+		const isOpen = group.classList.toggle('group-expanded');
+		btn.textContent = isOpen ? 'Show fewer ↑' : `Show all ${btn.dataset.total} →`;
+		applyFilters();
+	};
+
 	function applyFilters() {
 		const query = searchInput.value.trim().toLowerCase();
+		const filtersActive = activeTags.size > 0 || query !== '';
 		let visibleTotal = 0;
 
 		allRows.forEach(row => {
 			const rowTags = row.getAttribute('data-category').split(',');
 			const matchesTags = [...activeTags].every(t => rowTags.includes(t));
 			const matchesSearch = query === '' || row.getAttribute('data-search').includes(query);
-			const isVisible = matchesTags && matchesSearch;
+			// "filtered-out" tracks whether a row belongs in this section at
+			// all — used for the meta count, which should keep describing
+			// the true total even while truncation hides most of it. "hidden"
+			// is the actual display toggle: filtered out OR (truncated and
+			// its group hasn't been expanded).
+			const matchesFilter = matchesTags && matchesSearch;
+			row.classList.toggle('filtered-out', !matchesFilter);
+
+			const group = row.closest('.idx-level-group');
+			const isExtra = row.classList.contains('idx-row-extra');
+			const groupExpanded = !group || group.classList.contains('group-expanded');
+			const truncated = !filtersActive && isExtra && !groupExpanded;
+			const isVisible = matchesFilter && !truncated;
 			row.classList.toggle('hidden', !isVisible);
 			if (isVisible) visibleTotal++;
 		});
 
-		// Collapse level-groups and whole sections once every row inside them
-		// is filtered out, so readers don't hit an orphaned "JLPT N5" header
-		// sitting above nothing.
+		document.querySelectorAll('.idx-show-toggle').forEach(btn => {
+			btn.classList.toggle('hidden', filtersActive);
+		});
+
+		// Collapse level-groups and whole sections once nothing inside them
+		// matches the filter, so readers don't hit an orphaned "N5" header
+		// sitting above nothing. Based on filter match, not truncation — a
+		// group with all its extra rows collapsed still has real matches.
 		levelGroups.forEach(group => {
-			const hasVisible = Array.from(group.querySelectorAll('.toc-row')).some(r => !r.classList.contains('hidden'));
-			group.classList.toggle('hidden', !hasVisible);
+			const hasMatch = Array.from(group.querySelectorAll('.idx-row')).some(r => !r.classList.contains('filtered-out'));
+			group.classList.toggle('hidden', !hasMatch);
 		});
 
 		sections.forEach(section => {
-			const hasVisible = Array.from(section.querySelectorAll('.toc-row, .mag-card')).some(r => !r.classList.contains('hidden'));
-			section.classList.toggle('hidden', !hasVisible);
+			const hasMatch = Array.from(section.querySelectorAll('.idx-row, .idx-misc-row')).some(r => !r.classList.contains('filtered-out'));
+			section.classList.toggle('hidden', !hasMatch);
 		});
 
+		updateMeta();
 		emptyState.classList.toggle('visible', visibleTotal === 0);
 	}
+
+	// The "114 notes · N5 → N4" line under each language heading is static
+	// server-rendered text — it has to be recomputed here on every filter
+	// change, or it keeps describing the unfiltered set while the list below
+	// it shows something else entirely.
+	function updateMeta() {
+		const japaneseMeta = document.getElementById('meta-japanese');
+		const koreanMeta = document.getElementById('meta-korean');
+		const musingsMeta = document.getElementById('meta-musings');
+
+		// Counts by filter match, not DOM visibility — truncation hides rows
+		// on screen without removing them from what this section "contains",
+		// so the count shouldn't drop just because a group is collapsed.
+		function describe(sectionEl) {
+			const matchingRows = Array.from(sectionEl.querySelectorAll('.idx-row')).filter(r => !r.classList.contains('filtered-out'));
+			const matchingLevels = Array.from(sectionEl.querySelectorAll('.idx-level-group'))
+				.filter(g => !g.classList.contains('hidden'))
+				.map(g => g.getAttribute('data-level-group').toUpperCase());
+			const levelText = matchingLevels.length ? ` · ${matchingLevels.join(' → ')}` : '';
+			return `${matchingRows.length} note${matchingRows.length === 1 ? '' : 's'}${levelText}`;
+		}
+
+		japaneseMeta.textContent = describe(document.getElementById('section-japanese'));
+		koreanMeta.textContent = describe(document.getElementById('section-korean'));
+
+		const matchingMisc = Array.from(document.querySelectorAll('.idx-misc-row')).filter(r => !r.classList.contains('filtered-out'));
+		musingsMeta.textContent = `${matchingMisc.length} ${matchingMisc.length === 1 ? 'piece' : 'pieces'} · newest first`;
+	}
+
+	// Establishes the truncated default view on load — without this, every
+	// row (including the ones past VISIBLE_COUNT) would render fully open
+	// until the first filter/search interaction.
+	applyFilters();
 </script>
 
 <style>
@@ -274,21 +377,31 @@ const rowSearch = (n: typeof notes[number]) =>
 	.controls-container {
 		border-top: 1px solid #eee;
 		padding: 20px 0 4px;
-		display: flex;
-		flex-direction: column;
-		gap: 16px;
 	}
-
-	.filter-row { display: flex; flex-direction: column; gap: 8px; }
 
 	.control-label {
 		font-family: ui-monospace, SFMono-Regular, monospace;
 		font-size: 0.7rem;
 		color: #999;
 		letter-spacing: 0.05em;
+		display: block;
+		margin-bottom: 10px;
 	}
 
-	.tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+	.nested-filter-group {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-bottom: 10px;
+	}
+
+	.filter-sep {
+		width: 1px;
+		height: 16px;
+		background: #ddd;
+		margin: 0 2px;
+	}
 
 	.filter-tag {
 		background: none;
@@ -298,54 +411,62 @@ const rowSearch = (n: typeof notes[number]) =>
 		font-size: 0.7rem;
 		font-weight: 700;
 		cursor: pointer;
-		transition: all 0.2s;
+		transition: all 0.15s;
 		color: #666;
 		font-family: inherit;
 	}
-
 	.filter-tag:hover { border-color: #000; color: #000; }
 	.filter-tag.active { background: #000; color: #fff; border-color: #000; }
 
-	.course-section, .culture-section { margin-top: 52px; }
-	.course-section.hidden, .culture-section.hidden { display: none; }
+	.filter-tag.parent { border-width: 1.5px; border-color: #ccc; color: #333; }
+	.filter-tag.parent:hover { border-color: #000; }
+	.filter-tag.parent.active { background: #000; color: #fff; border-color: #000; }
 
-	.section-title {
-		display: flex;
-		align-items: baseline;
-		gap: 10px;
-		font-size: 1.5rem;
+	.filter-tag.child { font-weight: 600; padding: 5px 12px; color: #999; border-color: #f0f0f0; }
+	.filter-tag.child:hover { border-color: #000; color: #000; }
+	.filter-tag.child.active { background: #000; color: #fff; border-color: #000; }
+
+	.idx-section { margin-top: 12px; }
+	.idx-section.hidden { display: none; }
+
+	.idx-divider { height: 1px; background: #eee; margin: 48px 0; }
+
+	.idx-lang-header { margin-bottom: 8px; }
+
+	.idx-lang-title {
+		font-size: 1.9rem;
 		font-weight: 700;
-		letter-spacing: -0.02em;
+		letter-spacing: -0.03em;
 		color: #000;
-		border-bottom: 2px solid #000;
-		padding-bottom: 14px;
-		margin-bottom: 8px;
+		margin: 0;
 	}
 
-	.section-count {
+	.idx-lang-native {
+		font-size: 1.9rem;
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: #999;
+	}
+
+	.idx-lang-meta {
 		font-family: ui-monospace, SFMono-Regular, monospace;
-		font-size: 0.75rem;
-		color: #aaa;
-		font-weight: 400;
+		font-size: 0.78rem;
+		color: #bbb;
+		margin-top: 6px;
+		letter-spacing: 0.02em;
 	}
 
-	.level-group { margin-top: 22px; }
-	.level-group.hidden { display: none; }
+	.idx-level-group { margin-top: 30px; }
+	.idx-level-group.hidden { display: none; }
 
-	.level-group-label {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		margin-bottom: 8px;
-	}
-
-	.level-pill-sm {
+	.idx-level-label {
 		display: inline-block;
 		padding: 3px 10px;
 		border-radius: 999px;
 		font-size: 0.68rem;
 		font-weight: 800;
-		letter-spacing: 0.03em;
+		letter-spacing: 0.05em;
+		margin-bottom: 12px;
 	}
 
 	.level-n5 { background: #CFEEDA; color: #146B3A; }
@@ -356,54 +477,59 @@ const rowSearch = (n: typeof notes[number]) =>
 	.level-topik1 { background: #F8E3B8; color: #8A5600; }
 	.level-topik2 { background: #F8D2BE; color: #A83415; }
 
-	.level-group-count { font-size: 0.72rem; color: #bbb; font-family: ui-monospace, SFMono-Regular, monospace; }
+	.idx-list { display: flex; flex-direction: column; }
 
-	.toc-list { display: flex; flex-direction: column; }
-
-	.toc-row {
-		display: flex;
-		align-items: baseline;
-		gap: 14px;
-		padding: 11px 4px;
-		border-bottom: 1px solid #f2f2f2;
+	.idx-row {
+		display: block;
+		padding: 8px 4px;
 		text-decoration: none !important;
+		color: inherit;
 		border-radius: 6px;
 		transition: background 0.12s;
 	}
-	.toc-row:hover { background: #fafafa; }
-	.toc-row.hidden { display: none; }
+	.idx-row:hover { background: #fafafa; }
+	.idx-row.hidden { display: none; }
 
-	.toc-num {
-		font-family: ui-monospace, SFMono-Regular, monospace;
-		font-size: 0.75rem;
-		color: #ccc;
-		width: 30px;
-		flex-shrink: 0;
+	.idx-title {
+		font-size: 1rem;
+		color: #222;
+		transition: color 0.12s;
 	}
+	.idx-row:hover .idx-title { color: #000; text-decoration: underline; text-decoration-color: #ccc; text-underline-offset: 3px; }
 
-	.toc-title { font-size: 0.98rem; color: #222; }
-
-	.magazine-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 16px;
-		margin-top: 20px;
-	}
-
-	.mag-card {
+	.idx-show-toggle {
 		display: block;
-		border: 1px solid #eee;
-		border-radius: 12px;
-		padding: 22px;
-		text-decoration: none !important;
-		transition: border-color 0.15s;
+		margin: 10px 0 0 4px;
+		padding: 0;
+		background: none;
+		border: none;
+		font-family: inherit;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: #999;
+		cursor: pointer;
+		transition: color 0.15s;
 	}
-	.mag-card:hover { border-color: #000; }
-	.mag-card.hidden { display: none; }
+	.idx-show-toggle:hover { color: #000; }
+	.idx-show-toggle.hidden { display: none; }
 
-	.mag-tag { font-size: 0.62rem; font-weight: 800; color: #bbb; letter-spacing: 0.1em; margin-bottom: 8px; display: block; }
-	.mag-card h4 { font-size: 1.15rem; font-weight: 600; margin: 0 0 8px 0; color: #000; line-height: 1.3; }
-	.mag-card p { font-size: 0.9rem; color: #666; line-height: 1.5; margin: 0; }
+	.idx-misc-list { margin-top: 20px; }
+
+	.idx-misc-row {
+		display: block;
+		text-decoration: none !important;
+		padding: 18px 4px;
+		border-bottom: 1px solid #f5f5f5;
+		border-radius: 6px;
+		transition: background 0.12s;
+	}
+	.idx-misc-row:last-child { border-bottom: none; }
+	.idx-misc-row:hover { background: #fafafa; }
+	.idx-misc-row.hidden { display: none; }
+
+	.idx-misc-tag { font-size: 0.65rem; font-weight: 800; color: #bbb; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; display: block; }
+	.idx-misc-row h4 { font-size: 1.15rem; font-weight: 600; margin: 0 0 6px 0; color: #000; }
+	.idx-misc-row p { font-size: 0.92rem; color: #666; line-height: 1.55; margin: 0; max-width: 60ch; }
 
 	.empty-state {
 		display: none;
@@ -413,8 +539,4 @@ const rowSearch = (n: typeof notes[number]) =>
 		font-size: 0.95rem;
 	}
 	.empty-state.visible { display: block; }
-
-	@media (max-width: 700px) {
-		.magazine-grid { grid-template-columns: 1fr; }
-	}
 </style>

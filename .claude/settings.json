@@ -52,7 +52,18 @@
       "Bash(say -v '?')",
       "Bash(node checkvoices.mjs)",
       "Skill(artifact-design)",
-      "Skill(artifact-design:*)"
+      "Skill(artifact-design:*)",
+      "Bash(ls /Users/dshum/Documents/GitHub/san-serif.github.io/node_modules/.bin/ 2>/dev/null | grep -i playwright *)",
+      "Read(//Users/dshum/Library/Caches/ms-playwright/**)",
+      "Bash(node -e \"require.resolve\\('playwright'\\)\")",
+      "Bash(npx --yes playwright screenshot --viewport-size=1280,2400 --full-page http://localhost:4322/notes /tmp/notes-screenshot.png)",
+      "Bash(npx --yes serve dist -p 4402)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1280,1400 http://localhost:4402/notes /tmp/notes-final.png)",
+      "Bash(npx --yes -p playwright node /tmp/test-filter.js)",
+      "Bash(mkdir -p /private/tmp/claude-501/-Users-dshum-Documents-GitHub-san-serif-github-io/3c64533d-b9ee-428b-b573-b045e2a8c83b/scratchpad/pw-test)",
+      "Bash(xargs kill)",
+      "Bash(npx --yes serve dist -p 4404)",
+      "Bash(mkdir -p /tmp/pw2)"
     ]
   }
 }
