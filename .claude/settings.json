@@ -63,7 +63,18 @@
       "Bash(mkdir -p /private/tmp/claude-501/-Users-dshum-Documents-GitHub-san-serif-github-io/3c64533d-b9ee-428b-b573-b045e2a8c83b/scratchpad/pw-test)",
       "Bash(xargs kill)",
       "Bash(npx --yes serve dist -p 4404)",
-      "Bash(mkdir -p /tmp/pw2)"
+      "Bash(mkdir -p /tmp/pw2)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1280,700 http://localhost:4405/notes/left-that-way /tmp/note-page-final.png)",
+      "Bash(rm -rf /tmp/pw3)",
+      "Bash(grep -v '\\)\"$')",
+      "Bash(npx --yes serve dist -p 4406)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1280,850 http://localhost:4406/notes/give-and-take /tmp/title-check.png)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1280,700 http://localhost:4406/notes/give-and-take /tmp/title-check2.png)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1280,900 http://localhost:4406/notes /tmp/index-title-check.png)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1280,1600 http://localhost:4406/notes /tmp/index-title-check2.png)",
+      "Bash(npx --yes serve dist -p 4407)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1280,900 http://localhost:4407/notes/left-that-way /tmp/nav-detail-check.png)",
+      "Bash(npx --yes playwright screenshot --viewport-size=1280,900 --full-page http://localhost:4407/notes/left-that-way /tmp/nav-detail-full.png)"
     ]
   }
 }

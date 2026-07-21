@@ -1,17 +1,40 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import { isMusings, courseSequence, parseTitle } from '../../lib/notesGrouping';
 
 export async function getStaticPaths() {
 	const notes = await getCollection('notes');
+	const japaneseSequence = courseSequence(notes, 'JAPANESE');
+	const koreanSequence = courseSequence(notes, 'KOREAN');
+
+	// Previous/Next walks the curriculum in the same order the /notes index
+	// lists it in — level order, then ascending lesson order — not raw
+	// creation order, so "next" always means the next thing to actually
+	// study, never a jump into a different language or level.
+	function sequenceInfo(entry: typeof notes[number]) {
+		if (isMusings(entry)) return { prevNote: null, nextNote: null, position: null, total: null };
+		const sequence = entry.data.category.includes('JAPANESE') ? japaneseSequence
+			: entry.data.category.includes('KOREAN') ? koreanSequence
+			: null;
+		if (!sequence) return { prevNote: null, nextNote: null, position: null, total: null };
+		const index = sequence.findIndex(n => n.id === entry.id);
+		return {
+			prevNote: index > 0 ? sequence[index - 1] : null,
+			nextNote: index < sequence.length - 1 ? sequence[index + 1] : null,
+			position: index + 1,
+			total: sequence.length,
+		};
+	}
+
 	return notes.map(entry => ({
 		// Using slug for cleaner URLs, falling back to ID
-		params: { slug: entry.slug || entry.id }, 
-		props: { entry },
+		params: { slug: entry.slug || entry.id },
+		props: { entry, ...sequenceInfo(entry) },
 	}));
 }
 
-const { entry } = Astro.props;
+const { entry, prevNote, nextNote, position, total } = Astro.props;
 const { Content } = await render(entry);
 
 const LEVEL_CLASSES: Record<string, string> = {
@@ -20,23 +43,31 @@ const LEVEL_CLASSES: Record<string, string> = {
 };
 const levelClass = entry.data.level ? LEVEL_CLASSES[entry.data.level] ?? '' : '';
 const levelLabel = entry.data.level?.startsWith('N') ? `JLPT ${entry.data.level}` : entry.data.level;
+
+const title = parseTitle(entry.data.title);
+const prevTitle = prevNote ? parseTitle(prevNote.data.title) : { main: '', detail: null };
+const nextTitle = nextNote ? parseTitle(nextNote.data.title) : { main: '', detail: null };
 ---
 
 <Layout title={`${entry.data.title} | san serif`} description={entry.data.description}>
 	<main class="wrapper">
+		<a href="/notes" class="back-link">← Back to Notes</a>
+
 		<article class="post">
 			<header class="post-header">
-				{/* Category and Note Order index */}
+				{/* Category, and — for course lessons — position within the
+				    curriculum. A raw "Note 85" told a reader nothing about
+				    where they were in the syllabus; "12 of 78" does. */}
 				<div class="type-row">
-					<span class="type">
-						{entry.data.category ? `${entry.data.category.join(' + ')} / ` : ''}
-						{entry.data.order ? `Note ${entry.data.order}` : ''}
-					</span>
+					<span class="type">{[
+						entry.data.category?.join(' + '),
+						position && total ? `${position} of ${total}` : null,
+					].filter(Boolean).join(' / ')}</span>
 					{entry.data.level && <span class={`level-badge ${levelClass}`}>{levelLabel}</span>}
 				</div>
 
-				<h1>{entry.data.title}</h1>
-				
+				<h1>{title.main}{title.detail && <span class="title-detail"> {title.detail}</span>}</h1>
+
 				{/* Tags Array */}
 				{entry.data.tags && entry.data.tags.length > 0 && (
 					<div class="tags">
@@ -46,17 +77,47 @@ const levelLabel = entry.data.level?.startsWith('N') ? `JLPT ${entry.data.level}
 					</div>
 				)}
 			</header>
-			
+
 			<section class="analysis">
 				<Content />
 			</section>
+
+			{(prevNote || nextNote) && (
+				<nav class="lesson-nav">
+					{prevNote ? (
+						<a href={`/notes/${prevNote.slug || prevNote.id}`} class="lesson-nav-link prev">
+							<span class="lesson-nav-label">← Previous</span>
+							<span class="lesson-nav-title">{prevTitle.main}</span>
+							{prevTitle.detail && <span class="lesson-nav-detail">{prevTitle.detail}</span>}
+						</a>
+					) : <span class="lesson-nav-spacer"></span>}
+					{nextNote && (
+						<a href={`/notes/${nextNote.slug || nextNote.id}`} class="lesson-nav-link next">
+							<span class="lesson-nav-label">Next →</span>
+							<span class="lesson-nav-title">{nextTitle.main}</span>
+							{nextTitle.detail && <span class="lesson-nav-detail">{nextTitle.detail}</span>}
+						</a>
+					)}
+				</nav>
+			)}
 		</article>
 	</main>
 </Layout>
 
 <style>
 	.wrapper { max-width: 750px; margin: 0 auto; padding: 40px 20px 100px; }
-	
+
+	.back-link {
+		display: inline-block;
+		font-size: 0.85rem;
+		font-weight: 600;
+		color: #999;
+		text-decoration: none;
+		margin-bottom: 32px;
+		transition: color 0.15s;
+	}
+	.back-link:hover { color: #000; }
+
 	.post-header { margin-bottom: 60px; }
 	
 	.type-row {
@@ -81,6 +142,20 @@ const levelLabel = entry.data.level?.startsWith('N') ? `JLPT ${entry.data.level}
 		line-height: 1.1;
 		margin: 0 0 20px 0;
 		color: #000;
+	}
+
+	/* The grammar point's original script — kept, just carrying less visual
+	   weight than the English title. Colour alone wasn't enough at H1 size:
+	   even light grey, matching the 3rem headline size meant it still
+	   dominated by sheer bulk and wrapped onto its own line. Scaling it down
+	   reads as a caption on the title, not a second headline fighting it. */
+	.title-detail {
+		display: block;
+		font-size: 1.4rem;
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		color: #bbb;
+		margin-top: 6px;
 	}
 
 	.level-badge {
@@ -154,4 +229,51 @@ const levelLabel = entry.data.level?.startsWith('N') ? `JLPT ${entry.data.level}
 	.analysis :global(table) { width: 100%; border-collapse: collapse; margin: 2rem 0; }
 	.analysis :global(th) { text-align: left; font-size: 0.8rem; text-transform: uppercase; color: #999; padding: 12px; border-bottom: 1px solid #eee; }
 	.analysis :global(td) { padding: 12px; border-bottom: 1px solid #eee; font-size: 1rem; }
+
+	/* PREVIOUS / NEXT LESSON NAV */
+	.lesson-nav {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 20px;
+		margin-top: 5rem;
+		padding-top: 2rem;
+		border-top: 1px solid #eaeaea;
+	}
+
+	.lesson-nav-link {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		text-decoration: none !important;
+		padding: 16px;
+		border-radius: 10px;
+		transition: background 0.15s;
+	}
+	.lesson-nav-link:hover { background: #fafafa; }
+	.lesson-nav-link.next { text-align: right; align-items: flex-end; grid-column: 2; }
+	.lesson-nav-spacer { grid-column: 1; }
+
+	.lesson-nav-label {
+		font-size: 0.7rem;
+		font-weight: 800;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		color: #999;
+	}
+
+	.lesson-nav-title {
+		font-size: 1rem;
+		font-weight: 600;
+		color: #000;
+	}
+
+	.lesson-nav-detail {
+		font-size: 0.85rem;
+		color: #555;
+	}
+
+	@media (max-width: 600px) {
+		.lesson-nav { grid-template-columns: 1fr; }
+		.lesson-nav-link.next { text-align: left; align-items: flex-start; grid-column: 1; }
+	}
 </style>
