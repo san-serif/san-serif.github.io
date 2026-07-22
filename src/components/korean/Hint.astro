@@ -3,11 +3,27 @@
 // above in real speech, as opposed to the textbook rule. Styled as a
 // left-bordered aside to match the site's existing blockquote treatment,
 // rather than a boxed-in callout with its own background color.
-// Usage in an .mdx lesson: <Hint>Some insight about real usage.</Hint>
+//
+// type="mistake" is the same minimal shape with a second voice: for the
+// moment a lesson calls out a specific, common learner error (wrong
+// particle, wrong verb, etc) rather than general usage insight. It only
+// swaps the label text — an earlier version also recoloured the border
+// into warm orange, borrowed from the JLPT N2 badge, but that colour is
+// earned there (a wayfinding badge) and wasn't earned here; reusing it for
+// an unrelated purpose just looked like it didn't belong on the page.
+//
+// Usage: <Hint>Some insight about real usage.</Hint>
+//        <Hint type="mistake">A specific error learners actually make.</Hint>
+interface Props {
+  type?: 'insight' | 'mistake';
+}
+
+const { type = 'insight' } = Astro.props;
+const label = type === 'mistake' ? 'Watch Out' : 'In Real Life';
 ---
 
-<div class="hint-box">
-  <div class="hint-label">In Real Life</div>
+<div class={`hint-box ${type}`}>
+  <div class="hint-label">{label}</div>
   <div class="hint-content"><slot /></div>
 </div>
 
@@ -25,6 +41,7 @@
     color: #999;
     margin-bottom: 6px;
   }
+
   .hint-content { font-size: 0.95rem; line-height: 1.65; color: #555; font-style: italic; }
   .hint-content :global(p) { margin: 0; }
   .hint-content :global(strong) { color: #222; }

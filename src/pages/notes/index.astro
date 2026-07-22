@@ -121,7 +121,7 @@ const rowSearch = (n: typeof notes[number]) =>
 			</div>
 		</section>
 
-		<div class="idx-divider"></div>
+		<div class="idx-divider" id="divider-musings-japanese" data-before="section-musings" data-after="section-japanese"></div>
 
 		<section class="idx-section" id="section-japanese">
 			<div class="idx-lang-header">
@@ -155,7 +155,7 @@ const rowSearch = (n: typeof notes[number]) =>
 			))}
 		</section>
 
-		<div class="idx-divider"></div>
+		<div class="idx-divider" id="divider-japanese-korean" data-before="section-japanese" data-after="section-korean"></div>
 
 		<section class="idx-section" id="section-korean">
 			<div class="idx-lang-header">
@@ -202,6 +202,7 @@ const rowSearch = (n: typeof notes[number]) =>
 	const allRows = [...idxRows, ...miscRows];
 	const levelGroups = Array.from(document.querySelectorAll('.idx-level-group'));
 	const sections = Array.from(document.querySelectorAll('.idx-section'));
+	const dividers = Array.from(document.querySelectorAll('.idx-divider'));
 	let activeTags = new Set();
 
 	document.querySelectorAll('.filter-tag').forEach(btn => {
@@ -295,6 +296,16 @@ const rowSearch = (n: typeof notes[number]) =>
 		sections.forEach(section => {
 			const hasMatch = Array.from(section.querySelectorAll('.idx-row, .idx-misc-row')).some(r => !r.classList.contains('filtered-out'));
 			section.classList.toggle('hidden', !hasMatch);
+		});
+
+		// A divider is only doing its job if there's a visible section on
+		// both sides of it — otherwise it's just a stray line sitting above
+		// or below empty space.
+		dividers.forEach(divider => {
+			const before = document.getElementById(divider.dataset.before);
+			const after = document.getElementById(divider.dataset.after);
+			const bothVisible = before && after && !before.classList.contains('hidden') && !after.classList.contains('hidden');
+			divider.classList.toggle('hidden', !bothVisible);
 		});
 
 		updateMeta();
@@ -433,6 +444,7 @@ const rowSearch = (n: typeof notes[number]) =>
 	.idx-section.hidden { display: none; }
 
 	.idx-divider { height: 1px; background: #eee; margin: 48px 0; }
+	.idx-divider.hidden { display: none; }
 
 	.idx-lang-header { margin-bottom: 8px; }
 

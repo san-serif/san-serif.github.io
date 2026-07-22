@@ -145,17 +145,18 @@ const nextTitle = nextNote ? parseTitle(nextNote.data.title) : { main: '', detai
 	}
 
 	/* The grammar point's original script — kept, just carrying less visual
-	   weight than the English title. Colour alone wasn't enough at H1 size:
-	   even light grey, matching the 3rem headline size meant it still
-	   dominated by sheer bulk and wrapped onto its own line. Scaling it down
-	   reads as a caption on the title, not a second headline fighting it. */
+	   weight than the English title. Hierarchy comes from weight as well as
+	   size now, not size and colour alone — bold-but-shrunken-and-faded read
+	   as an afterthought rather than a considered subtitle, and shrinking it
+	   too far made the CJK/Hangul characters (already visually denser than
+	   Latin letters at an equivalent size) look disproportionately small. */
 	.title-detail {
 		display: block;
-		font-size: 1.4rem;
-		font-weight: 700;
-		letter-spacing: -0.02em;
-		color: #bbb;
-		margin-top: 6px;
+		font-size: 1.8rem;
+		font-weight: 500;
+		letter-spacing: -0.01em;
+		color: #999;
+		margin-top: 8px;
 	}
 
 	.level-badge {
