@@ -8,6 +8,23 @@ const {
 
 const canonicalURL = new URL(pathname, Astro.site);
 const ogImageURL = new URL(image, Astro.site);
+const logoURL = new URL('/sanserif.jpg', Astro.site);
+
+// Organization identity, not per-page content — same on every page so
+// Google/AI crawlers have one consistent, machine-readable answer to "who
+// is san serif," rather than inferring it solely from prose. This is the
+// direct lever for disambiguating the brand from the generic typography
+// term "sans serif" — backlinks and branded search do the rest over time,
+// but this is the part a single site change can actually contribute.
+const organizationSchema = {
+	"@context": "https://schema.org",
+	"@type": "Organization",
+	name: "san serif",
+	url: Astro.site?.toString(),
+	logo: logoURL.toString(),
+	description: "Independent studio building high-utility Apple-native apps for learning Korean, Japanese, and Chinese, plus culture notes on the languages themselves.",
+	sameAs: ["https://x.com/sanserif_studio"],
+};
 
 // SMART NAV STATE
 const isHome =
@@ -38,6 +55,8 @@ const isAbout = pathname.startsWith("/about");
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImageURL} />
+
+		<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} is:inline />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
