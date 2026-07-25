@@ -58,6 +58,10 @@ const isAbout = pathname.startsWith("/about");
 
 		<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} is:inline />
 
+		<!-- Cloudflare Web Analytics -->
+		<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "700489b2a11741ef8b56d44a703ce7b3"}' is:inline></script>
+		<!-- End Cloudflare Web Analytics -->
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
