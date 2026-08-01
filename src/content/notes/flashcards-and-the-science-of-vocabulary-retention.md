@@ -3,6 +3,7 @@ title: "Flashcards and the Science of Vocabulary Retention"
 order: 1
 description: "Why Spaced Repetition Systems (SRS) and active recall are the only ways to beat the memory loss effect."
 category: ["GUIDES"]
+thumbnail: "/images/tokei-front.png"
 ---
 
 Learning a language often feels like trying to fill a bucket with a hole in the bottom. You pour in new words, but by the next morning, most of them have leaked out. In cognitive science, this is known as the Forgetting Curve. 
