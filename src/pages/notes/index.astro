@@ -113,14 +113,14 @@ const rowSearch = (n: typeof notes[number]) =>
 						data-category={rowCategory(note)}
 						data-search={rowSearch(note)}
 					>
+						{note.data.thumbnail && (
+							<img src={note.data.thumbnail} alt="" class="idx-misc-thumb" loading="lazy" />
+						)}
 						<div class="idx-misc-content">
 							<span class="idx-misc-tag">{note.data.category.join(' · ')}</span>
 							<h4>{note.data.title}</h4>
 							<p>{note.data.description}</p>
 						</div>
-						{note.data.thumbnail && (
-							<img src={note.data.thumbnail} alt="" class="idx-misc-thumb" loading="lazy" />
-						)}
 					</a>
 				))}
 			</div>
@@ -543,10 +543,9 @@ const rowSearch = (n: typeof notes[number]) =>
 	.idx-misc-row {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
 		gap: 24px;
 		text-decoration: none !important;
-		padding: 18px 4px;
+		padding: 20px 4px;
 		border-bottom: 1px solid #f5f5f5;
 		border-radius: 6px;
 		transition: background 0.12s;
@@ -562,16 +561,16 @@ const rowSearch = (n: typeof notes[number]) =>
 	.idx-misc-row p { font-size: 0.92rem; color: #666; line-height: 1.55; margin: 0; max-width: 60ch; }
 
 	.idx-misc-thumb {
-		width: 84px;
-		height: 84px;
+		width: 180px;
+		height: 130px;
 		object-fit: cover;
-		border-radius: 8px;
+		border-radius: 10px;
 		flex-shrink: 0;
 		background: #f5f5f5;
 	}
 
 	@media (max-width: 600px) {
-		.idx-misc-thumb { width: 60px; height: 60px; }
+		.idx-misc-thumb { width: 96px; height: 96px; }
 	}
 
 	.empty-state {
