@@ -113,12 +113,12 @@ const rowSearch = (n: typeof notes[number]) =>
 						data-category={rowCategory(note)}
 						data-search={rowSearch(note)}
 					>
-						{note.data.thumbnail && (
-							<img src={note.data.thumbnail} alt="" class="idx-misc-thumb" loading="lazy" />
-						)}
 						<div class="idx-misc-content">
 							<span class="idx-misc-tag">{note.data.category.join(' · ')}</span>
 							<h4>{note.data.title}</h4>
+							{note.data.thumbnail && (
+								<img src={note.data.thumbnail} alt="" class="idx-misc-thumb" loading="lazy" />
+							)}
 							<p>{note.data.description}</p>
 							<span class="idx-misc-cta">Read note →</span>
 						</div>
@@ -563,17 +563,20 @@ const rowSearch = (n: typeof notes[number]) =>
 	}
 	.idx-misc-card.hidden { display: none; }
 
-	.idx-misc-thumb {
-		width: 100%;
-		height: 220px;
-		object-fit: cover;
-		background: #f5f5f5;
-	}
-
 	.idx-misc-content { min-width: 0; padding: 24px; }
 
 	.idx-misc-tag { font-size: 0.65rem; font-weight: 800; color: #bbb; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; display: block; }
-	.idx-misc-card h4 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 8px 0; color: #000; }
+	.idx-misc-card h4 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 16px 0; color: #000; }
+
+	.idx-misc-thumb {
+		width: 100%;
+		height: 180px;
+		object-fit: cover;
+		border-radius: 12px;
+		background: #f5f5f5;
+		margin-bottom: 16px;
+	}
+
 	.idx-misc-card p { font-size: 0.92rem; color: #666; line-height: 1.55; margin: 0; }
 
 	.idx-misc-cta {
