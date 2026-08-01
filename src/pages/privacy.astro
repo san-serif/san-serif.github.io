@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const lastUpdated = 'July 26, 2026';
+---
+
+<Layout title="Privacy Policy | san serif" description="The privacy policy for san serif and all of our apps: Sajeon, TokeiTango, Eohwi, Zungzi, Tsugi, JBar, KBar, and CBar.">
+	<main class="policy-wrapper">
+		<header>
+			<h1>Privacy Policy</h1>
+			<p class="updated">Last updated {lastUpdated}</p>
+		</header>
+
+		<section class="summary">
+			<p>The short version: we don't collect your personal data. Everything you create in our apps, word lists, flashcard progress, settings, stays on your device. We don't run analytics, crash reporting, or ad SDKs inside any app. The only outside party involved is RevenueCat, which handles subscriptions.</p>
+		</section>
+
+		<section>
+			<h2>Who this covers</h2>
+			<p>This policy applies to every app published by san serif, currently Sajeon, TokeiTango, Eohwi, Zungzi, Tsugi, JBar, KBar, and CBar, and to any app we release in the future, as well as this website (san-serif.com).</p>
+		</section>
+
+		<section>
+			<h2>What we collect</h2>
+			<p>We don't require an account or sign-in for any app, and we don't operate a server that your personal data is sent to. Word lists, study progress, saved vocabulary, and app settings are all stored locally on your device, using Apple's standard on-device storage. We never see this data, and it isn't uploaded anywhere by us.</p>
+			<p>We don't include any analytics, crash reporting, or advertising SDKs inside our apps. We have no way of seeing how you use the apps, and we don't try to.</p>
+		</section>
+
+		<section>
+			<h2>Purchases and subscriptions</h2>
+			<p>Subscriptions and in-app purchases are handled through Apple's App Store and processed on our behalf by <a href="https://www.revenuecat.com" target="_blank" rel="noopener">RevenueCat</a>. RevenueCat receives an anonymous subscriber identifier and your purchase/transaction details from Apple in order to validate your subscription status, it does not receive your name, email, or any other personal information from us, since we don't collect that in the first place. RevenueCat's own handling of this data is governed by <a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">their privacy policy</a>.</p>
+		</section>
+
+		<section>
+			<h2>This website</h2>
+			<p>san-serif.com uses Cloudflare Web Analytics to understand overall traffic, page views, referrers, general location. It's cookie-free and doesn't track or identify individual visitors.</p>
+		</section>
+
+		<section>
+			<h2>Children's privacy</h2>
+			<p>Our apps are not directed at children under 13, and we don't knowingly collect personal information from anyone, of any age, since we don't collect personal information at all.</p>
+		</section>
+
+		<section>
+			<h2>Your data, your control</h2>
+			<p>Since everything is stored locally, deleting an app deletes its data with it. Subscriptions can be viewed, changed, or cancelled at any time in your Apple ID account settings, entirely outside of our apps. If you have questions about a specific purchase, Apple's own records are the source of truth, we don't maintain a separate one.</p>
+		</section>
+
+		<section>
+			<h2>Changes to this policy</h2>
+			<p>If this policy changes, we'll update it here and update the date at the top. We'd only ever make it easier to understand, not to walk back what it says.</p>
+		</section>
+
+		<section>
+			<h2>Contact</h2>
+			<p>Questions about this policy or how any app handles your data: <a href="mailto:support@san-serif.com">support@san-serif.com</a>.</p>
+		</section>
+
+		<div class="footer-link">
+			<a href="/">← Return to san serif</a>
+		</div>
+	</main>
+</Layout>
+
+<style>
+	.policy-wrapper { max-width: 680px; margin: 0 auto; padding: 80px 20px 100px; }
+
+	h1 {
+		font-size: 2.2rem;
+		letter-spacing: -0.04em;
+		margin-bottom: 8px;
+		font-weight: 700;
+		color: #000;
+	}
+
+	.updated {
+		color: #999;
+		font-size: 0.85rem;
+		margin-bottom: 0;
+	}
+
+	.summary {
+		margin: 40px 0 56px;
+		padding-left: 20px;
+		border-left: 2px solid #000;
+	}
+
+	.summary p {
+		color: #222;
+		font-size: 1.05rem;
+		line-height: 1.7;
+		margin: 0;
+	}
+
+	section {
+		margin-bottom: 40px;
+	}
+
+	h2 {
+		font-size: 1.1rem;
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: #000;
+		margin-bottom: 12px;
+	}
+
+	p {
+		color: #555;
+		line-height: 1.7;
+		font-size: 0.95rem;
+		margin: 0 0 12px;
+	}
+
+	p:last-child { margin-bottom: 0; }
+
+	a {
+		color: #000;
+		text-decoration: underline;
+		text-decoration-color: #ccc;
+		text-underline-offset: 3px;
+	}
+
+	a:hover { text-decoration-color: #000; }
+
+	.footer-link {
+		margin-top: 80px;
+		padding-top: 20px;
+		border-top: 1px solid #f5f5f5;
+	}
+
+	.footer-link a {
+		color: #bbb;
+		text-decoration: none;
+		font-size: 0.8rem;
+		font-weight: 500;
+	}
+
+	.footer-link a:hover { color: #000; }
+</style>
