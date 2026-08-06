@@ -1,0 +1,61 @@
+---
+// Vocabulary glossary table: word + script/romanization toggle + TTS on the
+// left, English gloss on the right. Needs ChineseLessonHead for styles and
+// window.speak/window.toggleVocabTable. Rows past VISIBLE_COUNT collapse
+// behind a "show all" toggle so long tables don't dominate the page by
+// default.
+interface Word {
+  simplified: string;
+  traditional: string;
+  pinyin: string;
+  jyutping: string;
+  english: string;
+}
+
+interface Props {
+  words: Word[];
+  heading?: string;
+}
+
+const { words, heading } = Astro.props;
+const VISIBLE_COUNT = 12;
+const hasMore = words.length > VISIBLE_COUNT;
+const tableId = `vocab-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+{heading && <h4 class="vocab-heading">{heading}</h4>}
+<table id={tableId} class="vocab-table">
+  <thead>
+    <tr>
+      <th align="left">Chinese</th>
+      <th align="left">English</th>
+    </tr>
+  </thead>
+  <tbody>
+    {words.map(({ simplified, traditional, pinyin, jyutping, english }, i) => (
+      <tr
+        class:list={['cn-dynamic-text', i >= VISIBLE_COUNT && 'vocab-hidden-row']}
+        data-simplified={simplified}
+        data-traditional={traditional}
+        data-pinyin={pinyin}
+        data-jyutping={jyutping}
+      >
+        <td align="left">
+          <div class="cn-row">
+            <span class="vocab-link reader-link">{simplified}</span>
+            <button class="tts-btn" onclick="speakActive(this)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+            </button>
+          </div>
+          <div class="rom">{pinyin}</div>
+        </td>
+        <td align="left">{english}</td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+{hasMore && (
+  <button class="vocab-toggle-btn" data-target={tableId} data-total={words.length} onclick="toggleVocabTable(this)">
+    Show all {words.length} words ↓
+  </button>
+)}

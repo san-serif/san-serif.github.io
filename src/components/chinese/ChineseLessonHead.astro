@@ -1,0 +1,132 @@
+---
+// Toolbar (script + romanization toggles) plus the shared styles/scripts
+// every Chinese-lesson note needs. Drop this once near the top of a note's
+// .mdx body; CSentenceBlock and CVocabTable rely on the classes and
+// window.* helpers it defines.
+//
+// Chinese doesn't have one single reading-aid axis like Japanese's
+// furigana/romaji/off, or a formality register like Korean's — it has two
+// independent choices instead: which script (简 Simplified / 繁 Traditional)
+// and which romanization, which in practice also means which spoken
+// variant (拼 Pinyin for Mandarin / 粵 Jyutping for Cantonese). A reader
+// can be on Traditional+Pinyin just as easily as Simplified+Jyutping, so
+// these are two separate segmented controls, not one three-way toggle.
+---
+
+<div class="app-header-controls">
+  <div class="segmented-control" id="script-picker">
+    <button class="segment active" data-mode="simplified" onclick="setScriptMode('simplified')" title="Simplified">简</button>
+    <button class="segment" data-mode="traditional" onclick="setScriptMode('traditional')" title="Traditional">繁</button>
+  </div>
+
+  <div class="segmented-control" id="rom-picker">
+    <button class="segment active" data-mode="pinyin" onclick="setRomMode('pinyin')" title="Pinyin (Mandarin)">拼</button>
+    <button class="segment" data-mode="jyutping" onclick="setRomMode('jyutping')" title="Jyutping (Cantonese)">粵</button>
+  </div>
+</div>
+
+<script is:inline>
+  window.synth = window.speechSynthesis;
+  window._cnScriptMode = 'simplified';
+  window._cnRomMode = 'pinyin';
+
+  function applyChineseText(el) {
+    const script = window._cnScriptMode;
+    const rom = window._cnRomMode;
+    const link = el.querySelector('.reader-link');
+    const romEl = el.querySelector('.rom');
+    link.innerText = el.dataset[script];
+    romEl.innerText = el.dataset[rom];
+  }
+
+  window.setScriptMode = function (mode) {
+    window._cnScriptMode = mode;
+    document.querySelectorAll('#script-picker .segment').forEach(btn => btn.classList.remove('active'));
+    if (event && event.currentTarget) event.currentTarget.classList.add('active');
+    document.querySelectorAll('.cn-dynamic-text').forEach(applyChineseText);
+  };
+
+  window.setRomMode = function (mode) {
+    window._cnRomMode = mode;
+    document.querySelectorAll('#rom-picker .segment').forEach(btn => btn.classList.remove('active'));
+    if (event && event.currentTarget) event.currentTarget.classList.add('active');
+    document.querySelectorAll('.cn-dynamic-text').forEach(applyChineseText);
+  };
+
+  // Voices load asynchronously in some browsers (Chrome in particular), so
+  // anything that needs getVoices() to be populated waits on this first.
+  window._voicesReady = new Promise((resolve) => {
+    if (window.synth.getVoices().length) { resolve(); return; }
+    window.synth.onvoiceschanged = () => resolve();
+    setTimeout(resolve, 1000); // fallback in case the event never fires
+  });
+
+  // Pinyin implies Mandarin, Jyutping implies Cantonese — the TTS voice
+  // follows whichever romanization is currently active, not just the label.
+  // Cantonese system voices are far less commonly installed than Mandarin
+  // ones, so this falls back to Mandarin rather than staying silent if no
+  // Cantonese voice is available.
+  window.getBestChineseVoice = function () {
+    const voices = window.synth.getVoices();
+    if (window._cnRomMode === 'jyutping') {
+      const yue = voices.find(v => v.lang && (v.lang.startsWith('yue') || v.lang.startsWith('zh-HK')));
+      if (yue) return yue;
+    }
+    return voices.find(v => v.lang && (v.lang.startsWith('zh-CN') || v.lang.startsWith('zh'))) || null;
+  };
+
+  window.speak = function (text, onEnd) {
+    window._voicesReady.then(() => {
+      window.synth.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = window._cnRomMode === 'jyutping' ? 'zh-HK' : 'zh-CN';
+      utter.rate = 0.85;
+      const voice = window.getBestChineseVoice();
+      if (voice) utter.voice = voice;
+      if (onEnd) utter.onend = onEnd;
+      window.synth.speak(utter);
+    });
+  };
+
+  window.speakActive = function (btn) {
+    const text = btn.closest('.cn-dynamic-text').dataset[window._cnScriptMode];
+    window.speak(text);
+  };
+
+  // No Zungzi deep-link scheme exists yet (unlike kaku:// / sajeon://), so
+  // .reader-link is plain text for now, not a tap-to-open-the-app link.
+  // Wire one up here, matching openKakuSentenceFromEl's pattern, once
+  // Zungzi registers a custom URL scheme.
+
+  window.toggleVocabTable = function (btn) {
+    const table = document.getElementById(btn.dataset.target);
+    const isOpen = table.classList.toggle('is-open');
+    btn.textContent = isOpen ? 'Show fewer words ↑' : `Show all ${btn.dataset.total} words ↓`;
+  };
+</script>
+
+<style is:global>
+  .app-header-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
+  .segmented-control { display: flex; background: #f0f0f0; border-radius: 8px; padding: 2px; }
+  .segment { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; background: none; border-radius: 6px; cursor: pointer; color: #888; font-size: 0.95rem; font-weight: 600; transition: 0.2s; }
+  .segment.active { background: white; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+  .sentence-block { margin-bottom: 2rem; }
+  .cn-row { display: inline-flex; align-items: center; gap: 8px; }
+  .rom { font-size: 0.9rem; color: #999; margin: 4px 0; font-family: ui-monospace, monospace; }
+  .en-row { font-size: 1rem; color: #555; margin-top: 2px; }
+
+  .tts-btn { background: none; border: none; cursor: pointer; color: #ccc; padding: 0; display: inline-flex; transition: color 0.2s; }
+  .tts-btn:hover { color: #000; }
+  .reader-link { color: inherit !important; text-decoration: none !important; font-size: 1.25rem; font-weight: 400; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  td { padding: 12px 4px; border-bottom: 1px solid #f5f5f5; vertical-align: middle; }
+  .vocab-link { text-decoration: none; color: inherit; font-size: 1.15rem; }
+
+  .vocab-heading { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #999; font-weight: 700; margin: 2.5rem 0 0.5rem 0; }
+  .vocab-hidden-row { display: none; }
+  .vocab-table.is-open .vocab-hidden-row { display: table-row; }
+  .vocab-toggle-btn { display: block; margin: 12px auto 0; padding: 6px 16px; background: none; border: 1px solid #eee; border-radius: 999px; color: #888; font-size: 0.8rem; font-family: inherit; cursor: pointer; transition: 0.2s; }
+  .vocab-toggle-btn:hover { color: #000; border-color: #ccc; }
+</style>

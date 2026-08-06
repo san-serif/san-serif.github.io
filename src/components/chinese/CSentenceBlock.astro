@@ -1,0 +1,39 @@
+---
+// A single Chinese example sentence with script (简/繁) and romanization
+// (拼/粵) toggles plus TTS. Needs ChineseLessonHead rendered earlier on the
+// page (it defines the shared styles + window.setScriptMode/setRomMode/speak).
+//
+// Unlike Japanese's furigana (derived from one bracket-notation string),
+// simplified/traditional are genuinely different character strings and
+// have to be authored separately — there's no reliable mechanical
+// conversion between them at the vocabulary/idiom level. Same for
+// pinyin/jyutping: they're different romanizations of what can also be a
+// different spoken variant (Mandarin vs Cantonese), not just re-spelled
+// versions of the same reading.
+interface Props {
+  simplified: string;
+  traditional: string;
+  pinyin: string;
+  jyutping: string;
+  english: string;
+}
+
+const { simplified, traditional, pinyin, jyutping, english } = Astro.props;
+---
+
+<div
+  class="sentence-block cn-dynamic-text"
+  data-simplified={simplified}
+  data-traditional={traditional}
+  data-pinyin={pinyin}
+  data-jyutping={jyutping}
+>
+  <div class="cn-row">
+    <span class="reader-link">{simplified}</span>
+    <button class="tts-btn" onclick="speakActive(this)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+    </button>
+  </div>
+  <div class="rom">{pinyin}</div>
+  <div class="en-row">{english}</div>
+</div>
