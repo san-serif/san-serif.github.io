@@ -42,7 +42,7 @@ import Layout from '../layouts/Layout.astro';
 
 			{/* ZUNGZI */}
 			<a href="/portfolio/zungzi" class="card zungzi">
-				<img src="/zungzi-icon.png" alt="Zungzi" class="app-icon standard-icon" />
+				<img src="/images/zungzi-hsk.png" alt="Zungzi" class="zungzi-shot" />
 				<div class="card-content">
 					<span class="category">watchOS / CN</span>
 					<h2>Zungzi</h2>
@@ -143,6 +143,16 @@ import Layout from '../layouts/Layout.astro';
 	width: 72px;
 	height: 72px;
 	margin-bottom: 24px;
+}
+
+.zungzi-shot {
+	width: 150px;
+	height: auto;
+	border-radius: 14px;
+	object-fit: cover;
+	flex-shrink: 0;
+	margin-bottom: 24px;
+	box-shadow: 0 10px 24px rgba(0,0,0,0.08);
 }
 
 .mini {
