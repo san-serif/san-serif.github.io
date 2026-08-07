@@ -1,0 +1,217 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout title="Tsugi | san serif" description="AI-powered sentence mining for intermediate and advanced Japanese learners. Tsugi turns native content into a personalized, high-yield SRS deck by isolating exactly the grammar or vocabulary you don't know yet.">
+	<main class="wrapper">
+
+		<section class="app-hero">
+
+			<div class="video-container">
+				<div class="video-glow"></div>
+				<div class="media-placeholder hero-placeholder">Hero video — pending</div>
+			</div>
+
+			<div class="app-intro">
+				<h1>Tsugi</h1>
+				<p class="description">
+					AI-powered sentence mining for learners who've outgrown basic flashcard apps. Feed Tsugi any native Japanese sentence and it isolates the exact grammar or vocabulary you don't know yet, building a personalized, high-yield SRS deck as you go.
+				</p>
+
+				<a href="#" class="app-store-link">
+					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
+				</a>
+			</div>
+
+		</section>
+
+		<div class="divider"></div>
+
+		<section class="details-grid">
+
+			<div class="detail-card">
+				<div class="floating-container">
+					<div class="media-placeholder">Screenshot — pending</div>
+				</div>
+			    <h3>n+1 Sentence Mining</h3>
+			    <p>Feed Tsugi any complex Japanese sentence and it isolates the single unknown grammar point or word matching your level, so every card teaches exactly one new thing at a time.</p>
+			</div>
+
+			<div class="detail-card">
+				<div class="floating-container">
+					<div class="media-placeholder">Screenshot — pending</div>
+				</div>
+				<h3>Local Text Analysis</h3>
+				<p>A fast, privacy-first tokenizer breaks native sentences down into nouns, verbs, particles, and conjugations, entirely on your device.</p>
+			</div>
+
+			<div class="detail-card">
+				<div class="floating-container">
+					<div class="media-placeholder">Screenshot — pending</div>
+				</div>
+				<h3>Adaptive SRS</h3>
+				<p>An optimized spaced-repetition engine adapts to your personal forgetting curve, resurfacing weak cards right before you forget them.</p>
+			</div>
+
+		</section>
+
+	</main>
+</Layout>
+
+<style>
+	.wrapper {
+		max-width: 1100px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	h1, p {
+		margin-block: 0;
+	}
+
+	.app-hero {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding-top: 30px;
+		gap: 24px;
+		isolation: isolate;
+	}
+
+	.video-container {
+		position: relative;
+		width: 100%;
+		max-width: 480px;
+		display: flex;
+		justify-content: center;
+		margin-top: 0;
+		transform: translateY(-10px);
+		transition: opacity 0.6s ease, transform 0.6s ease;
+		background: transparent !important;
+	}
+
+	.video-container:hover {
+		opacity: 1;
+		transform: translateY(-12px);
+	}
+
+	.video-glow {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 100%;
+		aspect-ratio: 1;
+		pointer-events: none;
+	}
+
+	.media-placeholder {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		border: 1px dashed rgba(0, 0, 0, 0.2);
+		border-radius: 20px;
+		background: #fafafa;
+		color: #bbb;
+		font-size: 0.75rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.hero-placeholder {
+		aspect-ratio: 9 / 16;
+		max-height: 520px;
+	}
+
+	.app-intro {
+		z-index: 2;
+	}
+
+	h1 {
+		font-size: 3.5rem;
+		font-weight: 600;
+		letter-spacing: -0.05em;
+		margin-bottom: 10px;
+		color: #111;
+	}
+
+	.description {
+		max-width: 580px;
+		font-size: 1.2rem;
+		color: #555;
+		line-height: 1.6;
+		margin-bottom: 30px;
+	}
+
+	.app-store-link {
+		display: inline-block;
+		transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+
+	.app-store-link:hover { transform: scale(1.04) translateY(-4px); }
+
+	.badge-svg {
+		height: 52px;
+		width: auto;
+		display: block;
+		filter: drop-shadow(0 12px 25px rgba(0,0,0,0.08));
+	}
+
+	.divider {
+		height: 1px;
+		background: #ffffff;
+		margin: 30px 0;
+	}
+
+	.details-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 60px;
+		margin-bottom: 120px;
+	}
+
+	.detail-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+	.floating-container {
+		width: 100%;
+		aspect-ratio: 1.5 / 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-bottom: 2px;
+	}
+
+	h3 {
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		font-weight: 700;
+		letter-spacing: 0.12em;
+		color: #111;
+		margin-bottom: 16px;
+	}
+
+	.detail-card p {
+		font-size: 0.95rem;
+		color: #555;
+		line-height: 1.7;
+		max-width: 260px;
+		margin: 0;
+	}
+
+	@media (max-width: 900px) {
+		.details-grid {
+			grid-template-columns: 1fr;
+			gap: 40px;
+		}
+		h1 { font-size: 2.8rem; }
+	}
+</style>
