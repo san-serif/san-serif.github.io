@@ -19,7 +19,7 @@ const notes = defineCollection({
 		// need to branch per language or per test.
 		level: z.string().optional(),
 		// Optional thumbnail for the /notes index list — currently only used
-		// by Musings entries, which read as richer feed items rather than
+		// by Tangents entries, which read as richer feed items rather than
 		// plain curriculum rows.
 		thumbnail: z.string().optional(),
 	}),

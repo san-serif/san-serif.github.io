@@ -36,10 +36,10 @@ export function parseTitle(title: string): { main: string; detail: string | null
 	return { main: title, detail: null };
 }
 
-// A note belongs to Musings 수필 if it's tagged CULTURE or GUIDES, or if it
+// A note belongs to Tangents 여담 if it's tagged CULTURE or GUIDES, or if it
 // has no language tag at all — anything that isn't a graded note in a
 // language curriculum.
-export function isMusings(n: Note): boolean {
+export function isTangent(n: Note): boolean {
 	return n.data.category.includes('CULTURE') || n.data.category.includes('GUIDES') ||
 		!n.data.category.some(c => ['JAPANESE', 'KOREAN', 'CHINESE'].includes(c));
 }
@@ -62,6 +62,6 @@ export function groupByLevel(sectionNotes: Note[]) {
 // Previous/Next navigation on individual note pages, so "next" means the
 // next lesson in the curriculum, not the next note by raw creation order.
 export function courseSequence(allNotes: Note[], language: 'JAPANESE' | 'KOREAN'): Note[] {
-	const courseNotes = allNotes.filter(n => n.data.category.includes(language) && !isMusings(n));
+	const courseNotes = allNotes.filter(n => n.data.category.includes(language) && !isTangent(n));
 	return groupByLevel(courseNotes).flatMap(g => g.notes);
 }

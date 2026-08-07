@@ -1,10 +1,10 @@
 ---
 /* CULTURE NOTES - san serif
   - Grouped by content shape, not one flat list: language courses read as a
-    syllabus in curriculum order, Musings 수필 reads as a feed in recency
+    syllabus in curriculum order, Tangents 여담 reads as a feed in recency
     order. `order` means two different things depending on which bucket a
     note is in, so each bucket sorts itself accordingly instead of sharing
-    one global sort control. Musings leads the page (not trailing after both
+    one global sort control. Tangents leads the page (not trailing after both
     courses) since it's the one part of this page that's actually timely.
   - Editorial index styling: no emoji, no "Course" label. Colour appears
     once per level group, not smeared across every row — earned structure,
@@ -12,7 +12,7 @@
   - Progressive-disclosure filter tags: only JAPANESE/KOREAN/CULTURE/GUIDES
     show by default. Selecting JAPANESE or KOREAN reveals that language's
     level pills inline; deselecting collapses them and clears anything
-    active inside. CULTURE and GUIDES (Musings' two content types) have no
+    active inside. CULTURE and GUIDES (Tangents' two content types) have no
     levels and never expand. This replaced an earlier version that always
     showed every level pill at once, which meant TOPIK options sat on
     screen while looking at Japanese content and vice versa.
@@ -21,13 +21,13 @@
 */
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { LEVEL_ORDER, isMusings, groupByLevel, parseTitle } from '../../lib/notesGrouping';
+import { LEVEL_ORDER, isTangent, groupByLevel, parseTitle } from '../../lib/notesGrouping';
 
 const notes = await getCollection('notes');
 
-const japaneseNotes = notes.filter(n => n.data.category.includes('JAPANESE') && !isMusings(n));
-const koreanNotes = notes.filter(n => n.data.category.includes('KOREAN') && !isMusings(n));
-const musingsNotes = notes.filter(isMusings).sort((a, b) => b.data.order - a.data.order);
+const japaneseNotes = notes.filter(n => n.data.category.includes('JAPANESE') && !isTangent(n));
+const koreanNotes = notes.filter(n => n.data.category.includes('KOREAN') && !isTangent(n));
+const tangentsNotes = notes.filter(isTangent).sort((a, b) => b.data.order - a.data.order);
 
 // Matches VocabTable's own collapse threshold elsewhere on the site — same
 // "Show all N ↓" pattern, not a new interaction. Only applies to the
@@ -100,13 +100,13 @@ const rowSearch = (n: typeof notes[number]) =>
 			</div>
 		</header>
 
-		<section class="idx-section" id="section-musings">
+		<section class="idx-section" id="section-tangents">
 			<div class="idx-lang-header">
-				<h2 class="idx-lang-title">Musings <span class="idx-lang-native">수필</span></h2>
-				<div class="idx-lang-meta" id="meta-musings" data-count={musingsNotes.length}>{musingsNotes.length} {musingsNotes.length === 1 ? 'piece' : 'pieces'} · newest first</div>
+				<h2 class="idx-lang-title">Tangents <span class="idx-lang-native">여담</span></h2>
+				<div class="idx-lang-meta" id="meta-tangents" data-count={tangentsNotes.length}>{tangentsNotes.length} {tangentsNotes.length === 1 ? 'piece' : 'pieces'} · newest first</div>
 			</div>
 			<div class="idx-misc-list">
-				{musingsNotes.map(note => (
+				{tangentsNotes.map(note => (
 					<a
 						href={`/notes/${note.slug || note.id}`}
 						class="idx-misc-card"
@@ -127,7 +127,7 @@ const rowSearch = (n: typeof notes[number]) =>
 			</div>
 		</section>
 
-		<div class="idx-divider" id="divider-musings-japanese" data-before="section-musings" data-after="section-japanese"></div>
+		<div class="idx-divider" id="divider-tangents-japanese" data-before="section-tangents" data-after="section-japanese"></div>
 
 		<section class="idx-section" id="section-japanese">
 			<div class="idx-lang-header">
@@ -325,7 +325,7 @@ const rowSearch = (n: typeof notes[number]) =>
 	function updateMeta() {
 		const japaneseMeta = document.getElementById('meta-japanese');
 		const koreanMeta = document.getElementById('meta-korean');
-		const musingsMeta = document.getElementById('meta-musings');
+		const tangentsMeta = document.getElementById('meta-tangents');
 
 		// Counts by filter match, not DOM visibility — truncation hides rows
 		// on screen without removing them from what this section "contains",
@@ -343,7 +343,7 @@ const rowSearch = (n: typeof notes[number]) =>
 		koreanMeta.textContent = describe(document.getElementById('section-korean'));
 
 		const matchingMisc = Array.from(document.querySelectorAll('.idx-misc-card')).filter(r => !r.classList.contains('filtered-out'));
-		musingsMeta.textContent = `${matchingMisc.length} ${matchingMisc.length === 1 ? 'piece' : 'pieces'} · newest first`;
+		tangentsMeta.textContent = `${matchingMisc.length} ${matchingMisc.length === 1 ? 'piece' : 'pieces'} · newest first`;
 	}
 
 	// Establishes the truncated default view on load — without this, every

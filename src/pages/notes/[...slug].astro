@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { isMusings, courseSequence, parseTitle } from '../../lib/notesGrouping';
+import { isTangent, courseSequence, parseTitle } from '../../lib/notesGrouping';
 
 export async function getStaticPaths() {
 	const notes = await getCollection('notes');
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 	// creation order, so "next" always means the next thing to actually
 	// study, never a jump into a different language or level.
 	function sequenceInfo(entry: typeof notes[number]) {
-		if (isMusings(entry)) return { prevNote: null, nextNote: null, position: null, total: null };
+		if (isTangent(entry)) return { prevNote: null, nextNote: null, position: null, total: null };
 		const sequence = entry.data.category.includes('JAPANESE') ? japaneseSequence
 			: entry.data.category.includes('KOREAN') ? koreanSequence
 			: null;
