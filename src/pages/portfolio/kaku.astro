@@ -15,10 +15,10 @@ import Layout from '../../layouts/Layout.astro';
 			<div class="app-intro">
 				<h1>Kaku</h1>
 				<p class="description">
-					A Japanese notebook that keeps every tool exactly where you're writing. Look up any word instantly, insert the exact conjugated form you need, and read your notes back aloud, all without leaving the page.
+					A Japanese notebook that keeps every tool exactly where you're writing. Look up any word instantly, insert the exact conjugated form you need, and translate the whole note when you want a second opinion, all without leaving the page.
 				</p>
 
-				<a href="https://apps.apple.com/us/app/kaku-japanese-dictionary/id1515101339" class="app-store-link">
+				<a href="https://apps.apple.com/au/app/kaku-japanese-dictionary/id1515101339" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
 			</div>
@@ -48,10 +48,10 @@ import Layout from '../../layouts/Layout.astro';
 
 			<div class="detail-card">
 				<div class="floating-container">
-					<div class="media-placeholder">Screenshot — pending</div>
+					<img src="/images/kaku-translation.png" alt="Translate a note" class="modular-image" />
 				</div>
-				<h3>Read Aloud</h3>
-				<p>Kaku reads your note back to you, highlighting each word as it's spoken, so you can shadow along with the best Japanese voices available on your device.</p>
+				<h3>Translate Your Notes</h3>
+				<p>Check your sentence structure by translating an entire note into your native language, with support for 20 languages.</p>
 			</div>
 
 		</section>
@@ -189,6 +189,20 @@ import Layout from '../../layouts/Layout.astro';
 		align-items: center;
 		justify-content: center;
 		margin-bottom: 2px;
+	}
+
+	.modular-image {
+		max-width: 75%;
+		max-height: 100%;
+		width: auto;
+		height: auto;
+		border-radius: 20px;
+		box-shadow: 0 20px 50px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+		transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+
+	.detail-card:hover .modular-image {
+		transform: scale(1.05) translateY(-10px);
 	}
 
 	h3 {
