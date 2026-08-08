@@ -20,7 +20,7 @@ import Layout from '../layouts/Layout.astro';
 
 			{/* KAKU */}
 			<a href="/portfolio/kaku" class="card kaku">
-				<img src="/kaku-icon.png" alt="Kaku" class="app-icon standard-icon" />
+				<img src="/images/kaku-translation.png" alt="Kaku" class="kaku-shot" />
 				<div class="card-content">
 					<span class="category">iOS, iPadOS, macOS / JP</span>
 					<h2>Kaku</h2>
@@ -178,6 +178,16 @@ import Layout from '../layouts/Layout.astro';
 
 .zungzi-shot {
 	width: 130px;
+	height: auto;
+	border-radius: 12px;
+	object-fit: cover;
+	flex-shrink: 0;
+	margin-bottom: 20px;
+	box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+}
+
+.kaku-shot {
+	width: 170px;
 	height: auto;
 	border-radius: 12px;
 	object-fit: cover;
