@@ -6,25 +6,25 @@ import Layout from '../layouts/Layout.astro';
 	<main class="wrapper">
 		<section class="grid">
 
-			{/* SAJEON */}
-			<a href="/portfolio/sajeon" class="card sajeon">
-				<img src="/sajeon-icon.png" alt="Sajeon" class="app-icon hero-icon" />
-				<div class="card-content">
-					<span class="category">iOS, iPadOS, macOS / KR</span>
-					<h2>Sajeon</h2>
-					<p>
-						A native Korean dictionary built for deep immersion. Beyond rapid search, Sajeon features a powerful clipboard reader to deconstruct complex sentences for translation and shadow reading. Curate your progress with custom word lists and extensive catalogue of vocabulary, all within a distilled interface that stays out of your way.
-					</p>
-				</div>
-			</a>
-
 			{/* KAKU */}
 			<a href="/portfolio/kaku" class="card kaku">
 				<img src="/images/kaku-translation.png" alt="Kaku" class="kaku-shot" />
 				<div class="card-content">
 					<span class="category">iOS, iPadOS, macOS / JP</span>
 					<h2>Kaku</h2>
-					<p>A Japanese notebook built to keep you writing, not switching apps.</p>
+					<p>
+						A Japanese notebook that keeps every tool exactly where you're writing. Highlight any word for instant offline definitions, insert the exact conjugated form you need, and read your notes back aloud, all without leaving the page.
+					</p>
+				</div>
+			</a>
+
+			{/* SAJEON */}
+			<a href="/portfolio/sajeon" class="card sajeon">
+				<img src="/sajeon-icon.png" alt="Sajeon" class="app-icon standard-icon" />
+				<div class="card-content">
+					<span class="category">iOS, iPadOS, macOS / KR</span>
+					<h2>Sajeon</h2>
+					<p>A native Korean dictionary built for deep immersion, with a clipboard reader that deconstructs complex sentences.</p>
 				</div>
 			</a>
 
@@ -138,9 +138,9 @@ import Layout from '../layouts/Layout.astro';
 }
 
 /* --- BENTO PLACEMENT --- */
-.sajeon { grid-column: 1; grid-row: 1 / span 2; }
+.kaku { grid-column: 1; grid-row: 1 / span 2; }
 
-.kaku { grid-column: 2; grid-row: 1; }
+.sajeon { grid-column: 2; grid-row: 1; }
 .tsugi { grid-column: 3; grid-row: 1; }
 .yinpin { grid-column: 4; grid-row: 1; }
 
@@ -187,7 +187,8 @@ import Layout from '../layouts/Layout.astro';
 }
 
 .kaku-shot {
-	width: 170px;
+	width: 100%;
+	max-width: 300px;
 	height: auto;
 	border-radius: 12px;
 	object-fit: cover;
@@ -248,7 +249,7 @@ h2 {
 	color: #111;
 }
 
-.sajeon h2 { font-size: 1.25rem; margin-bottom: 12px; }
+.kaku h2 { font-size: 1.25rem; margin-bottom: 12px; }
 
 p {
 	margin: 0;
@@ -257,7 +258,7 @@ p {
 	line-height: 1.5;
 }
 
-.sajeon p { font-size: 0.9rem; }
+.kaku p { font-size: 0.9rem; }
 
 .utilities h2 { margin-bottom: 2px; }
 .utilities .category { margin-bottom: 0; order: 2; }
