@@ -2,9 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Language Apps & Culture Notes | san serif" description="Sajeon, TokeiTango, Eohwi, Zungzi, and more: Apple-native apps for learning Korean, Japanese, and Chinese, built by an independent studio focused on minimal friction and long-term retention.">
+<Layout title="Language Apps & Culture Notes | san serif" description="Sajeon, Kaku, TokeiTango, Eohwi, Zungzi, Yinpin, Tsugi, and more: Apple-native apps for learning Korean, Japanese, and Chinese, built by an independent studio focused on minimal friction and long-term retention.">
 	<main class="wrapper">
-		<section class="grid">
+
+		<div class="tier-label">iPhone &amp; iPad</div>
+		<section class="grid phone-grid">
 
 			{/* SAJEON */}
 			<a href="/portfolio/sajeon" class="card sajeon">
@@ -18,9 +20,44 @@ import Layout from '../layouts/Layout.astro';
 				</div>
 			</a>
 
+			{/* KAKU */}
+			<a href="/portfolio/kaku" class="card kaku placeholder-card">
+				<div class="icon-placeholder">Icon<br>pending</div>
+				<div class="card-content">
+					<span class="category">iOS, iPadOS, macOS / JP</span>
+					<h2>Kaku</h2>
+					<p>A Japanese notebook built to keep you writing, not switching apps. Highlight any word for instant offline definitions, insert the exact conjugated form you need, and read your notes back aloud.</p>
+				</div>
+			</a>
+
+			{/* TSUGI */}
+			<a href="/portfolio/tsugi" class="card tsugi placeholder-card">
+				<div class="icon-placeholder">Icon<br>pending</div>
+				<div class="card-content">
+					<span class="category">iOS, iPadOS / JP</span>
+					<h2>Tsugi</h2>
+					<p>AI-powered sentence mining for learners who've outgrown basic flashcard apps. Feed Tsugi any native sentence and it isolates the exact grammar or vocabulary you don't know yet, building a personalized SRS deck as you go.</p>
+				</div>
+			</a>
+
+			{/* YINPIN */}
+			<a href="/portfolio/yinpin" class="card yinpin placeholder-card">
+				<div class="icon-placeholder">Icon<br>pending</div>
+				<div class="card-content">
+					<span class="category">iOS, iPadOS / CN</span>
+					<h2>Yinpin</h2>
+					<p>Full HSK vocabulary, one word at a time, each paired with its own example sentence. Type the romanization from memory and check it against the correct pinyin and tone marks, while spaced repetition adapts to what you actually know.</p>
+				</div>
+			</a>
+
+		</section>
+
+		<div class="tier-label second">Apple Watch</div>
+		<section class="grid watch-grid">
+
 			{/* TOKEITANGO */}
 			<a href="/portfolio/tokeitango" class="card tokei">
-				<img src="/tokeitango-icon.png" alt="tokeitango" class="app-icon hero-icon" />
+				<img src="/tokeitango-icon.png" alt="tokeitango" class="app-icon standard-icon" />
 				<div class="card-content">
 					<span class="category">watchOS / JP</span>
 					<h2>TokeiTango</h2>
@@ -50,21 +87,21 @@ import Layout from '../layouts/Layout.astro';
 				</div>
 			</a>
 
-			{/* UTILITIES */}
-			<a href="https://apps.apple.com/us/app-bundle/asian-language-menubar/id1793885201?mt=12" class="card utilities">
-				<div class="icons-row">
-					<img src="/jbar-icon.png" alt="JBar" class="app-icon mini" />
-					<img src="/kbar-icon.png" alt="KBar" class="app-icon mini" />
-					<img src="/cbar-icon.png" alt="CBar" class="app-icon mini" />
-				</div>
-				<div class="content">
-					<span class="category">macOS / JP, KR, CN</span>
-					<h2>JBar, KBar & CBar</h2>
-					<p>Minimal menubar utilities that keep your target language seamlessly integrated into your daily workflow.</p>
-				</div>
-			</a>
-
 		</section>
+
+		{/* UTILITIES */}
+		<a href="https://apps.apple.com/us/app-bundle/asian-language-menubar/id1793885201?mt=12" class="utilities-strip">
+			<div class="icons-row">
+				<img src="/jbar-icon.png" alt="JBar" class="app-icon mini" />
+				<img src="/kbar-icon.png" alt="KBar" class="app-icon mini" />
+				<img src="/cbar-icon.png" alt="CBar" class="app-icon mini" />
+			</div>
+			<div class="content">
+				<h2>JBar, KBar &amp; CBar</h2>
+				<p>Minimal menubar utilities that keep your target language seamlessly integrated into your daily workflow. macOS / JP, KR, CN</p>
+			</div>
+		</a>
+
 	</main>
 </Layout>
 
@@ -73,18 +110,29 @@ import Layout from '../layouts/Layout.astro';
 	padding-bottom: 100px;
 }
 
+.tier-label {
+	font-size: 0.7rem;
+	font-weight: 800;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: #bbb;
+	margin: 0 0 12px 4px;
+}
+.tier-label.second { margin-top: 40px; }
+
 .grid {
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
-	grid-template-rows: minmax(240px, auto) minmax(240px, auto);
 	gap: 20px;
 }
+
+.phone-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.watch-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
 /* BASE CARD */
 .card {
 	background: #ffffff;
 	border: 1px solid rgba(0, 0, 0, 0.2);
-	border-radius: 32px; 
+	border-radius: 32px;
 	padding: 32px;
 	display: flex;
 	flex-direction: column;
@@ -97,46 +145,30 @@ import Layout from '../layouts/Layout.astro';
 .card-content, .content {
 	display: flex;
 	flex-direction: column;
-	margin-top: auto; 
+	margin-top: auto;
 }
 
 /* HOVER STATES */
-.card:hover {
+.card:hover, .utilities-strip:hover {
 	transform: translateY(-6px);
 	border-color: rgba(0, 0, 0, 0.1);
 	background: #ffffff;
 }
 
-.sajeon {
-	grid-column: 1;
-	grid-row: 1 / span 2;
-	background: #ffffff;
-}
-
-.tokei { grid-column: 2; grid-row: 1; background: #ffffff; }
-.eohwi { grid-column: 3; grid-row: 1; background: #ffffff; }
-.zungzi { grid-column: 4; grid-row: 1; background: #ffffff; }
-
-.utilities {
-	grid-column: 2 / 5;
-	grid-row: 2;
-	flex-direction: row;
-	align-items: center;
-	gap: 40px;
-	background: #ffffff;
-}
+.sajeon { grid-column: 1; grid-row: 1 / span 2; }
+.kaku, .tsugi, .yinpin { grid-row: 1; }
 
 /* ICONS */
 .app-icon {
-	border-radius: 22.5%; 
+	border-radius: 22.5%;
 	object-fit: cover;
 	flex-shrink: 0;
 }
 
 .hero-icon {
-	width: 96px; 
+	width: 96px;
 	height: 96px;
-	margin-bottom: 32px; 
+	margin-bottom: 32px;
 }
 
 .standard-icon {
@@ -155,6 +187,25 @@ import Layout from '../layouts/Layout.astro';
 	box-shadow: 0 10px 24px rgba(0,0,0,0.08);
 }
 
+.icon-placeholder {
+	width: 72px;
+	height: 72px;
+	margin-bottom: 24px;
+	border: 1px dashed rgba(0, 0, 0, 0.2);
+	border-radius: 22.5%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color: #bbb;
+	font-size: 0.6rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	line-height: 1.4;
+	flex-shrink: 0;
+}
+
 .mini {
 	width: 54px;
 	height: 54px;
@@ -166,16 +217,29 @@ import Layout from '../layouts/Layout.astro';
 	margin-bottom: 24px;
 }
 
+.utilities-strip {
+	margin-top: 20px;
+	display: flex;
+	align-items: center;
+	gap: 40px;
+	background: #ffffff;
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	border-radius: 32px;
+	padding: 32px;
+	text-decoration: none;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* --- TYPOGRAPHY FIX --- */
 .category {
 	display: block;
 	font-size: 0.725rem;
 	font-weight: 700;
-	
+
 	/* The "Force Case" command */
-	text-transform: none !important; 
-	
-	letter-spacing: 0.08em; 
+	text-transform: none !important;
+
+	letter-spacing: 0.08em;
 	color: #999;
 	margin-bottom: 8px;
 }
@@ -197,9 +261,8 @@ p {
 
 /* MOBILE */
 @media (max-width: 900px) {
-	.grid {
+	.phone-grid, .watch-grid {
 		grid-template-columns: 1fr;
-		grid-template-rows: auto;
 	}
 
 	.card {
@@ -207,13 +270,13 @@ p {
 		grid-row: auto !important;
 	}
 
-	.utilities {
+	.utilities-strip {
 		flex-direction: column;
 		align-items: flex-start;
 		gap: 24px;
 	}
-	
-	.utilities .content {
+
+	.utilities-strip .content {
 		margin-top: 0;
 	}
 }
