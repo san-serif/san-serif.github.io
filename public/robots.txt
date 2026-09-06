@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://san-serif.github.io/sitemap-index.xml
+Sitemap: https://san-serif.com/sitemap-index.xml
