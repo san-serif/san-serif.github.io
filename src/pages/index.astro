@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
 
 			{/* KAKU */}
 			<a href="/portfolio/kaku" class="card kaku">
-				<img src="/images/kaku-translation.png" alt="Kaku" class="kaku-shot" />
+				<img src="/kaku-icon.png" alt="Kaku" class="app-icon standard-icon" />
 				<div class="card-content">
 					<span class="category">iOS, iPadOS, macOS / JP</span>
 					<h2>Kaku</h2>
@@ -29,20 +29,20 @@ import Layout from '../layouts/Layout.astro';
 			</a>
 
 			{/* TSUGI */}
-			<a href="/portfolio/tsugi" class="card tsugi placeholder-card">
-				<div class="icon-placeholder">Icon<br>pending</div>
+			<a href="/portfolio/tsugi" class="card tsugi">
+				<img src="/tsugi-logo.jpg" alt="Tsugi" class="app-icon standard-icon" />
 				<div class="card-content">
-					<span class="category">iOS, iPadOS / JP</span>
+					<span class="category">iOS, iPadOS, macOS / JP</span>
 					<h2>Tsugi</h2>
-					<p>AI-powered sentence mining for learners who've outgrown basic flashcards.</p>
+					<p>Japanese sentence flashcards for learners who've outgrown basic word lists. Study real sentences with interactive furigana, audio, and adaptive review that shows you what is actually sticking.</p>
 				</div>
 			</a>
 
 			{/* YINPIN */}
-			<a href="/portfolio/yinpin" class="card yinpin placeholder-card">
-				<div class="icon-placeholder">Icon<br>pending</div>
+			<a href="/portfolio/yinpin" class="card yinpin">
+				<img src="/yinpin-icon.jpg" alt="Yinpin" class="app-icon standard-icon" />
 				<div class="card-content">
-					<span class="category">iOS, iPadOS / CN</span>
+					<span class="category">iOS, iPadOS, macOS / CN</span>
 					<h2>Yinpin</h2>
 					<p>Master Pinyin and you can type any Chinese character you know, no handwriting required.</p>
 				</div>
@@ -72,7 +72,7 @@ import Layout from '../layouts/Layout.astro';
 
 			{/* ZUNGZI */}
 			<a href="/portfolio/zungzi" class="card zungzi">
-				<img src="/images/zungzi-hsk.png" alt="Zungzi" class="zungzi-shot" />
+				<img src="/zungzi-icon.png" alt="Zungzi" class="app-icon standard-icon" />
 				<div class="card-content">
 					<span class="category">watchOS / CN</span>
 					<h2>Zungzi</h2>
@@ -106,20 +106,28 @@ import Layout from '../layouts/Layout.astro';
 .grid {
 	display: grid;
 	grid-template-columns: repeat(4, minmax(0, 1fr));
-	grid-template-rows: minmax(200px, auto) minmax(200px, auto) minmax(140px, auto);
-	gap: 20px;
+	grid-template-rows: minmax(240px, auto) minmax(210px, auto) minmax(210px, auto);
+	gap: 12px;
+	align-items: stretch;
+	width: min(100%, 900px);
+	margin: 0 auto;
 }
 
 /* BASE CARD */
 .card {
 	background: #ffffff;
 	border: 1px solid rgba(0, 0, 0, 0.2);
-	border-radius: 32px;
-	padding: 32px;
+	border-radius: 16px;
+	padding: 20px;
 	display: flex;
 	flex-direction: column;
+	justify-content: flex-start;
 	text-decoration: none;
 	min-width: 0;
+	height: auto;
+	width: 100%;
+	max-width: none;
+	box-sizing: border-box;
 	cursor: pointer;
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -127,34 +135,56 @@ import Layout from '../layouts/Layout.astro';
 .card-content, .content {
 	display: flex;
 	flex-direction: column;
-	margin-top: auto;
+	margin-top: 0;
+	gap: 4px;
+}
+
+.kaku .card-content,
+.sajeon .card-content {
+	flex: 1;
+	width: auto;
+	min-width: 0;
+}
+
+.kaku,
+.sajeon {
+	flex-direction: row;
+	align-items: center;
+	gap: 20px;
+}
+
+.tsugi {
+	flex-direction: row;
+	align-items: center;
+	gap: 16px;
+}
+
+.tsugi .card-content {
+	flex: 1;
 }
 
 /* HOVER STATES */
 .card:hover {
-	transform: translateY(-6px);
+	transform: translateY(-4px);
 	border-color: rgba(0, 0, 0, 0.1);
 	background: #ffffff;
 }
 
 /* --- BENTO PLACEMENT --- */
-.kaku { grid-column: 1; grid-row: 1 / span 2; }
-
-.sajeon { grid-column: 2; grid-row: 1; }
-.tsugi { grid-column: 3; grid-row: 1; }
-.yinpin { grid-column: 4; grid-row: 1; }
-
-.tokei { grid-column: 2; grid-row: 2; }
-.zungzi { grid-column: 3; grid-row: 2; }
-.eohwi { grid-column: 4; grid-row: 2; }
-
+.kaku { grid-column: 1 / span 2; grid-row: 1; }
+.sajeon { grid-column: 3 / span 2; grid-row: 1; }
+.tsugi { grid-column: 1 / span 2; grid-row: 2; }
+.yinpin { grid-column: 3; grid-row: 2; }
+.tokei { grid-column: 4; grid-row: 2; }
+.eohwi { grid-column: 1; grid-row: 3; }
+.zungzi { grid-column: 2; grid-row: 3; }
 .utilities {
-	grid-column: 1 / 5;
+	grid-column: 3 / span 2;
 	grid-row: 3;
-	flex-direction: row;
-	align-items: center;
-	gap: 24px;
-	padding: 20px 28px;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 20px;
 }
 
 /* ICONS */
@@ -170,10 +200,16 @@ import Layout from '../layouts/Layout.astro';
 	margin-bottom: 32px;
 }
 
+.kaku .standard-icon {
+	width: 128px;
+	height: 128px;
+	margin-bottom: 0;
+}
+
 .standard-icon {
-	width: 64px;
-	height: 64px;
-	margin-bottom: 20px;
+	width: 72px;
+	height: 72px;
+	margin-bottom: 12px;
 }
 
 .zungzi-shot {
@@ -182,18 +218,29 @@ import Layout from '../layouts/Layout.astro';
 	border-radius: 12px;
 	object-fit: cover;
 	flex-shrink: 0;
-	margin-bottom: 20px;
+	margin-bottom: 8px;
 	box-shadow: 0 10px 24px rgba(0,0,0,0.08);
 }
 
-.kaku-shot {
+.tsugi-shot {
 	width: 100%;
-	max-width: 300px;
+	max-width: 160px;
 	height: auto;
 	border-radius: 12px;
 	object-fit: cover;
 	flex-shrink: 0;
-	margin-bottom: 20px;
+	margin-bottom: 8px;
+	box-shadow: 0 8px 16px rgba(0,0,0,0.06);
+}
+
+.kaku-shot {
+	width: 100%;
+	max-width: 220px;
+	height: auto;
+	border-radius: 12px;
+	object-fit: cover;
+	flex-shrink: 0;
+	margin-bottom: 8px;
 	box-shadow: 0 10px 24px rgba(0,0,0,0.08);
 }
 
@@ -217,14 +264,15 @@ import Layout from '../layouts/Layout.astro';
 }
 
 .mini {
-	width: 40px;
-	height: 40px;
+	width: 48px;
+	height: 48px;
 }
 
 .icons-row {
 	display: flex;
 	gap: 8px;
 	flex-shrink: 0;
+	margin-bottom: 4px;
 }
 
 /* --- TYPOGRAPHY FIX --- */
@@ -261,18 +309,24 @@ p {
 .kaku p { font-size: 0.9rem; }
 
 .utilities h2 { margin-bottom: 2px; }
-.utilities .category { margin-bottom: 0; order: 2; }
+.utilities .category { margin-bottom: 0; }
 
 /* MOBILE */
 @media (max-width: 900px) {
 	.grid {
-		grid-template-columns: 1fr;
-		grid-template-rows: auto;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-template-rows: repeat(5, minmax(180px, auto));
 	}
 
 	.card {
 		grid-column: auto !important;
 		grid-row: auto !important;
+	}
+
+	.kaku,
+	.sajeon {
+		grid-column: span 2 !important;
+		flex-direction: row;
 	}
 
 	.utilities {
@@ -283,6 +337,32 @@ p {
 
 	.utilities .content {
 		margin-top: 0;
+	}
+}
+
+@media (max-width: 600px) {
+	.grid {
+		grid-template-columns: 1fr;
+		grid-template-rows: none;
+		gap: 10px;
+	}
+
+	.card,
+	.kaku,
+	.sajeon {
+		grid-column: auto !important;
+		min-height: 180px;
+	}
+
+	.kaku {
+		min-height: 320px;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	.kaku .card-content,
+	.sajeon .card-content {
+		width: 100%;
 	}
 }
 </style>

@@ -2,7 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 ---
 
-<Layout title="Tsugi | san serif" description="AI-powered sentence mining for intermediate and advanced Japanese learners. Tsugi turns native content into a personalized, high-yield SRS deck by isolating exactly the grammar or vocabulary you don't know yet.">
+<Layout title="Tsugi | san serif" description="Japanese sentence flashcards for intermediate and advanced learners. Tsugi uses AI-powered n+1 selection, local text analysis, audio, furigana, dictionary lookup, and adaptive spaced repetition to make authentic Japanese easier to study.">
 	<main class="wrapper">
 
 		<section class="app-hero">
@@ -15,10 +15,10 @@ import Layout from '../../layouts/Layout.astro';
 			<div class="app-intro">
 				<h1>Tsugi</h1>
 				<p class="description">
-					AI-powered sentence mining for learners who've outgrown basic flashcard apps. Feed Tsugi any native Japanese sentence and it isolates the exact grammar or vocabulary you don't know yet, building a personalized, high-yield SRS deck as you go.
+					Japanese flashcards built around real sentences, for learners who've outgrown isolated word lists. Tsugi finds the next useful thing to learn, explains it in context, and brings it back for review at the right time.
 				</p>
 
-				<a href="#" class="app-store-link">
+				<a href="https://apps.apple.com/au/app/tsugi-japanese-vocab-mining/id1546470961" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
 			</div>
@@ -31,26 +31,26 @@ import Layout from '../../layouts/Layout.astro';
 
 			<div class="detail-card">
 				<div class="floating-container">
-					<div class="media-placeholder">Screenshot — pending</div>
+					<img src="/images/tsugi-word.png" alt="Tsugi Japanese sentence flashcard" class="modular-image" />
 				</div>
-			    <h3>n+1 Sentence Mining</h3>
-			    <p>Feed Tsugi any complex Japanese sentence and it isolates the single unknown grammar point or word matching your level, so every card teaches exactly one new thing at a time.</p>
+			    <h3>Real Japanese, One Step Ahead</h3>
+			    <p>Learn from complete Japanese sentences instead of isolated word lists. Tsugi keeps each new card just beyond your current level, so every review adds something useful without becoming overwhelming.</p>
 			</div>
 
 			<div class="detail-card">
 				<div class="floating-container">
-					<div class="media-placeholder">Screenshot — pending</div>
+					<img src="/images/tsugi-furigana.png" alt="Tsugi interactive furigana and audio controls" class="modular-image" />
 				</div>
-				<h3>Local Text Analysis</h3>
-				<p>A fast, privacy-first tokenizer breaks native sentences down into nouns, verbs, particles, and conjugations, entirely on your device.</p>
+				<h3>Read, Listen, Recall</h3>
+				<p>Interactive furigana, native audio, and simple recall controls turn every sentence into focused reading and listening practice, with help available when you need it.</p>
 			</div>
 
 			<div class="detail-card">
 				<div class="floating-container">
-					<div class="media-placeholder">Screenshot — pending</div>
+					<img src="/images/tsugi-stats.png" alt="Tsugi learning progress and retention statistics" class="modular-image" />
 				</div>
-				<h3>Adaptive SRS</h3>
-				<p>An optimized spaced-repetition engine adapts to your personal forgetting curve, resurfacing weak cards right before you forget them.</p>
+				<h3>See What’s Sticking</h3>
+				<p>Track review momentum, retention, active sentences, and mastery across memory tiers, so you can see your Japanese vocabulary growing over time.</p>
 			</div>
 
 		</section>
@@ -183,11 +183,28 @@ import Layout from '../../layouts/Layout.astro';
 
 	.floating-container {
 		width: 100%;
-		aspect-ratio: 1.5 / 1;
+		height: 300px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		margin-bottom: 2px;
+	}
+
+	.modular-image {
+		width: 200px;
+		height: 300px;
+		object-fit: contain;
+		border-radius: 20px;
+		box-shadow: 0 20px 50px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+		transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+
+	.detail-card:hover .modular-image {
+		transform: scale(1.05) translateY(-10px);
+	}
+
+	.detail-card:first-child .modular-image {
+		width: 300px;
 	}
 
 	h3 {

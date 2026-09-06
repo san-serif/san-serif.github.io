@@ -18,7 +18,7 @@ import Layout from '../../layouts/Layout.astro';
 					Every Chinese character you'll ever type starts with Pinyin. Get the sounds and tones right, and your phone does the rest, no handwriting required. Yinpin drills tone-accurate recall against the full HSK vocabulary, one word at a time, until production is second nature.
 				</p>
 
-				<a href="#" class="app-store-link">
+				<a href="https://apps.apple.com/au/app/yinpin-pinyin-dictionary/id6798315086" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
 			</div>
@@ -31,26 +31,26 @@ import Layout from '../../layouts/Layout.astro';
 
 			<div class="detail-card">
 				<div class="floating-container">
-					<div class="media-placeholder">Screenshot — pending</div>
+					<img src="/images/yinpin-typing.png" alt="Yinpin Pinyin typing practice" class="modular-image" />
 				</div>
-			    <h3>Type to Recall</h3>
-			    <p>Every card shows the word and its meaning, then asks you to type the romanization from memory, exactly like you would to produce that character on your phone. Checking your answer reveals the correct pinyin, tone marks included, right alongside the example sentence.</p>
+			    <h3>Type Pinyin from Memory</h3>
+			    <p>HSK vocabulary cards ask you to produce the romanisation from memory, then reveal the correct spelling with tone marks so you practise the sounds you actually need to recall.</p>
 			</div>
 
 			<div class="detail-card">
 				<div class="floating-container">
-					<div class="media-placeholder">Screenshot — pending</div>
+					<img src="/images/yinpin-analyse.png" alt="Yinpin Chinese sentence analysis" class="modular-image" />
 				</div>
-				<h3>Adaptive Spaced Repetition</h3>
-				<p>Scheduling adapts to how well you actually know each word, resurfacing the ones you're shakiest on more often than the ones you've already nailed.</p>
+				<h3>Learn Every Word in Context</h3>
+				<p>Every card pairs its word with an example sentence and breakdown, connecting Pinyin to real Chinese usage instead of leaving pronunciation isolated.</p>
 			</div>
 
 			<div class="detail-card">
 				<div class="floating-container">
-					<div class="media-placeholder">Screenshot — pending</div>
+					<img src="/images/yinpin-dict.png" alt="Yinpin Chinese dictionary lookup" class="modular-image" />
 				</div>
-				<h3>Sentences, Not Just Words</h3>
-				<p>Every card pairs its word with a full example sentence and a breakdown, so pronunciation is trained in context, not isolation.</p>
+				<h3>Your Dictionary, Everywhere</h3>
+				<p>Look up characters and words instantly, then keep your learning progress in sync across iPhone, iPad, and Mac with iCloud.</p>
 			</div>
 
 		</section>
@@ -183,11 +183,28 @@ import Layout from '../../layouts/Layout.astro';
 
 	.floating-container {
 		width: 100%;
-		aspect-ratio: 1.5 / 1;
+		height: 300px;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		margin-bottom: 2px;
+	}
+
+	.modular-image {
+		width: 200px;
+		height: 300px;
+		object-fit: contain;
+		border-radius: 20px;
+		box-shadow: 0 20px 50px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04);
+		transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+	}
+
+	.detail-card:hover .modular-image {
+		transform: scale(1.05) translateY(-10px);
+	}
+
+	.detail-card:first-child .modular-image {
+		width: auto;
 	}
 
 	h3 {

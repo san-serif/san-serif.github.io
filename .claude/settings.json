@@ -74,7 +74,12 @@
       "Bash(npx --yes playwright screenshot --viewport-size=1280,1600 http://localhost:4406/notes /tmp/index-title-check2.png)",
       "Bash(npx --yes serve dist -p 4407)",
       "Bash(npx --yes playwright screenshot --viewport-size=1280,900 http://localhost:4407/notes/left-that-way /tmp/nav-detail-check.png)",
-      "Bash(npx --yes playwright screenshot --viewport-size=1280,900 --full-page http://localhost:4407/notes/left-that-way /tmp/nav-detail-full.png)"
+      "Bash(npx --yes playwright screenshot --viewport-size=1280,900 --full-page http://localhost:4407/notes/left-that-way /tmp/nav-detail-full.png)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(curl -s https://san-serif.com/notes/flashcards-and-the-science-of-vocabulary-retention/)",
+      "Bash(curl -sI https://san-serif.com/sanserif-og.jpg)",
+      "Bash(sips -g pixelWidth -g pixelHeight public/sanserif-og.jpg)"
     ]
   }
 }
