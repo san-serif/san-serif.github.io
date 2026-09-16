@@ -2,14 +2,26 @@
 import Layout from '../../layouts/Layout.astro';
 ---
 
-<Layout title="Kaku | san serif" description="A Japanese notebook for beginner-to-intermediate learners, with an instant offline dictionary, one-tap conjugated word insertion, translation, read-aloud shadowing, and OCR scanning, all built to keep you writing instead of app-switching.">
+<Layout title="Kaku | san serif" description="A Japanese notebook for beginner-to-intermediate learners, with an instant offline dictionary, one-tap conjugated word insertion, translation, read-aloud shadowing, and OCR scanning, all built to keep you writing instead of app-switching." image="/images/kaku-poster.jpg">
 	<main class="wrapper">
 
 		<section class="app-hero">
 
 			<div class="video-container">
 				<div class="video-glow"></div>
-				<div class="media-placeholder hero-placeholder">Hero video — pending</div>
+
+				<video
+					autoplay
+					loop
+					muted
+					playsinline
+					webkit-playsinline
+					poster="/images/kaku-poster.jpg"
+					class="hero-watch-video"
+					style="background-color: transparent !important;"
+				>
+					<source src="/videos/kaku.mp4" type="video/mp4">
+				</video>
 			</div>
 
 			<div class="app-intro">
@@ -33,10 +45,9 @@ import Layout from '../../layouts/Layout.astro';
 				<div class="floating-container">
 					<img src="/images/kaku-dict.png" alt="Kaku offline Japanese dictionary" class="modular-image" />
 				</div>
-			    <h3>Instant Dictionary</h3>
-			    <p>Highlight any word as you write and matching entries appear right above the keyboard, readings, word types, and real example sentences included. Powered by a built-in offline dictionary, so lookups are instant and work anywhere.</p>
+				<h3>Instant Dictionary</h3>
+				<p>Highlight any word as you write and matching entries appear right above the keyboard, readings, word types, and real example sentences included. Powered by a built-in offline dictionary, so lookups are instant and work anywhere.</p>
 			</div>
-
 
 			<div class="detail-card">
 				<div class="floating-container">
@@ -88,13 +99,7 @@ import Layout from '../../layouts/Layout.astro';
 		justify-content: center;
 		margin-top: 0;
 		transform: translateY(-10px);
-		transition: opacity 0.6s ease, transform 0.6s ease;
 		background: transparent !important;
-	}
-
-	.video-container:hover {
-		opacity: 1;
-		transform: translateY(-12px);
 	}
 
 	.video-glow {
@@ -107,25 +112,16 @@ import Layout from '../../layouts/Layout.astro';
 		pointer-events: none;
 	}
 
-	.media-placeholder {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+	.hero-watch-video {
 		width: 100%;
-		height: 100%;
-		border: 1px dashed rgba(0, 0, 0, 0.2);
-		border-radius: 20px;
-		background: #fafafa;
-		color: #bbb;
-		font-size: 0.75rem;
-		font-weight: 700;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-	}
-
-	.hero-placeholder {
-		aspect-ratio: 9 / 16;
-		max-height: 520px;
+		height: auto;
+		display: block;
+		transform: translateZ(0);
+		will-change: contents;
+		backface-visibility: hidden;
+		background: transparent !important;
+		outline: none;
+		border: none;
 	}
 
 	.app-intro {
@@ -153,7 +149,9 @@ import Layout from '../../layouts/Layout.astro';
 		transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 	}
 
-	.app-store-link:hover { transform: scale(1.04) translateY(-4px); }
+	.app-store-link:hover {
+		transform: scale(1.04) translateY(-4px);
+	}
 
 	.badge-svg {
 		height: 52px;
@@ -227,6 +225,9 @@ import Layout from '../../layouts/Layout.astro';
 			grid-template-columns: 1fr;
 			gap: 40px;
 		}
-		h1 { font-size: 2.8rem; }
+
+		h1 {
+			font-size: 2.8rem;
+		}
 	}
 </style>

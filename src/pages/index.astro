@@ -44,7 +44,7 @@ import Layout from '../layouts/Layout.astro';
 				<div class="card-content">
 					<span class="category">iOS, iPadOS, macOS / CN</span>
 					<h2>Yinpin</h2>
-					<p>Master Pinyin and you can type any Chinese character you know, no handwriting required.</p>
+					<p>A faster path to Chinese fluency through Pinyin. Master tone-accurate recall and pronunciation across the full HSK vocabulary, unlocking the ability to read, speak, and type any character without handwriting.</p>
 				</div>
 			</a>
 
@@ -80,20 +80,6 @@ import Layout from '../layouts/Layout.astro';
 				</div>
 			</a>
 
-			{/* UTILITIES */}
-			<a href="https://apps.apple.com/us/app-bundle/asian-language-menubar/id1793885201?mt=12" class="card utilities">
-				<div class="icons-row">
-					<img src="/jbar-icon.png" alt="JBar" class="app-icon mini" />
-					<img src="/kbar-icon.png" alt="KBar" class="app-icon mini" />
-					<img src="/cbar-icon.png" alt="CBar" class="app-icon mini" />
-				</div>
-				<div class="content">
-					<span class="category">macOS / JP, KR, CN</span>
-					<h2>Menubar App Bundle</h2>
-					<p>Minimal utilities that keep your target language integrated into your daily workflow.</p>
-				</div>
-			</a>
-
 		</section>
 	</main>
 </Layout>
@@ -105,8 +91,7 @@ import Layout from '../layouts/Layout.astro';
 
 .grid {
 	display: grid;
-	grid-template-columns: repeat(4, minmax(0, 1fr));
-	grid-template-rows: minmax(240px, auto) minmax(210px, auto) minmax(210px, auto);
+	grid-template-columns: repeat(6, minmax(0, 1fr));
 	gap: 12px;
 	align-items: stretch;
 	width: min(100%, 900px);
@@ -132,7 +117,7 @@ import Layout from '../layouts/Layout.astro';
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.card-content, .content {
+.card-content {
 	display: flex;
 	flex-direction: column;
 	margin-top: 0;
@@ -153,16 +138,6 @@ import Layout from '../layouts/Layout.astro';
 	gap: 20px;
 }
 
-.tsugi {
-	flex-direction: row;
-	align-items: center;
-	gap: 16px;
-}
-
-.tsugi .card-content {
-	flex: 1;
-}
-
 /* HOVER STATES */
 .card:hover {
 	transform: translateY(-4px);
@@ -171,21 +146,18 @@ import Layout from '../layouts/Layout.astro';
 }
 
 /* --- BENTO PLACEMENT --- */
-.kaku { grid-column: 1 / span 2; grid-row: 1; }
-.sajeon { grid-column: 3 / span 2; grid-row: 1; }
-.tsugi { grid-column: 1 / span 2; grid-row: 2; }
-.yinpin { grid-column: 3; grid-row: 2; }
-.tokei { grid-column: 4; grid-row: 2; }
-.eohwi { grid-column: 1; grid-row: 3; }
-.zungzi { grid-column: 2; grid-row: 3; }
-.utilities {
-	grid-column: 3 / span 2;
-	grid-row: 3;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 12px;
-	padding: 20px;
-}
+/* Row 1: 2 flagship apps side-by-side */
+.kaku { grid-column: 1 / span 3; grid-row: 1; }
+.sajeon { grid-column: 4 / span 3; grid-row: 1; }
+
+/* Row 2: 2 multiplatform apps side-by-side */
+.tsugi { grid-column: 1 / span 3; grid-row: 2; }
+.yinpin { grid-column: 4 / span 3; grid-row: 2; }
+
+/* Row 3: 3 watchOS companion apps side-by-side */
+.tokei { grid-column: 1 / span 2; grid-row: 3; }
+.eohwi { grid-column: 3 / span 2; grid-row: 3; }
+.zungzi { grid-column: 5 / span 2; grid-row: 3; }
 
 /* ICONS */
 .app-icon {
@@ -194,15 +166,10 @@ import Layout from '../layouts/Layout.astro';
 	flex-shrink: 0;
 }
 
-.hero-icon {
-	width: 96px;
-	height: 96px;
-	margin-bottom: 32px;
-}
-
-.kaku .standard-icon {
-	width: 128px;
-	height: 128px;
+.kaku .standard-icon,
+.sajeon .standard-icon {
+	width: 88px;
+	height: 88px;
 	margin-bottom: 0;
 }
 
@@ -212,78 +179,12 @@ import Layout from '../layouts/Layout.astro';
 	margin-bottom: 12px;
 }
 
-.zungzi-shot {
-	width: 130px;
-	height: auto;
-	border-radius: 12px;
-	object-fit: cover;
-	flex-shrink: 0;
-	margin-bottom: 8px;
-	box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-}
-
-.tsugi-shot {
-	width: 100%;
-	max-width: 160px;
-	height: auto;
-	border-radius: 12px;
-	object-fit: cover;
-	flex-shrink: 0;
-	margin-bottom: 8px;
-	box-shadow: 0 8px 16px rgba(0,0,0,0.06);
-}
-
-.kaku-shot {
-	width: 100%;
-	max-width: 220px;
-	height: auto;
-	border-radius: 12px;
-	object-fit: cover;
-	flex-shrink: 0;
-	margin-bottom: 8px;
-	box-shadow: 0 10px 24px rgba(0,0,0,0.08);
-}
-
-.icon-placeholder {
-	width: 64px;
-	height: 64px;
-	margin-bottom: 20px;
-	border: 1px dashed rgba(0, 0, 0, 0.2);
-	border-radius: 22.5%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-	color: #bbb;
-	font-size: 0.55rem;
-	font-weight: 700;
-	letter-spacing: 0.05em;
-	text-transform: uppercase;
-	line-height: 1.4;
-	flex-shrink: 0;
-}
-
-.mini {
-	width: 48px;
-	height: 48px;
-}
-
-.icons-row {
-	display: flex;
-	gap: 8px;
-	flex-shrink: 0;
-	margin-bottom: 4px;
-}
-
-/* --- TYPOGRAPHY FIX --- */
+/* --- TYPOGRAPHY --- */
 .category {
 	display: block;
 	font-size: 0.7rem;
 	font-weight: 700;
-
-	/* The "Force Case" command */
 	text-transform: none !important;
-
 	letter-spacing: 0.08em;
 	color: #999;
 	margin-bottom: 6px;
@@ -297,8 +198,6 @@ h2 {
 	color: #111;
 }
 
-.kaku h2 { font-size: 1.25rem; margin-bottom: 12px; }
-
 p {
 	margin: 0;
 	font-size: 0.85rem;
@@ -306,58 +205,45 @@ p {
 	line-height: 1.5;
 }
 
-.kaku p { font-size: 0.9rem; }
-
-.utilities h2 { margin-bottom: 2px; }
-.utilities .category { margin-bottom: 0; }
-
-/* MOBILE */
+/* TABLET */
 @media (max-width: 900px) {
 	.grid {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		grid-template-rows: repeat(5, minmax(180px, auto));
+		grid-template-columns: repeat(6, minmax(0, 1fr));
 	}
 
-	.card {
-		grid-column: auto !important;
-		grid-row: auto !important;
-	}
-
-	.kaku,
-	.sajeon {
-		grid-column: span 2 !important;
-		flex-direction: row;
-	}
-
-	.utilities {
-		flex-direction: column;
-		align-items: flex-start;
-		gap: 16px;
-	}
-
-	.utilities .content {
-		margin-top: 0;
-	}
+	.kaku { grid-column: 1 / span 6; }
+	.sajeon { grid-column: 1 / span 6; }
+	.tsugi { grid-column: 1 / span 3; }
+	.yinpin { grid-column: 4 / span 3; }
+	.tokei { grid-column: 1 / span 2; }
+	.eohwi { grid-column: 3 / span 2; }
+	.zungzi { grid-column: 5 / span 2; }
 }
 
-@media (max-width: 600px) {
+/* MOBILE */
+@media (max-width: 650px) {
 	.grid {
 		grid-template-columns: 1fr;
-		grid-template-rows: none;
 		gap: 10px;
 	}
 
 	.card,
 	.kaku,
-	.sajeon {
+	.sajeon,
+	.tsugi,
+	.yinpin,
+	.tokei,
+	.eohwi,
+	.zungzi {
 		grid-column: auto !important;
-		min-height: 180px;
+		grid-row: auto !important;
+		min-height: auto;
 	}
 
-	.kaku {
-		min-height: 320px;
-		flex-direction: column;
-		align-items: flex-start;
+	.kaku,
+	.sajeon {
+		flex-direction: row;
+		align-items: center;
 	}
 
 	.kaku .card-content,
