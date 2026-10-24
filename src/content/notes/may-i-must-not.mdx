@@ -1,9 +1,10 @@
 ---
 title: "Go Ahead, or Don't You Dare (てもいい・てはいけない)"
-order: 81
+order: 17
 description: "辞書を使ってもいいですか vs 宿題をメールで出してはいけません。てもいい gives permission, てはいけない forbids it, and both attach to the exact same て-form."
 category: ["LEARN", "JAPANESE"]
 level: "N5"
+sourceRecords: [239, 516, 1081]
 ---
 
 import JapaneseLessonHead from '../../components/japanese/JapaneseLessonHead.astro';
@@ -13,19 +14,27 @@ import Hint from '../../components/korean/Hint.astro';
 
 <JapaneseLessonHead />
 
-てもいい attaches to a verb's て-form to mean "may, it's okay to." てはいけない attaches the same way to mean "must not, it's forbidden." Same て-form both directions, opposite permission.
+てもいい attaches to a verb's て-form to mean "may, it's okay to." てもかまわない also grants permission, with a somewhat more formal sense of “I don't mind if you do.” てはいけない attaches the same way to mean "must not, it's forbidden." Same て-form both directions, opposite permission.
+
+てはならない is a more formal or rule-like prohibition than てはいけない: ここに駐車してはならない, “parking here is prohibited.” It is common in written rules, signs, and formal statements.
 
 <JSentenceBlock furigana="先生[せんせい]、辞書[じしょ]を使[つか]ってもいいですか。" romaji="Sensei, jisho o tsukatte mo ii desu ka." english="Teacher, may I use a dictionary?" />
 
 <JSentenceBlock furigana="宿題[しゅくだい]はあしたでもいいですか。" romaji="Shukudai wa ashita demo ii desu ka." english="Is it okay if the homework is tomorrow?" />
 
-<Hint>てもいい literally reads "even if [you] do this, it's good," も carrying its "even" meaning from Anyone, Anytime, Anywhere straight into this construction. Asking permission with か on the end is the standard, polite way to check before doing something.</Hint>
+<Hint type="hint">てもいい literally reads "even if [you] do this, it's good," も carrying its "even" meaning from Anyone, Anytime, Anywhere straight into this construction. Asking permission with か on the end is the standard, polite way to check before doing something.</Hint>
 
 <JSentenceBlock furigana="宿題[しゅくだい]をメールで出[だ]してはいけません。" romaji="Shukudai o meeru de dashite wa ikemasen." english="You must not turn in homework by email." />
 
 <JSentenceBlock furigana="週末[しゅうまつ]も働[はたら]かなくてはいけませんか。" romaji="Shuumatsu mo hatarakanakute wa ikemasen ka." english="Do I have to work on weekends too?" />
 
-<Hint>てはいけない is a flat prohibition, stronger than simply saying you don't want to do something. なくてはいけない (the negative te-form plus はいけない) flips the meaning to obligation instead, "not doing this isn't allowed," which lands as "you have to." Negating a negative to state a requirement is a pattern that shows up constantly in Japanese.</Hint>
+<Hint type="hint">てはいけない is a flat prohibition, stronger than simply saying you don't want to do something. なくてはいけない (the negative te-form plus はいけない) flips the meaning to obligation instead, "not doing this isn't allowed," which lands as "you have to." Negating a negative to state a requirement is a pattern that shows up constantly in Japanese.</Hint>
+
+In blunt casual speech, a dictionary-form verb + んじゃない can also mean “don't do that.” It sounds like a direct command and is most common when a parent, teacher, or close friend is warning someone. Use ないでください or てはいけません when you need a more polite tone.
+
+<JSentenceBlock furigana="危[あぶ]ないから、そこに近[ちか]づくんじゃない。" romaji="Abunai kara, soko ni chikazukun ja nai." english="It's dangerous, so don't go near there." />
+
+<Hint type="insight">This is a firm warning, not a neutral rule. Between adults it can sound angry or patronizing, so soften it to 近づかないでください when speaking politely.</Hint>
 
 ### Vocabulary
 
@@ -47,7 +56,7 @@ import Hint from '../../components/korean/Hint.astro';
   { furigana: "禁止[きんし]する", romaji: "kinshi suru", english: "to prohibit" },
   { furigana: "校則[こうそく]", romaji: "kousoku", english: "school rules" },
   { furigana: "規則[きそく]", romaji: "kisoku", english: "rule, regulation" },
-  { furigana: "許[ゆる]す", romaji: "yurusu", english: "to allow, forgive" },
+  { furigana: "近[ちか]づく", romaji: "chikazuku", english: "to approach, go near" },
   { furigana: "義務[ぎむ]", romaji: "gimu", english: "obligation, duty" },
   { furigana: "自由[じゆう]", romaji: "jiyuu", english: "freedom" },
 ]} />

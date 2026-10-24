@@ -1,9 +1,10 @@
 ---
 title: "First This, Then That (前に・あとで)"
-order: 109
+order: 20
 description: "新聞を読む前に着替えます。犬の散歩をした後で寝ます。前に and あとで sequence two events around a fixed point in time."
 category: ["LEARN", "JAPANESE"]
 level: "N5"
+sourceRecords: [605, 614, 679]
 ---
 
 import JapaneseLessonHead from '../../components/japanese/JapaneseLessonHead.astro';
@@ -13,19 +14,27 @@ import Hint from '../../components/korean/Hint.astro';
 
 <JapaneseLessonHead />
 
-前に (before) attaches after a verb's plain dictionary form, regardless of when the sentence itself is set. あとで (after) attaches after a verb's plain past た-form. Both can also follow a noun with の.
+You check the forecast before work and walk the dog after dinner. 前に takes the dictionary form; あとで takes the past た-form. Together, they make the sequence easy to follow.
 
 <JSentenceBlock furigana="新聞[しんぶん]を読[よ]む前[まえ]に着替[きが]えます。" romaji="Shinbun o yomu mae ni kigaemasu." english="I get dressed before reading the newspaper." />
 
 <JSentenceBlock furigana="花[はな]に水[みず]をやった後[あと]で犬[いぬ]の散歩[さんぽ]をします。" romaji="Hana ni mizu o yatta ato de inu no sanpo o shimasu." english="I water the flowers, then walk the dog." />
 
-<Hint>前に always takes the dictionary form even in a past-tense sentence, 食べる前に行きました, "I went before eating," never 食べた前に. あとで works the opposite way, always the past た-form, even when the whole sentence describes a habit or the future, 食べた後で寝ます.</Hint>
+<Hint type="hint">前に always takes the dictionary form even in a past-tense sentence, 食べる前に行きました, "I went before eating," never 食べた前に. あとで works the opposite way, always the past た-form, even when the whole sentence describes a habit or the future, 食べた後で寝ます.</Hint>
 
 <JSentenceBlock furigana="会社[かいしゃ]に行[い]く前[まえ]に天気予報[てんきよほう]を見[み]ます。" romaji="Kaisha ni iku mae ni tenki yohou o mimasu." english="I check the weather forecast before going to the office." />
 
 <JSentenceBlock furigana="会社[かいしゃ]に着[つ]いた後[あと]でメールをチェックします。" romaji="Kaisha ni tsuita ato de meeru o chekku shimasu." english="I check my email after arriving at the office." />
 
-<Hint>Attached to a noun instead of a verb, both just need の between them, 授業の前に, パーティーの後で, "before class," "after the party," a much simpler pattern than the verb forms above.</Hint>
+<Hint type="hint">Attached to a noun instead of a verb, both just need の between them, 授業の前に, パーティーの後で, "before class," "after the party," a much simpler pattern than the verb forms above.</Hint>
+
+In formal announcements, noun + に先立[さきだ]ち means “prior to / before,” usually for an important event: 開会に先立ち, “before the opening.” Noun + 後[ご]の + noun describes the period or state after an event, as in 退院後の生活, “life after discharge.”
+
+<JSentenceBlock furigana="開会[かいかい]に先立[さきだ]ち、主催者[しゅさいしゃ]から説明[せつめい]があります。" romaji="Kaikai ni sakidachi, shusai-sha kara setsumei ga arimasu." english="Before the opening, the organizers will give an explanation." />
+
+一旦[いったん] means “once” or “for now” and marks a pause or first step before what follows: 一旦ここで休んで、あとで再開しましょう, “Let's pause here for now and resume later.”
+
+<Hint type="insight">に先立ち is common in formal schedules and event notices. 一旦 is useful in everyday planning when you want to pause, check something, or finish one step before moving on.</Hint>
 
 ### Vocabulary
 
@@ -36,7 +45,7 @@ import Hint from '../../components/korean/Hint.astro';
   { furigana: "天気予報[てんきよほう]", romaji: "tenki yohou", english: "weather forecast" },
   { furigana: "着[つ]く", romaji: "tsuku", english: "to arrive" },
   { furigana: "チェックする", romaji: "chekku suru", english: "to check" },
-  { furigana: "コンビニ", romaji: "konbini", english: "convenience store" },
+  { furigana: "開会[かいかい]", romaji: "kaikai", english: "opening of an event" },
   { furigana: "始[はじ]まる", romaji: "hajimaru", english: "for something to start" },
   { furigana: "終[お]わる", romaji: "owaru", english: "to end, finish" },
   { furigana: "出[で]る", romaji: "deru", english: "to leave, exit" },
@@ -47,7 +56,7 @@ import Hint from '../../components/korean/Hint.astro';
   { furigana: "直前[ちょくぜん]", romaji: "chokuzen", english: "right before" },
   { furigana: "直後[ちょくご]", romaji: "chokugo", english: "right after" },
   { furigana: "準備[じゅんび]する", romaji: "junbi suru", english: "to prepare" },
-  { furigana: "起[お]きる", romaji: "okiru", english: "to wake up" },
+  { furigana: "主催者[しゅさいしゃ]", romaji: "shusai-sha", english: "organizer" },
   { furigana: "寝[ね]る", romaji: "neru", english: "to sleep, go to bed" },
   { furigana: "同時[どうじ]に", romaji: "douji ni", english: "at the same time" },
 ]} />

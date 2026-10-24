@@ -1,0 +1,33 @@
+---
+interface Props {
+  language: 'japanese' | 'korean' | 'chinese';
+}
+
+const { language } = Astro.props;
+const glyph = {
+  japanese: 'あ',
+  korean: '한',
+  chinese: '文',
+}[language];
+const glyphLang = { japanese: 'ja', korean: 'ko', chinese: 'zh-Hans' }[language];
+---
+
+<div class:list={['course-artwork', language]} aria-hidden="true">
+  <span lang={glyphLang}>{glyph}</span>
+</div>
+
+<style>
+  .course-artwork {
+    display: grid;
+    place-items: center;
+    width: 126px;
+    height: 126px;
+    color: #222;
+  }
+  .japanese { font-family: "Noto Sans JP", sans-serif; }
+  .korean { font-family: "Noto Sans KR", sans-serif; }
+  .chinese { font-family: "Noto Sans SC", sans-serif; }
+  .course-artwork span { font-size: 6.2rem; font-weight: 500; line-height: 1; letter-spacing: -.09em; }
+  @media (max-width: 760px) { .course-artwork { width: 84px; height: 84px; } .course-artwork span { font-size: 4.5rem; } }
+  @media (max-width: 420px) { .course-artwork { width: 64px; height: 64px; } .course-artwork span { font-size: 3.5rem; } }
+</style>

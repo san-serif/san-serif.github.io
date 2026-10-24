@@ -1,9 +1,10 @@
 ---
 title: "No Way Around It (〜なければならない)"
-order: 97
+order: 15
 description: "5時までに宿題を出さなければなりません。なければならない says something isn't optional, whatever the plain-negative form would otherwise let you skip."
 category: ["LEARN", "JAPANESE"]
 level: "N4"
+sourceRecords: [169, 170, 171, 347, 397, 404, 515, 548, 580, 766]
 ---
 
 import JapaneseLessonHead from '../../components/japanese/JapaneseLessonHead.astro';
@@ -15,17 +16,45 @@ import Hint from '../../components/korean/Hint.astro';
 
 なければならない attaches to a verb or adjective's negative stem and expresses obligation, literally "if not, it won't do." It's built from two pieces you already have, ば (if) and ならない (won't become okay), stacked together into a single fixed phrase.
 
+ないことには～ない presents an action as a necessary condition: 説明を聞かないことには、判断できません, “unless we hear the explanation, we can't decide.” Unlike a direct obligation, it focuses on what must happen before a result is possible.
+
+The written form ねばならない means the same thing and sounds more formal or old-fashioned. It is formed from the verb's negative stem plus ねば: 行かねばならない, “must go.” In everyday speech, なければならない is much more common.
+
 <JSentenceBlock furigana="このクラスでは5時[ごじ]までに宿題[しゅくだい]を出[だ]さなければなりません。" romaji="Kono kurasu de wa goji made ni shukudai o dasanakereba narimasen." english="In this class, homework has to be turned in by 5:00." />
 
 <JSentenceBlock furigana="漢字[かんじ]を300覚[おぼ]えなければなりません。" romaji="Kanji o sanbyaku oboenakereba narimasen." english="We have to memorize 300 kanji." />
 
-<Hint>The literal shape is "verb-ば-negative + ならない," if you don't do it, it doesn't work out. In practice it just reads as a plain obligation, "have to," with none of that literal if-then logic surfacing in translation.</Hint>
+<Hint type="hint">The literal shape is "verb-ば-negative + ならない," if you don't do it, it doesn't work out. In practice it just reads as a plain obligation, "have to," with none of that literal if-then logic surfacing in translation.</Hint>
 
 <JSentenceBlock furigana="これが売[う]れるためには、環境[かんきょう]に優[やさ]しくなければなりません。" romaji="Kore ga ureru tame ni wa, kankyou ni yasashiku nakereba narimasen." english="For this to sell, it has to be environmentally friendly." />
 
 <JSentenceBlock furigana="このレポートは日本語[にほんご]で書[か]かなければなりませんか。" romaji="Kono repooto wa nihongo de kakanakereba narimasen ka." english="Does this report have to be written in Japanese?" />
 
-<Hint>い-adjectives swap い for くなければならない (優しくなければならない), and な-adjectives and nouns add でなければならない (便利でなければならない), following the same negative-stem pattern that なくて also builds on.</Hint>
+<Hint type="hint">い-adjectives swap い for くなければならない (優しくなければならない), and な-adjectives and nouns add でなければならない (便利でなければならない), following the same negative-stem pattern that なくて also builds on.</Hint>
+
+In everyday speech, the longer obligation forms often shorten. なければならない can become なければいけない, なくてはいけない, or, very casually, なきゃいけない / なきゃ. ないと is another common spoken shortcut, often left unfinished because the listener can infer “I have to.”
+
+<JSentenceBlock furigana="もう帰[かえ]らないと。" romaji="Mou kaeranai to." english="I have to get going now." />
+
+<Hint type="insight">In real life, もう帰らないと and 宿題をしなきゃ are common casual reminders to yourself or close friends. The full なければなりません sounds much more deliberate and is a safe choice in formal situations, but it can feel stiff among friends.</Hint>
+
+The opposite idea, “don't have to,” is なくてもいい: the action is optional, not forbidden.
+
+<JSentenceBlock furigana="明日[あした]は早[はや]く来[こ]なくてもいいです。" romaji="Ashita wa hayaku konakute mo ii desu." english="You don't have to come early tomorrow." />
+
+<Hint type="hint">Don't confuse “don't have to” with “must not.” なくてもいい allows the action but says it is unnecessary; てはいけない prohibits it. The も in なくてもいい gives the sense “even if you don't do it, that's okay.”</Hint>
+
+When there is no alternative, verb dictionary form + より仕方[しかた]がない means “there is no choice but to…” It expresses resignation rather than a rule or personal obligation.
+
+<JSentenceBlock furigana="電車[でんしゃ]が止[と]まったので、歩[ある]いて帰[かえ]るより仕方[しかた]がありません。" romaji="Densha ga tomatta node, aruite kaeru yori shikata ga arimasen." english="Since the train stopped, we have no choice but to walk home." />
+
+<Hint type="insight">Use なければならない for a requirement such as a deadline or rule. Use より仕方がない when circumstances leave no workable alternative: there may be a preferred option, but it isn't available.</Hint>
+
+For a formal, reluctant “have no choice but to,” use ざるを得ない: 規則を変更せざるを得ません, “we have no choice but to change the rule.” ないわけにはいかない stresses that an action cannot be left undone because of responsibility or expectation. Both are stronger than a plain requirement, but ざるを得ない foregrounds the lack of alternatives.
+
+よりほかない is another written “there is no choice but to,” close to より仕方がない. It presents the remaining action as the only available path: 結果を待つよりほかありません, “there is nothing to do but wait for the result.”
+
+<JSentenceBlock furigana="全員[ぜんいん]に説明[せつめい]しないわけにはいきません。" romaji="Zen'in ni setsumei shinai wake ni wa ikimasen." english="We can't leave everyone without an explanation." />
 
 ### Vocabulary
 
@@ -36,7 +65,7 @@ import Hint from '../../components/korean/Hint.astro';
   { furigana: "売[う]れる", romaji: "ureru", english: "to sell (well)" },
   { furigana: "環境[かんきょう]", romaji: "kankyou", english: "environment" },
   { furigana: "優[やさ]しい", romaji: "yasashii", english: "kind, gentle" },
-  { furigana: "ターゲット", romaji: "taagetto", english: "target" },
+  { furigana: "仕方[しかた]がない", romaji: "shikata ga nai", english: "there is no choice" },
   { furigana: "以下[いか]", romaji: "ika", english: "or below, and under" },
   { furigana: "捨[す]てる", romaji: "suteru", english: "to throw away" },
   { furigana: "洗[あら]う", romaji: "arau", english: "to wash" },

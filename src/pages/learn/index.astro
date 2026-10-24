@@ -1,0 +1,115 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import CourseArtwork from '../../components/CourseArtwork.astro';
+import { courseSequence, isTangent } from '../../lib/notesGrouping';
+
+const notes = await getCollection('notes');
+const featuredTangent = notes.filter(isTangent).sort((a, b) => b.data.order - a.data.order).find(note => note.data.thumbnail);
+const courses = [
+  { key: 'JAPANESE', slug: 'japanese', name: 'Japanese', native: '日本語', levels: 'JLPT N5 → N1', description: 'Build from everyday sentences to the nuance of advanced Japanese.' },
+  { key: 'KOREAN', slug: 'korean', name: 'Korean', native: '한국어', levels: 'TOPIK I → II', description: 'Learn the grammar and speech levels behind natural Korean.' },
+  { key: 'CHINESE', slug: 'chinese', name: 'Chinese', native: '中文', levels: 'HSK 1 → 7–9', description: 'Move from basic patterns to more expressive Mandarin.' },
+] as const;
+---
+
+<Layout title="Learn Japanese, Korean & Chinese | san serif" description="Free, ordered Japanese, Korean, and Chinese lessons with real sentences, reading controls, and a clear place to start.">
+  <main class="learn-page wrapper">
+    <header class="learn-header">
+      <p class="eyebrow">FREE LANGUAGE LESSONS</p>
+      <h1>Start with hello.<br />Go as far as you like.</h1>
+      <p>Choose Japanese, Korean, or Chinese. Begin with the basics, or pick up where you left off.</p>
+    </header>
+
+    <a class="resume-link" id="resume-link" href="/learn" hidden>
+      <span class="resume-label">LAST VIEWED LESSON</span>
+      <strong id="resume-title"></strong>
+      <span aria-hidden="true">→</span>
+    </a>
+
+    <section class="course-list" aria-label="Languages">
+      {courses.map(course => {
+        const sequence = courseSequence(notes, course.key);
+        return (
+          <a class="course-card" href={`/learn/${course.slug}`}>
+            <CourseArtwork language={course.slug} />
+            <span class="course-card-copy">
+              <span class="course-top"><span>{course.name}</span><span lang={course.slug === 'japanese' ? 'ja' : course.slug === 'korean' ? 'ko' : 'zh'}>{course.native}</span></span>
+              <span class="course-description">{course.description}</span>
+              <span class="course-bottom">{sequence.length} lessons · {course.levels}</span>
+            </span>
+            <span class="course-arrow" aria-hidden="true">↗</span>
+          </a>
+        );
+      })}
+    </section>
+
+    <section class="more-reading" aria-label="More to explore">
+      <a class="more-card" href="/notes#section-tangents">
+        <span class="tangent-preview">
+          {featuredTangent?.data.thumbnail && <img src={featuredTangent.data.thumbnail} alt="" loading="lazy" />}
+        </span>
+        <span class="more-copy"><span class="more-kicker">CULTURE & GUIDES</span><strong>Tangents <span lang="ko">여담</span></strong><span>Stories and ideas beyond the lessons.</span><span class="more-cta">Explore Tangents →</span></span>
+      </a>
+    </section>
+  </main>
+</Layout>
+
+<script is:inline>
+  try {
+    const last = JSON.parse(localStorage.getItem('sanserif:last:v1') || '{}');
+    const entries = Object.entries(last).filter(([course, item]) =>
+      ['japanese', 'korean', 'chinese'].includes(course) &&
+      item && typeof item.href === 'string' && item.href.startsWith('/notes/') &&
+      typeof item.title === 'string'
+    );
+    entries.sort((a, b) => (b[1].updatedAt || 0) - (a[1].updatedAt || 0));
+    if (entries.length) {
+      const [course, item] = entries[0];
+      const link = document.getElementById('resume-link');
+      link.href = item.href;
+      document.getElementById('resume-title').textContent = course[0].toUpperCase() + course.slice(1) + ': ' + item.title;
+      link.hidden = false;
+    }
+  } catch {}
+</script>
+
+<style>
+  .learn-page { max-width: 960px; padding-bottom: 120px; }
+  .learn-header { padding: 12px 0 52px; max-width: 690px; }
+  .eyebrow { color: #888; font-size: .7rem; font-weight: 700; letter-spacing: .15em; margin: 0 0 20px; }
+  h1 { font-size: clamp(2.6rem, 5vw, 4.5rem); line-height: 1.07; letter-spacing: -.065em; margin: 0 0 24px; font-weight: 650; }
+  .learn-header > p:last-child { max-width: 530px; color: #666; line-height: 1.7; font-size: 1rem; margin: 0; }
+  .resume-link { display: flex; align-items: baseline; gap: 18px; padding: 18px 20px; margin: -16px 0 28px; border: 1px solid #dedede; background: #f7f7f7; border-radius: 9px; color: #111; text-decoration: none; }
+  .resume-link[hidden] { display: none; }
+  .resume-label { font-size: .67rem; font-weight: 700; letter-spacing: .1em; white-space: nowrap; }
+  .resume-link strong { font-size: .85rem; font-weight: 600; }
+  .resume-link span:last-child { margin-left: auto; }
+  .course-list { border-top: 1px solid #e6e6e6; }
+  .course-card { min-width: 0; display: grid; grid-template-columns: 126px minmax(0, 1fr) 28px; align-items: center; gap: 22px; padding: 25px 8px; border-bottom: 1px solid #e6e6e6; color: #111; text-decoration: none; transition: background .2s; }
+  .course-card:hover { background: #fafafa; }
+  .course-card:focus-visible, .more-card:focus-visible { outline: 2px solid #111; outline-offset: 4px; }
+  .course-card-copy { min-width: 0; display: flex; flex-direction: column; gap: 9px; }
+  .course-top { display: flex; align-items: baseline; flex-wrap: wrap; gap: 13px; font-size: 1.55rem; font-weight: 650; letter-spacing: -.035em; }
+  .course-top span:last-child { color: #999; font-size: 1.08rem; font-weight: 400; letter-spacing: 0; }
+  .course-top [lang="ja"] { font-family: "Noto Sans JP", sans-serif; }
+  .course-top [lang="ko"] { font-family: "Noto Sans KR", sans-serif; }
+  .course-top [lang="zh"] { font-family: "Noto Sans SC", sans-serif; }
+  .course-description { color: #555; line-height: 1.55; font-size: .92rem; }
+  .course-bottom { color: #888; font-size: .78rem; }
+  .course-arrow { align-self: center; justify-self: end; color: #555; font-size: 1.15rem; transition: transform .2s, color .2s; }
+  .course-card:hover .course-arrow { color: #111; transform: translate(2px, -2px); }
+  .more-reading { margin-top: 68px; }
+  .more-card { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); min-height: 220px; overflow: hidden; border: 1px solid #e1e1e1; border-radius: 20px; color: #111; text-decoration: none; transition: border-color .2s, transform .2s, box-shadow .2s; }
+  .more-card:hover { border-color: #bbb; transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0, 0, 0, .055); }
+  .tangent-preview { display: block; min-height: 220px; overflow: hidden; background: #e9e9e9; }
+  .tangent-preview img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 53%; }
+  .more-copy { display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 28px 34px; }
+  .more-kicker { color: #999; font-size: .65rem; font-weight: 700; letter-spacing: .12em; }
+  .more-copy strong { font-size: 1.18rem; letter-spacing: -.03em; }
+  .more-copy strong span { color: #999; font-weight: 400; }
+  .more-copy > span:nth-last-child(2) { color: #777; font-size: .86rem; line-height: 1.5; }
+  .more-cta { margin-top: auto; padding-top: 8px; font-size: .82rem; font-weight: 650; }
+  @media (max-width: 760px) { .more-card { grid-template-columns: 1fr; } .course-card { grid-template-columns: 84px minmax(0, 1fr) 20px; gap: 14px; padding: 23px 0; } .course-top { font-size: 1.28rem; gap: 10px; } .course-top span:last-child { font-size: .92rem; } .more-reading { margin-top: 60px; } .tangent-preview { min-height: 190px; max-height: 220px; } .resume-link { flex-wrap: wrap; gap: 6px 12px; } .resume-label { width: 100%; } }
+  @media (max-width: 420px) { .course-card { grid-template-columns: 64px minmax(0, 1fr) 18px; gap: 10px; } .course-description { font-size: .84rem; } .course-bottom { font-size: .72rem; } }
+</style>

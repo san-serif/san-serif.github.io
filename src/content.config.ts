@@ -18,6 +18,16 @@ const notes = defineCollection({
 		// for Korean. One generic field so the template/badge logic doesn't
 		// need to branch per language or per test.
 		level: z.string().optional(),
+		// A short retrieval check shown after a lesson. Roll this out only
+		// where the answer and feedback have been reviewed.
+		practice: z.object({
+			prompt: z.string(),
+			choices: z.array(z.string()).min(2),
+			answer: z.number().int().nonnegative(),
+			explanation: z.string(),
+		}).optional(),
+		// Official curriculum source IDs for lessons with a traceable syllabus.
+		sourceRecords: z.array(z.number()).optional(),
 		// Optional thumbnail for the /notes index list — currently only used
 		// by Tangents entries, which read as richer feed items rather than
 		// plain curriculum rows.

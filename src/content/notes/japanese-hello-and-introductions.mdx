@@ -1,0 +1,80 @@
+---
+title: "Hello, I'm... (こんにちは・はじめまして・です)"
+order: 1
+description: "Greet someone, say your name, and make your first polite Japanese sentence with は and です."
+category: ["LEARN", "JAPANESE"]
+level: "N5"
+practice:
+  prompt: "You have just met someone. Which introduction is a natural polite choice?"
+  choices: ["はじめまして。アンナです。", "さようなら。アンナです。", "おやすみなさい。アンナです。"]
+  answer: 0
+  explanation: "はじめまして opens a first meeting; です makes the name statement polite."
+---
+
+import JapaneseLessonHead from '../../components/japanese/JapaneseLessonHead.astro';
+import JSentenceBlock from '../../components/japanese/JSentenceBlock.astro';
+import JVocabTable from '../../components/japanese/JVocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<JapaneseLessonHead />
+
+You have just met a classmate. Start with はじめまして, say your name, and finish with よろしくお願いします. These are useful complete phrases even before you know every part of their grammar.
+
+### Your first exchange
+
+<JSentenceBlock furigana="こんにちは。" romaji="Konnichiwa." english="Hello." />
+
+<JSentenceBlock furigana="はじめまして。アンナです。" romaji="Hajimemashite. Anna desu." english="Nice to meet you. I'm Anna." />
+
+<JSentenceBlock furigana="よろしくお願[ねが]いします。" romaji="Yoroshiku onegai shimasu." english="I look forward to getting to know you." />
+
+<Hint type="insight">よろしくお願いします has no single English equivalent. After an introduction it closes the exchange warmly; in other settings it can ask for someone's cooperation. Learn the whole phrase first.</Hint>
+
+### Say something about yourself
+
+Put the topic first, mark it with は, and finish a polite noun statement with です. The particle は is written with the character for *ha* but pronounced *wa* here.
+
+<JSentenceBlock furigana="私[わたし]は学生[がくせい]です。" romaji="Watashi wa gakusei desu." english="I'm a student." />
+
+<JSentenceBlock furigana="田中[たなか]さんは先生[せんせい]です。" romaji="Tanaka-san wa sensei desu." english="Tanaka is a teacher." />
+
+Add か at the end to ask a polite yes-or-no question. In conversation, once the person is clear, you can leave the topic out.
+
+<JSentenceBlock furigana="学生[がくせい]ですか。" romaji="Gakusei desu ka." english="Are you a student?" />
+
+<Hint type="hint">です identifies or describes with a noun here; it does not mean “there is.” The next lesson uses ある and いる for things and people that exist or are somewhere.</Hint>
+
+### Greetings change with the moment
+
+<JSentenceBlock furigana="おはようございます。" romaji="Ohayou gozaimasu." english="Good morning. (polite)" />
+
+<JSentenceBlock furigana="こんばんは。" romaji="Konbanwa." english="Good evening." />
+
+<JSentenceBlock furigana="また明日[あした]。" romaji="Mata ashita." english="See you tomorrow." />
+
+<Hint type="hint">さようなら is a goodbye, but it can sound more final than a casual “see you.” またね or また明日 often fits everyday partings better.</Hint>
+
+### Vocabulary
+
+<JVocabTable words={[
+  { furigana: "こんにちは", romaji: "konnichiwa", english: "hello; good afternoon" },
+  { furigana: "はじめまして", romaji: "hajimemashite", english: "nice to meet you (first meeting)" },
+  { furigana: "よろしくお願[ねが]いします", romaji: "yoroshiku onegai shimasu", english: "please treat me well; pleased to meet you" },
+  { furigana: "私[わたし]", romaji: "watashi", english: "I; me" },
+  { furigana: "あなた", romaji: "anata", english: "you" },
+  { furigana: "名前[なまえ]", romaji: "namae", english: "name" },
+  { furigana: "学生[がくせい]", romaji: "gakusei", english: "student" },
+  { furigana: "先生[せんせい]", romaji: "sensei", english: "teacher" },
+  { furigana: "友達[ともだち]", romaji: "tomodachi", english: "friend" },
+  { furigana: "人[ひと]", romaji: "hito", english: "person" },
+  { furigana: "はい", romaji: "hai", english: "yes" },
+  { furigana: "いいえ", romaji: "iie", english: "no" },
+  { furigana: "です", romaji: "desu", english: "polite sentence ending with a noun" },
+  { furigana: "は", romaji: "wa", english: "topic particle" },
+  { furigana: "か", romaji: "ka", english: "question particle" },
+  { furigana: "おはようございます", romaji: "ohayou gozaimasu", english: "good morning (polite)" },
+  { furigana: "こんばんは", romaji: "konbanwa", english: "good evening" },
+  { furigana: "またね", romaji: "mata ne", english: "see you (casual)" },
+  { furigana: "また明日[あした]", romaji: "mata ashita", english: "see you tomorrow" },
+  { furigana: "さようなら", romaji: "sayounara", english: "goodbye" },
+]} />

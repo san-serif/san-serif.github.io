@@ -1,0 +1,28 @@
+---
+interface Props {
+  level: string;
+  label?: string;
+}
+
+const { level, label = level } = Astro.props;
+const className = level.toLowerCase().replace(/[^a-z0-9]+/g, '');
+---
+
+<span class:list={['level-badge', className]}>{label}</span>
+
+<style>
+  .level-badge { display: inline-flex; align-items: center; width: fit-content; border-radius: 999px; padding: 4px 9px; font-size: .67rem; font-weight: 750; line-height: 1.2; letter-spacing: .02em; white-space: nowrap; }
+  .n5 { background: #cfeeda; color: #146b3a; }
+  .n4 { background: #d3e4fa; color: #1f4f97; }
+  .n3 { background: #e7d8f5; color: #6b2a98; }
+  .n2 { background: #fadfb8; color: #a65200; }
+  .n1 { background: #f6d2d9; color: #96132f; }
+  .topiki { background: #f8e3b8; color: #8a5600; }
+  .topikii { background: #f8d2be; color: #a83415; }
+  .hsk1 { background: #f8e3b8; color: #8a5600; }
+  .hsk2 { background: #f4ddb5; color: #865700; }
+  .hsk3 { background: #e7d8f5; color: #6b2a98; }
+  .hsk4 { background: #d3e4fa; color: #1f4f97; }
+  .hsk5 { background: #d5e9ed; color: #24606b; }
+  .hsk6, .hsk79 { background: #d8d5f3; color: #53439a; }
+</style>

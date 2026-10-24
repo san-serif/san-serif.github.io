@@ -11,18 +11,27 @@
 // variant (拼 Pinyin for Mandarin / 粵 Jyutping for Cantonese). A reader
 // can be on Traditional+Pinyin just as easily as Simplified+Jyutping, so
 // these are two separate segmented controls, not one three-way toggle.
+interface Props {
+  hasJyutping?: boolean;
+}
+
+const { hasJyutping = true } = Astro.props;
 ---
 
 <div class="app-header-controls">
-  <div class="segmented-control" id="script-picker">
-    <button class="segment active" data-mode="simplified" onclick="setScriptMode('simplified')" title="Simplified">简</button>
-    <button class="segment" data-mode="traditional" onclick="setScriptMode('traditional')" title="Traditional">繁</button>
+  <div class="toggle-group" role="group" aria-label="Chinese character set">
+    <div class="segmented-control" id="script-picker">
+      <button class="segment active" data-mode="simplified" aria-pressed="true" onclick="setScriptMode('simplified', this)">Simplified</button>
+      <button class="segment" data-mode="traditional" aria-pressed="false" onclick="setScriptMode('traditional', this)">Traditional</button>
+    </div>
   </div>
 
-  <div class="segmented-control" id="rom-picker">
-    <button class="segment active" data-mode="pinyin" onclick="setRomMode('pinyin')" title="Pinyin (Mandarin)">拼</button>
-    <button class="segment" data-mode="jyutping" onclick="setRomMode('jyutping')" title="Jyutping (Cantonese)">粵</button>
-  </div>
+  {hasJyutping && <div class="toggle-group" role="group" aria-label="Pronunciation and romanization">
+    <div class="segmented-control" id="rom-picker">
+      <button class="segment active" data-mode="pinyin" aria-pressed="true" onclick="setRomMode('pinyin', this)" title="Pinyin">Pinyin</button>
+      <button class="segment" data-mode="jyutping" aria-pressed="false" onclick="setRomMode('jyutping', this)" title="Jyutping">Jyutping</button>
+    </div>
+  </div>}
 </div>
 
 <script is:inline>
@@ -36,20 +45,37 @@
     const link = el.querySelector('.reader-link');
     const romEl = el.querySelector('.rom');
     link.innerText = el.dataset[script];
-    romEl.innerText = el.dataset[rom];
+    romEl.innerText = rom === 'jyutping'
+      ? window.formatJyutping(el.dataset.jyutping)
+      : el.dataset.pinyin;
   }
 
-  window.setScriptMode = function (mode) {
+  // Match Zungzi: keep standard Jyutping tone numbers in source data, but
+  // raise each syllable's tone digit in the reading shown to learners.
+  window.formatJyutping = function (value) {
+    return value.replace(/([a-zA-Z]+)([1-6])/g, (_, syllable, tone) => {
+      const superscript = { '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶' };
+      return syllable + superscript[tone];
+    });
+  }
+
+  function selectChineseSegment(picker, button) {
+    document.querySelectorAll(`#${picker} .segment`).forEach(btn => {
+      const selected = btn === button;
+      btn.classList.toggle('active', selected);
+      btn.setAttribute('aria-pressed', String(selected));
+    });
+  }
+
+  window.setScriptMode = function (mode, button) {
     window._cnScriptMode = mode;
-    document.querySelectorAll('#script-picker .segment').forEach(btn => btn.classList.remove('active'));
-    if (event && event.currentTarget) event.currentTarget.classList.add('active');
+    selectChineseSegment('script-picker', button);
     document.querySelectorAll('.cn-dynamic-text').forEach(applyChineseText);
   };
 
-  window.setRomMode = function (mode) {
+  window.setRomMode = function (mode, button) {
     window._cnRomMode = mode;
-    document.querySelectorAll('#rom-picker .segment').forEach(btn => btn.classList.remove('active'));
-    if (event && event.currentTarget) event.currentTarget.classList.add('active');
+    selectChineseSegment('rom-picker', button);
     document.querySelectorAll('.cn-dynamic-text').forEach(applyChineseText);
   };
 
@@ -93,10 +119,20 @@
     window.speak(text);
   };
 
-  // No Zungzi deep-link scheme exists yet (unlike kaku:// / sajeon://), so
-  // .reader-link is plain text for now, not a tap-to-open-the-app link.
-  // Wire one up here, matching openKakuSentenceFromEl's pattern, once
-  // Zungzi registers a custom URL scheme.
+  // Match the selected character set when opening a vocabulary lookup in
+  // Yinpin, whose dictionary accepts yinpin://search?text=<word>.
+  window.openYinpinWord = function (word) {
+    const link = document.createElement('a');
+    link.href = 'yinpin://search?text=' + encodeURIComponent(word);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  window.openYinpinWordFromEl = function (linkEl) {
+    const row = linkEl.closest('.cn-dynamic-text');
+    window.openYinpinWord(row.dataset[window._cnScriptMode]);
+  };
 
   window.toggleVocabTable = function (btn) {
     const table = document.getElementById(btn.dataset.target);
@@ -107,8 +143,9 @@
 
 <style is:global>
   .app-header-controls { display: flex; align-items: center; flex-wrap: wrap; gap: 16px; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #eee; }
+  .toggle-group { display: flex; align-items: center; gap: 8px; }
   .segmented-control { display: flex; background: #f0f0f0; border-radius: 8px; padding: 2px; }
-  .segment { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border: none; background: none; border-radius: 6px; cursor: pointer; color: #888; font-size: 0.95rem; font-weight: 600; transition: 0.2s; }
+  .segment { min-height: 32px; padding: 6px 10px; display: flex; align-items: center; justify-content: center; border: none; background: none; border-radius: 6px; cursor: pointer; color: #777; font-size: 0.78rem; font-weight: 500; white-space: nowrap; transition: 0.2s; }
   .segment.active { background: white; color: #000; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 
   .sentence-block { margin-bottom: 2rem; }
@@ -122,7 +159,8 @@
 
   table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
   td { padding: 12px 4px; border-bottom: 1px solid #f5f5f5; vertical-align: middle; }
-  .vocab-link { text-decoration: none; color: inherit; font-size: 1.15rem; }
+  .vocab-link { border: 0; background: none; padding: 0; color: inherit; font: inherit; font-size: 1.15rem; cursor: pointer; }
+  .vocab-link:hover { text-decoration: underline !important; text-underline-offset: 3px; }
 
   .vocab-heading { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: #999; font-weight: 700; margin: 2.5rem 0 0.5rem 0; }
   .vocab-hidden-row { display: none; }

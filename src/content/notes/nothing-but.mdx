@@ -1,9 +1,10 @@
 ---
 title: "Only This, Always That (しか・ばかり)"
-order: 102
+order: 18
 description: "テレビしかありません。毎日お菓子ばかり食べています。Two more ways to say 'only,' each carrying more weight than plain だけ."
 category: ["LEARN", "JAPANESE"]
 level: "N4"
+sourceRecords: [324, 330, 538, 606, 710, 1101, 489]
 ---
 
 import JapaneseLessonHead from '../../components/japanese/JapaneseLessonHead.astro';
@@ -13,29 +14,45 @@ import Hint from '../../components/korean/Hint.astro';
 
 <JapaneseLessonHead />
 
+だけしか combines だけ with しか～ない to stress that there is only the stated amount or option: これだけしか残っていない, “only this much is left.”
+
 しか and ばかり both narrow things down like だけ, which you already know, but each adds its own flavor. しか always pairs with a negative verb to state the same limit from the other direction. ばかり adds judgment, usually complaining that something happens too much.
 
 <JSentenceBlock furigana="テレビしかありません。" romaji="Terebi shika arimasen." english="There's nothing but a TV." />
 
 <JSentenceBlock furigana="兄[あに]としか話[はな]しません。" romaji="Ani to shika hanashimasen." english="I only talk to my older brother (and no one else)." />
 
-<Hint>しか always demands a negative verb right after it, テレビしかあります is simply wrong, and the negative is what carries the "nothing but" meaning, not しか by itself. It tends to land with more emphasis than だけ, closer to "nothing else at all."</Hint>
+<Hint type="hint">しか always demands a negative verb right after it, テレビしかあります is simply wrong, and the negative is what carries the "nothing but" meaning, not しか by itself. It tends to land with more emphasis than だけ, closer to "nothing else at all."</Hint>
 
 <JSentenceBlock furigana="弟[おとうと]は、毎日[まいにち]お菓子[かし]ばかり食[た]べています。" romaji="Otouto wa, mainichi okashi bakari tabete imasu." english="My younger brother eats nothing but sweets every day." />
 
 <JSentenceBlock furigana="実[じつ]は、先週[せんしゅう]始[はじ]めたばかりなんです。" romaji="Jitsu wa, senshuu hajimeta bakari nan desu." english="Actually, I only just started last week." />
 
-<Hint>ばかり attached to a noun, お菓子ばかり, means "nothing but sweets," usually with a hint of disapproval. Attached to a verb's past-tense た-form instead, たばかり means something completely different, "just did it a moment ago," so watch which form comes right before ばかり.</Hint>
+<Hint type="hint">ばかり attached to a noun, お菓子ばかり, means "nothing but sweets," usually with a hint of disapproval. Attached to a verb's past-tense た-form instead, たばかり means something completely different, "just did it a moment ago," so watch which form comes right before ばかり.</Hint>
+
+For a sharper “nothing more than,” use a noun + でしかない. It stresses that something has only a limited value or role: この数字は目安でしかない, “this number is nothing more than a guideline.” のみ means “only” in formal notices and writing, while たったの emphasizes how small the amount feels.
+
+にすぎない is another formal “no more than / merely”: これは一例にすぎません, “this is merely one example.” It states a limit more neutrally than でしかない, which often carries the speaker's evaluation that the thing is inadequate.
+
+にほかならない means “is nothing other than / is precisely,” making a strong identification rather than minimizing something: 信頼の証にほかならない, “it is nothing other than a sign of trust.”
+
+<JSentenceBlock furigana="受付[うけつけ]は予約者[よやくしゃ]のみです。参加費[さんかひ]はたったの五百円[ごひゃくえん]です。" romaji="Uketsuke wa yoyakusha nomi desu. Sankahi wa tatta no gohyaku en desu." english="Reception is for reservation holders only. The participation fee is just 500 yen." />
+
+せいぜい means “at most / no more than” and gives an estimate of the upper limit. It differs from たったの, which emphasizes that an amount feels surprisingly small.
+
+<JSentenceBlock furigana="ここから駅[えき]までは、歩[ある]いてもせいぜい十分[じゅっぷん]です。" romaji="Koko kara eki made wa, aruite mo seizei juppun desu." english="It's no more than ten minutes on foot from here to the station." />
+
+<Hint type="insight">のみ is common on signs, application forms, and policies; it sounds more formal than だけ. でしかない often carries the speaker's judgment that something is limited, so avoid it when you simply mean a neutral “only.” せいぜい gives an upper estimate, not a judgment that the actual number is too small.</Hint>
 
 ### Vocabulary
 
 <JVocabTable words={[
   { furigana: "お菓子[かし]", romaji: "okashi", english: "sweets, snacks" },
-  { furigana: "遅刻[ちこく]する", romaji: "chikoku suru", english: "to be late (for an event)" },
+  { furigana: "予約者[よやくしゃ]", romaji: "yoyakusha", english: "reservation holder" },
   { furigana: "歯[は]を磨[みが]く", romaji: "ha o migaku", english: "to brush teeth" },
   { furigana: "さっき", romaji: "sakki", english: "just now, a moment ago" },
   { furigana: "実[じつ]は", romaji: "jitsu wa", english: "actually, in fact" },
-  { furigana: "吸[す]う", romaji: "suu", english: "to smoke, inhale" },
+  { furigana: "参加費[さんかひ]", romaji: "sankahi", english: "participation fee" },
   { furigana: "会話[かいわ]", romaji: "kaiwa", english: "conversation" },
   { furigana: "回[まわ]る", romaji: "mawaru", english: "to go around" },
   { furigana: "遅[おく]れる", romaji: "okureru", english: "to be late (for a time)" },
@@ -49,5 +66,5 @@ import Hint from '../../components/korean/Hint.astro';
   { furigana: "限定[げんてい]する", romaji: "gentei suru", english: "to restrict, limit to" },
   { furigana: "たった", romaji: "tatta", english: "just, only (emphatic)" },
   { furigana: "残[のこ]り", romaji: "nokori", english: "the remainder, what's left" },
-  { furigana: "頻繁[ひんぱん]に", romaji: "hinpan ni", english: "frequently" },
+  { furigana: "せいぜい", romaji: "seizei", english: "at most" },
 ]} />

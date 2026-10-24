@@ -1,31 +1,23 @@
 ---
-// A native-speaker insight: how Koreans actually use the grammar point
-// above in real speech, as opposed to the textbook rule. Styled as a
-// left-bordered aside to match the site's existing blockquote treatment,
-// rather than a boxed-in callout with its own background color.
+// A lesson aside for either grammar/learning hints or real-life usage.
+// Yellow hints use a soft bubble; real-life notes use a left-bordered aside.
 //
-// type="mistake" labels a specific learner error. type="clarification"
-// marks a definition that needs extra explanation, with a distinct label
-// and background so it doesn't read as another real-life usage note.
-//
-// Usage: <Hint>Some insight about real usage.</Hint>
-//        <Hint type="mistake">A specific error learners actually make.</Hint>
-//        <Hint type="clarification">A definition unpacked.</Hint>
+// Usage: <Hint type="hint">A grammar pattern, exception, or learner tip.</Hint>
+//        <Hint type="insight">How the pattern is used in real life.</Hint>
 interface Props {
-  type?: 'insight' | 'mistake' | 'clarification';
+  type?: 'insight' | 'hint';
 }
 
-const { type = 'insight' } = Astro.props;
+const { type = 'hint' } = Astro.props;
 const labels = {
   insight: 'In Real Life',
-  mistake: 'Watch Out',
-  clarification: 'Clarification',
+  hint: 'Hint',
 };
 const label = labels[type];
 ---
 
 <div class={`hint-box ${type}`}>
-  <div class="hint-label">{label}</div>
+  <div class="hint-label">{label}{type === 'hint' && <span class="korean-hint-word" lang="ko"> · 힌트</span>}</div>
   <div class="hint-content"><slot /></div>
 </div>
 
@@ -35,9 +27,9 @@ const label = labels[type];
     padding-left: 20px;
     margin: 2.5rem 0;
   }
-  .hint-box.clarification {
-    border-left: 3px solid #c39a28;
-    border-radius: 3px;
+  .hint-box.hint {
+    border: 1px solid #f0dfa5;
+    border-radius: 10px;
     background: #fff8df;
     padding: 14px 18px;
   }
@@ -49,10 +41,12 @@ const label = labels[type];
     color: #999;
     margin-bottom: 6px;
   }
-  .clarification .hint-label { color: #806418; }
+  .hint .hint-label { color: #806418; }
+  .korean-hint-word { display: none; }
+  :global(.analysis[data-language="korean"]) .korean-hint-word { display: inline; }
 
   .hint-content { font-size: 0.95rem; line-height: 1.65; color: #555; font-style: italic; }
-  .clarification .hint-content { color: #494126; font-style: normal; }
+  .hint .hint-content { color: #494126; font-style: normal; }
   .hint-content :global(p) { margin: 0; }
   .hint-content :global(strong) { color: #222; }
   .hint-content :global(a) {

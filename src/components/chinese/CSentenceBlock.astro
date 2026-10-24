@@ -14,7 +14,7 @@ interface Props {
   simplified: string;
   traditional: string;
   pinyin: string;
-  jyutping: string;
+  jyutping?: string;
   english: string;
 }
 
@@ -26,7 +26,7 @@ const { simplified, traditional, pinyin, jyutping, english } = Astro.props;
   data-simplified={simplified}
   data-traditional={traditional}
   data-pinyin={pinyin}
-  data-jyutping={jyutping}
+  data-jyutping={jyutping ?? ''}
 >
   <div class="cn-row">
     <span class="reader-link">{simplified}</span>

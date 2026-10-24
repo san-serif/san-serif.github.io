@@ -22,11 +22,13 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { LEVEL_ORDER, isTangent, groupByLevel, parseTitle } from '../../lib/notesGrouping';
+import { chineseTitleCue } from '../../lib/chineseTitleCue';
 
 const notes = await getCollection('notes');
 
 const japaneseNotes = notes.filter(n => n.data.category.includes('JAPANESE') && !isTangent(n));
 const koreanNotes = notes.filter(n => n.data.category.includes('KOREAN') && !isTangent(n));
+const chineseNotes = notes.filter(n => n.data.category.includes('CHINESE') && !isTangent(n));
 const tangentsNotes = notes.filter(isTangent).sort((a, b) => b.data.order - a.data.order);
 
 // Matches VocabTable's own collapse threshold elsewhere on the site — same
@@ -37,6 +39,7 @@ const VISIBLE_COUNT = 12;
 
 const japaneseGroups = groupByLevel(japaneseNotes);
 const koreanGroups = groupByLevel(koreanNotes);
+const chineseGroups = groupByLevel(chineseNotes);
 
 const allCategories = [...new Set(notes.flatMap(n => n.data.level ? [...n.data.category, n.data.level] : n.data.category))];
 const has = (tag: string) => allCategories.includes(tag);
@@ -50,23 +53,30 @@ const filterLevelLabel = (level: string) => level.startsWith('N') ? `JLPT ${leve
 const LEVEL_CLASSES: Record<string, string> = {
 	'N5': 'level-n5', 'N4': 'level-n4', 'N3': 'level-n3', 'N2': 'level-n2', 'N1': 'level-n1',
 	'TOPIK I': 'level-topik1', 'TOPIK II': 'level-topik2',
+	'HSK 1': 'level-hsk1', 'HSK 2': 'level-hsk2', 'HSK 3': 'level-hsk3', 'HSK 4': 'level-hsk4',
+	'HSK 5': 'level-hsk5', 'HSK 6': 'level-hsk6', 'HSK 7–9': 'level-hsk79',
 };
 const levelClass = (level: string) => LEVEL_CLASSES[level] ?? '';
 
 const rowCategory = (n: typeof notes[number]) =>
   (n.data.level ? [...n.data.category, n.data.level] : n.data.category).join(',').toLowerCase();
 const rowSearch = (n: typeof notes[number]) =>
-  `${n.data.title} ${n.data.description ?? ''}`.toLowerCase();
+  `${n.data.title} ${n.data.description ?? ''} ${chineseTitleCue(n) ?? ''}`.toLowerCase();
 ---
 
-<Layout title="Notes | san serif" description="Free Korean, Japanese, and Chinese grammar lessons and culture notes, from greetings to formal register, with real example sentences, native-speaker insights, and vocabulary you'll actually use.">
+<Layout title="Lesson Library & Culture Notes | san serif" description="Search free Korean, Japanese, and Chinese grammar lessons and culture notes, with real example sentences and useful vocabulary.">
 	<main class="wrapper">
 
 		<header class="page-header">
-			<h1>Culture Notes</h1>
+			<h1>Lesson library</h1>
 			<p class="page-subtitle">
-				Beyond the dictionary: exploring the unspoken rules and nuances of language.
+				Search the complete collection, or follow a course from the beginning.
 			</p>
+			<nav class="course-shortcuts" aria-label="Language courses">
+				<a href="/learn/japanese">Japanese course →</a>
+				<a href="/learn/korean">Korean course →</a>
+				<a href="/learn/chinese">Chinese course →</a>
+			</nav>
 
 			<div class="search-row">
 				<input type="text" class="search-input" id="search-input" placeholder="Search notes by title or description…" />
@@ -78,6 +88,7 @@ const rowSearch = (n: typeof notes[number]) =>
 				<div class="tag-cloud">
 					{has('JAPANESE') && <button class="filter-tag parent" data-tag="japanese" data-children="children-japanese">JAPANESE</button>}
 					{has('KOREAN') && <button class="filter-tag parent" data-tag="korean" data-children="children-korean">KOREAN</button>}
+					{has('CHINESE') && <button class="filter-tag parent" data-tag="chinese" data-children="children-chinese">CHINESE</button>}
 					{has('CULTURE') && <button class="filter-tag parent" data-tag="culture">CULTURE</button>}
 					{has('GUIDES') && <button class="filter-tag parent" data-tag="guides">GUIDES</button>}
 				</div>
@@ -94,6 +105,14 @@ const rowSearch = (n: typeof notes[number]) =>
 					<div class="tag-cloud filter-children" id="children-korean" hidden>
 						{LEVEL_ORDER.filter(l => l.startsWith('TOPIK') && has(l)).map(lvl => (
 							<button class="filter-tag child" data-tag={lvl.toLowerCase()}>{filterLevelLabel(lvl)}</button>
+						))}
+					</div>
+				)}
+
+				{has('CHINESE') && LEVEL_ORDER.some(l => l.startsWith('HSK') && has(l)) && (
+					<div class="tag-cloud filter-children" id="children-chinese" hidden>
+						{LEVEL_ORDER.filter(l => l.startsWith('HSK') && has(l)).map(lvl => (
+							<button class="filter-tag child" data-tag={lvl.toLowerCase()}>{lvl}</button>
 						))}
 					</div>
 				)}
@@ -191,6 +210,32 @@ const rowSearch = (n: typeof notes[number]) =>
 							Show all {group.notes.length} →
 						</button>
 					)}
+				</div>
+			))}
+		</section>
+
+		<div class="idx-divider" id="divider-korean-chinese" data-before="section-korean" data-after="section-chinese"></div>
+
+		<section class="idx-section" id="section-chinese">
+			<div class="idx-lang-header">
+				<h2 class="idx-lang-title">Chinese <span class="idx-lang-native">中文</span></h2>
+				<div class="idx-lang-meta" id="meta-chinese">{chineseNotes.length} notes · {chineseGroups.map(g => g.level).join(' → ')}</div>
+			</div>
+			{chineseGroups.map(group => (
+				<div class="idx-level-group" data-level-group={group.level.toLowerCase()}>
+					<span class={`idx-level-label ${levelClass(group.level)}`}>{group.level}</span>
+					<div class="idx-list">
+						{group.notes.map((note, i) => {
+							const { main, detail } = parseTitle(note.data.title);
+						const cue = chineseTitleCue(note);
+							return (
+								<a href={`/notes/${note.slug || note.id}`} class={`idx-row ${i >= VISIBLE_COUNT ? 'idx-row-extra' : ''}`} data-category={rowCategory(note)} data-search={rowSearch(note)}>
+								<span class="idx-title">{main}{detail ? <span class="idx-title-detail"> {detail}</span> : cue && <span class="idx-title-detail" lang="zh"> 例 · {cue}</span>}</span>
+								</a>
+							);
+						})}
+					</div>
+					{group.notes.length > VISIBLE_COUNT && <button class="idx-show-toggle" data-total={group.notes.length} onclick="toggleLevelGroup(this)">Show all {group.notes.length} →</button>}
 				</div>
 			))}
 		</section>
@@ -325,6 +370,7 @@ const rowSearch = (n: typeof notes[number]) =>
 	function updateMeta() {
 		const japaneseMeta = document.getElementById('meta-japanese');
 		const koreanMeta = document.getElementById('meta-korean');
+		const chineseMeta = document.getElementById('meta-chinese');
 		const tangentsMeta = document.getElementById('meta-tangents');
 
 		// Counts by filter match, not DOM visibility — truncation hides rows
@@ -341,6 +387,7 @@ const rowSearch = (n: typeof notes[number]) =>
 
 		japaneseMeta.textContent = describe(document.getElementById('section-japanese'));
 		koreanMeta.textContent = describe(document.getElementById('section-korean'));
+		chineseMeta.textContent = describe(document.getElementById('section-chinese'));
 
 		const matchingMisc = Array.from(document.querySelectorAll('.idx-misc-card')).filter(r => !r.classList.contains('filtered-out'));
 		tangentsMeta.textContent = `${matchingMisc.length} ${matchingMisc.length === 1 ? 'piece' : 'pieces'} · newest first`;
@@ -353,6 +400,9 @@ const rowSearch = (n: typeof notes[number]) =>
 </script>
 
 <style>
+	.course-shortcuts { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 24px 0 34px; }
+	.course-shortcuts a { color: #111; font-size: .82rem; font-weight: 600; text-decoration: none; }
+	.course-shortcuts a:hover { text-decoration: underline; text-underline-offset: 3px; }
 	.wrapper {
 		max-width: 850px;
 		margin: 0 auto;
@@ -497,6 +547,12 @@ const rowSearch = (n: typeof notes[number]) =>
 	.level-n1 { background: #F6D2D9; color: #96132F; }
 	.level-topik1 { background: #F8E3B8; color: #8A5600; }
 	.level-topik2 { background: #F8D2BE; color: #A83415; }
+	.level-hsk1 { background: #F8E3B8; color: #8A5600; }
+	.level-hsk2 { background: #F4DDB5; color: #865700; }
+	.level-hsk3 { background: #E7D8F5; color: #6B2A98; }
+	.level-hsk4 { background: #D3E4FA; color: #1F4F97; }
+	.level-hsk5 { background: #D5E9ED; color: #24606B; }
+	.level-hsk6, .level-hsk79 { background: #D8D5F3; color: #53439A; }
 
 	.idx-list { display: flex; flex-direction: column; }
 

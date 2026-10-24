@@ -1,0 +1,68 @@
+---
+title: "Hello, My Name Is... (你好・我叫)"
+order: 1
+description: "Exchange greetings, say your name, and ask someone else's in Mandarin."
+category: ["LEARN", "CHINESE"]
+level: "HSK 1"
+practice:
+  prompt: "You want to tell a new classmate your name is Anna. What can you say?"
+  choices: ["我叫安娜。", "你叫安娜。", "再见安娜。"]
+  answer: 0
+  explanation: "我叫安娜 means 'I'm called Anna.' 你 asks about the other person; 再见 means goodbye."
+---
+
+import ChineseLessonHead from '../../components/chinese/ChineseLessonHead.astro';
+import CSentenceBlock from '../../components/chinese/CSentenceBlock.astro';
+import CVocabTable from '../../components/chinese/CVocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<ChineseLessonHead hasJyutping={false} />
+
+You're meeting a new classmate. A few complete Mandarin phrases let you greet them, exchange names, and say goodbye. The following lessons unpack the sentence patterns behind these first words.
+
+### Hello and goodbye
+
+<CSentenceBlock simplified="你好！" traditional="你好！" pinyin="Nǐ hǎo!" english="Hello!" />
+
+<CSentenceBlock simplified="老师好！" traditional="老師好！" pinyin="Lǎoshī hǎo!" english="Hello, teacher!" />
+
+<CSentenceBlock simplified="再见！" traditional="再見！" pinyin="Zàijiàn!" english="Goodbye!" />
+
+<Hint type="hint">您好 is a respectful greeting; 你好 is the everyday form. Both use 好, “good.” This lesson shows Mandarin Pinyin; a Cantonese reading is shown only on lessons whose Cantonese wording has been reviewed.</Hint>
+
+### Exchange names
+
+Use 我叫 plus your name. To ask the other person, replace your name with 什么名字. Mandarin normally leaves that question phrase where the answer would appear.
+
+<CSentenceBlock simplified="我叫安娜。" traditional="我叫安娜。" pinyin="Wǒ jiào Ānnà." english="My name is Anna." />
+
+<CSentenceBlock simplified="你叫什么名字？" traditional="你叫什麼名字？" pinyin="Nǐ jiào shénme míngzi?" english="What's your name?" />
+
+<CSentenceBlock simplified="我叫李明。很高兴认识你。" traditional="我叫李明。很高興認識你。" pinyin="Wǒ jiào Lǐ Míng. Hěn gāoxìng rènshi nǐ." english="I'm Li Ming. Nice to meet you." />
+
+<Hint type="hint">我 means “I”; 你 means “you.” 叫 introduces a name here. The next lessons explain 是 for identifying someone and 有 for having something or saying that something exists.</Hint>
+
+### Vocabulary
+
+<CVocabTable words={[
+  { simplified: "你好", traditional: "你好", pinyin: "nǐ hǎo", english: "hello" },
+  { simplified: "您好", traditional: "您好", pinyin: "nín hǎo", english: "hello (respectful)" },
+  { simplified: "早上好", traditional: "早上好", pinyin: "zǎoshang hǎo", english: "good morning" },
+  { simplified: "再见", traditional: "再見", pinyin: "zàijiàn", english: "goodbye" },
+  { simplified: "我", traditional: "我", pinyin: "wǒ", english: "I; me" },
+  { simplified: "你", traditional: "你", pinyin: "nǐ", english: "you" },
+  { simplified: "您", traditional: "您", pinyin: "nín", english: "you (respectful)" },
+  { simplified: "叫", traditional: "叫", pinyin: "jiào", english: "to be called" },
+  { simplified: "名字", traditional: "名字", pinyin: "míngzi", english: "name" },
+  { simplified: "什么", traditional: "什麼", pinyin: "shénme", english: "what" },
+  { simplified: "好", traditional: "好", pinyin: "hǎo", english: "good" },
+  { simplified: "老师", traditional: "老師", pinyin: "lǎoshī", english: "teacher" },
+  { simplified: "学生", traditional: "學生", pinyin: "xuésheng", english: "student" },
+  { simplified: "同学", traditional: "同學", pinyin: "tóngxué", english: "classmate" },
+  { simplified: "朋友", traditional: "朋友", pinyin: "péngyou", english: "friend" },
+  { simplified: "认识", traditional: "認識", pinyin: "rènshi", english: "to meet; to know" },
+  { simplified: "高兴", traditional: "高興", pinyin: "gāoxìng", english: "happy; pleased" },
+  { simplified: "请问", traditional: "請問", pinyin: "qǐngwèn", english: "excuse me; may I ask" },
+  { simplified: "谢谢", traditional: "謝謝", pinyin: "xièxie", english: "thank you" },
+  { simplified: "不客气", traditional: "不客氣", pinyin: "bú kèqi", english: "you're welcome" },
+]} />

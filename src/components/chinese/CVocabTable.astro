@@ -8,7 +8,7 @@ interface Word {
   simplified: string;
   traditional: string;
   pinyin: string;
-  jyutping: string;
+  jyutping?: string;
   english: string;
 }
 
@@ -38,11 +38,11 @@ const tableId = `vocab-${Math.random().toString(36).slice(2, 9)}`;
         data-simplified={simplified}
         data-traditional={traditional}
         data-pinyin={pinyin}
-        data-jyutping={jyutping}
+        data-jyutping={jyutping ?? ''}
       >
         <td align="left">
           <div class="cn-row">
-            <span class="vocab-link reader-link">{simplified}</span>
+            <button type="button" class="vocab-link reader-link" onclick="openYinpinWordFromEl(this)" aria-label={`Look up ${simplified} in Yinpin`}>{simplified}</button>
             <button class="tts-btn" onclick="speakActive(this)">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
             </button>

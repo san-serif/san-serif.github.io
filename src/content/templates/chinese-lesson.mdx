@@ -1,0 +1,34 @@
+---
+title: "Lesson title"
+order: 0
+description: "A short summary of the lesson."
+category: ["LEARN", "CHINESE"]
+---
+
+import ChineseLessonHead from '../../components/chinese/ChineseLessonHead.astro';
+import CSentenceBlock from '../../components/chinese/CSentenceBlock.astro';
+import CVocabTable from '../../components/chinese/CVocabTable.astro';
+import Hint from '../../components/korean/Hint.astro';
+
+<ChineseLessonHead />
+
+{/* Open with a small real situation, question, or contrast. Explain the choice a learner needs to make, then show it in natural examples. Let the topic determine the page's shape. */}
+
+<CSentenceBlock
+  simplified="你好。"
+  traditional="你好。"
+  pinyin="Nǐ hǎo."
+  jyutping="nei5 hou2."
+  english="Hello."
+/>
+
+{/* Add a Hint or In Real Life callout only when it contributes a specific rule, contrast, or natural-use note. */}
+<Hint type="hint">Add a practical distinction or common mistake here, if useful.</Hint>
+
+### Vocabulary
+
+{/* Include exactly 20 useful words related to this lesson. The table deep-links each word to dictionary search. */}
+<CVocabTable words={[
+  { simplified: "你好", traditional: "你好", pinyin: "nǐ hǎo", jyutping: "nei5 hou2", english: "hello" },
+  // Add 19 more lesson-related words.
+]} />

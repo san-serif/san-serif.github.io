@@ -2,7 +2,7 @@
 const pathname = new URL(Astro.request.url).pathname;
 const {
 	title,
-	description = "Independent studio building high-utility Apple-native apps for learning Korean, Japanese, and Chinese, plus culture notes on the languages themselves.",
+	description = "Free Japanese, Korean, and Chinese lessons, alongside Apple-native tools for learning and practising the languages.",
 	image = "/sanserif-og.jpg",
 } = Astro.props;
 
@@ -22,16 +22,13 @@ const organizationSchema = {
 	name: "san serif",
 	url: Astro.site?.toString(),
 	logo: logoURL.toString(),
-	description: "Independent studio building high-utility Apple-native apps for learning Korean, Japanese, and Chinese, plus culture notes on the languages themselves.",
+	description: "Free Japanese, Korean, and Chinese lessons, alongside Apple-native tools for learning and practising the languages.",
 	sameAs: ["https://x.com/sanserif_studio"],
 };
 
 // SMART NAV STATE
-const isHome =
-	pathname === "/" ||
-	(!pathname.startsWith("/notes") && !pathname.startsWith("/about"));
-
-const isNotes = pathname.startsWith("/notes");
+const isHome = pathname === "/" || pathname.startsWith("/portfolio");
+const isLearn = pathname.startsWith("/learn") || pathname.startsWith("/notes");
 const isAbout = pathname.startsWith("/about");
 ---
 
@@ -64,7 +61,7 @@ const isAbout = pathname.startsWith("/about");
 
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@400..800&family=Noto+Sans+KR:wght@400..800&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans+JP:wght@400..800&family=Noto+Sans+KR:wght@400..800&family=Noto+Sans+SC:wght@400..800&display=swap" rel="stylesheet">
 	</head>
 
 	<body>
@@ -73,12 +70,12 @@ const isAbout = pathname.startsWith("/about");
 				<a href="/" class="logo">
 					<img src="/sanserif.jpg" alt="san serif" class="logo-img" />
 				</a>
-				<p class="subtitle">language apps & culture notes</p>
+				<p class="subtitle">language apps & lessons</p>
 			</div>
 
 			<div class="links">
-				<a href="/" class={isHome ? "active" : ""}>Apps</a>
-				<a href="/notes" class={isNotes ? "active" : ""}>Notes</a>
+				<a href="/#apps" class={isHome ? "active" : ""}>Apps</a>
+				<a href="/learn" class={isLearn ? "active" : ""}>Learn</a>
 				<a href="/about" class={isAbout ? "active" : ""}>About</a>
 			</div>
 		</nav>

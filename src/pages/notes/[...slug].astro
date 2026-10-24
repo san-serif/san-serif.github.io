@@ -2,11 +2,13 @@
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import { isTangent, courseSequence, parseTitle } from '../../lib/notesGrouping';
+import { chineseTitleCue } from '../../lib/chineseTitleCue';
 
 export async function getStaticPaths() {
 	const notes = await getCollection('notes');
 	const japaneseSequence = courseSequence(notes, 'JAPANESE');
 	const koreanSequence = courseSequence(notes, 'KOREAN');
+	const chineseSequence = courseSequence(notes, 'CHINESE');
 
 	// Previous/Next walks the curriculum in the same order the /notes index
 	// lists it in — level order, then ascending lesson order — not raw
@@ -16,6 +18,7 @@ export async function getStaticPaths() {
 		if (isTangent(entry)) return { prevNote: null, nextNote: null, position: null, total: null };
 		const sequence = entry.data.category.includes('JAPANESE') ? japaneseSequence
 			: entry.data.category.includes('KOREAN') ? koreanSequence
+			: entry.data.category.includes('CHINESE') ? chineseSequence
 			: null;
 		if (!sequence) return { prevNote: null, nextNote: null, position: null, total: null };
 		const index = sequence.findIndex(n => n.id === entry.id);
@@ -40,18 +43,33 @@ const { Content } = await render(entry);
 const LEVEL_CLASSES: Record<string, string> = {
 	'N5': 'level-n5', 'N4': 'level-n4', 'N3': 'level-n3', 'N2': 'level-n2', 'N1': 'level-n1',
 	'TOPIK I': 'level-topik1', 'TOPIK II': 'level-topik2',
+	'HSK 1': 'level-hsk1', 'HSK 2': 'level-hsk2', 'HSK 3': 'level-hsk3', 'HSK 4': 'level-hsk4',
+	'HSK 5': 'level-hsk5', 'HSK 6': 'level-hsk6', 'HSK 7–9': 'level-hsk79',
 };
 const levelClass = entry.data.level ? LEVEL_CLASSES[entry.data.level] ?? '' : '';
-const levelLabel = entry.data.level?.startsWith('N') ? `JLPT ${entry.data.level}` : entry.data.level;
+	const levelLabel = entry.data.level?.startsWith('N') ? `JLPT ${entry.data.level}` : entry.data.level;
 
 const title = parseTitle(entry.data.title);
+const titleCue = chineseTitleCue(entry);
 const prevTitle = prevNote ? parseTitle(prevNote.data.title) : { main: '', detail: null };
 const nextTitle = nextNote ? parseTitle(nextNote.data.title) : { main: '', detail: null };
+const language = isTangent(entry) ? null
+	: entry.data.category.includes('JAPANESE') ? 'japanese'
+	: entry.data.category.includes('KOREAN') ? 'korean'
+	: entry.data.category.includes('CHINESE') ? 'chinese'
+	: null;
+const linkedApp = language === 'korean'
+	? { name: 'Sajeon', icon: '/sajeon-icon.png', href: '/portfolio/sajeon', detail: 'If you have Sajeon installed, tap an example sentence or vocabulary word to open it in the app.' }
+	: language === 'japanese'
+	? { name: 'Kaku', icon: '/kaku-icon.png', href: '/portfolio/kaku', detail: 'Sentences and words open in Kaku when the app is installed.' }
+	: language === 'chinese'
+	? { name: 'Yinpin', icon: '/yinpin-icon.png', href: '/portfolio/yinpin', detail: 'Vocabulary words open in Yinpin when the app is installed.' }
+	: null;
 ---
 
 <Layout title={`${entry.data.title} | san serif`} description={entry.data.description}>
 	<main class="wrapper">
-		<a href="/notes" class="back-link">← Back to Notes</a>
+		<a href={language ? `/learn/${language}` : '/notes'} class="back-link">← {language ? `Back to ${language[0].toUpperCase() + language.slice(1)} course` : 'Back to notes'}</a>
 
 		<article class="post">
 			<header class="post-header">
@@ -66,7 +84,7 @@ const nextTitle = nextNote ? parseTitle(nextNote.data.title) : { main: '', detai
 					{entry.data.level && <span class={`level-badge ${levelClass}`}>{levelLabel}</span>}
 				</div>
 
-				<h1>{title.main}{title.detail && <span class="title-detail"> {title.detail}</span>}</h1>
+			<h1>{title.main}{title.detail ? <span class="title-detail"> {title.detail}</span> : titleCue && <span class="title-detail" lang="zh">例 · {titleCue}</span>}</h1>
 
 				{/* Tags Array */}
 				{entry.data.tags && entry.data.tags.length > 0 && (
@@ -78,9 +96,40 @@ const nextTitle = nextNote ? parseTitle(nextNote.data.title) : { main: '', detai
 				)}
 			</header>
 
-			<section class="analysis">
+			<section class="analysis" data-language={language}>
 				<Content />
 			</section>
+
+			{language && (
+				<section class="lesson-finish" data-lesson-id={entry.id} data-course={language}>
+					{entry.data.practice && (
+						<div class="practice-check">
+							<p class="finish-eyebrow">TRY IT YOURSELF</p>
+							<h2>Quick check</h2>
+							<p class="practice-prompt">{entry.data.practice.prompt}</p>
+							<div class="practice-choices">
+								{entry.data.practice.choices.map((choice, index) => (
+									<button type="button" data-choice={index} data-correct={index === entry.data.practice.answer}>{choice}</button>
+								))}
+							</div>
+							<p class="practice-feedback" role="status" aria-live="polite" data-explanation={entry.data.practice.explanation}></p>
+						</div>
+					)}
+					<div class="finish-grid">
+						<div class="complete-card">
+							<div><p class="card-eyebrow">YOUR PROGRESS</p><h2>Finished this lesson?</h2><p>Save your place in this course.</p></div>
+							<button type="button" id="complete-lesson">Mark complete ✓</button>
+						</div>
+						{linkedApp && <aside class="app-card" aria-label={`${linkedApp.name} links`}>
+							<a class="app-link-icon" href={linkedApp.href} aria-label={`About ${linkedApp.name}`}><img src={linkedApp.icon} alt="" width="44" height="44" loading="lazy" /></a>
+							<div>
+								<a class="app-link-title" href={linkedApp.href}>{linkedApp.name} ↗</a>
+								<p>{linkedApp.detail}</p>
+							</div>
+						</aside>}
+					</div>
+				</section>
+			)}
 
 			{(prevNote || nextNote) && (
 				<nav class="lesson-nav">
@@ -104,7 +153,91 @@ const nextTitle = nextNote ? parseTitle(nextNote.data.title) : { main: '', detai
 	</main>
 </Layout>
 
+<script is:inline>
+	const finish = document.querySelector('.lesson-finish');
+	if (finish) {
+		const storageKey = 'sanserif:completed:v1';
+		const lastKey = 'sanserif:last:v1';
+		const completeButton = document.getElementById('complete-lesson');
+		try {
+			const last = JSON.parse(localStorage.getItem(lastKey) || '{}');
+			const saved = last && typeof last === 'object' && !Array.isArray(last) ? last : {};
+			saved[finish.dataset.course] = {
+				id: finish.dataset.lessonId,
+				href: location.pathname,
+				title: document.querySelector('.post-header h1').textContent.trim(),
+				updatedAt: Date.now(),
+			};
+			localStorage.setItem(lastKey, JSON.stringify(saved));
+		} catch {}
+		let completed = [];
+		try { completed = JSON.parse(localStorage.getItem(storageKey) || '[]'); } catch {}
+		if (!Array.isArray(completed)) completed = [];
+		const updateButton = () => {
+			const isComplete = completed.includes(finish.dataset.lessonId);
+			completeButton.textContent = isComplete ? 'Completed ✓' : 'Mark complete ✓';
+			completeButton.setAttribute('aria-pressed', String(isComplete));
+		};
+		updateButton();
+		completeButton.addEventListener('click', () => {
+			const id = finish.dataset.lessonId;
+			completed = completed.includes(id) ? completed.filter(item => item !== id) : [...completed, id];
+			try { localStorage.setItem(storageKey, JSON.stringify(completed)); } catch {}
+			updateButton();
+		});
+
+		const feedback = finish.querySelector('.practice-feedback');
+		finish.querySelectorAll('[data-choice]').forEach(button => {
+			button.addEventListener('click', () => {
+				const correct = button.dataset.correct === 'true';
+				finish.querySelectorAll('[data-choice]').forEach(choice => {
+					choice.classList.remove('chosen', 'correct');
+					choice.setAttribute('aria-pressed', String(choice === button));
+				});
+				button.classList.add('chosen');
+				if (correct) button.classList.add('correct');
+				feedback.textContent = (correct ? 'Correct. ' : 'Try again. ') + feedback.dataset.explanation;
+			});
+		});
+	}
+</script>
+
 <style>
+	.lesson-finish { margin-top: 4.5rem; border-top: 1px solid #e8e8e8; }
+	.finish-eyebrow { color: #888; font-size: .7rem; font-weight: 700; letter-spacing: .13em; margin: 0 0 12px; }
+	.practice-check { padding: 32px 0 34px; }
+	.practice-check h2, .complete-card h2 { margin: 0 0 10px; font-size: 1.25rem; letter-spacing: -.03em; }
+	.practice-prompt { color: #444; line-height: 1.6; margin: 0 0 18px; }
+	.practice-choices { display: grid; gap: 9px; }
+	.practice-choices button { text-align: left; background: #fff; color: #222; border: 1px solid #ddd; border-radius: 8px; padding: 13px 15px; font: inherit; cursor: pointer; }
+	.practice-choices button:hover { border-color: #777; }
+	.practice-choices button.chosen { border-color: #111; background: #f5f5f5; }
+	.practice-choices button.correct { border-color: #287e5b; background: #f1faf5; }
+	.practice-feedback { min-height: 1.4em; margin: 14px 0 0; color: #555; font-size: .9rem; line-height: 1.5; }
+	.finish-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 12px; padding-top: 32px; margin-bottom: 2.5rem; }
+	.complete-card, .app-card { min-width: 0; min-height: 205px; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; align-items: flex-start; }
+	.complete-card { justify-content: space-between; gap: 24px; background: #f7f7f7; border: 1px solid #eaeaea; color: #222; }
+	.card-eyebrow { margin: 0 0 18px; color: #888; font-size: .68rem; font-weight: 700; letter-spacing: .12em; }
+	.complete-card h2 { color: #222; }
+	.complete-card p:not(.card-eyebrow) { margin: 0; color: #666; font-size: .85rem; line-height: 1.55; }
+	.complete-card button { background: #222; color: #fff; border: 1px solid #222; border-radius: 7px; padding: 10px 14px; font: inherit; font-size: .82rem; font-weight: 700; cursor: pointer; }
+	.complete-card button:hover { background: #444; }
+	.complete-card button[aria-pressed="true"] { background: #fff; color: #222; }
+	.app-card { gap: 18px; background: #f7f7f7; border: 1px solid #eaeaea; }
+	.app-link-icon { flex: none; line-height: 0; }
+	.app-link-icon img { display: block; width: 44px; height: 44px; object-fit: cover; border-radius: 10px; }
+	.app-link-title { color: #222; font-size: 1.1rem; font-weight: 700; text-decoration: none; }
+	.app-link-title:hover { text-decoration: underline; text-underline-offset: 2px; }
+	.app-card p { margin: 8px 0 0; color: #666; font-size: .82rem; line-height: 1.5; }
+	@media (max-width: 600px) {
+		.finish-grid { gap: 8px; }
+		.complete-card, .app-card { min-height: 0; padding: 16px; }
+		.complete-card { gap: 20px; }
+		.complete-card h2 { font-size: 1.05rem; }
+		.complete-card button { padding: 9px 10px; }
+		.app-card { gap: 12px; }
+		.app-link-icon img { width: 40px; height: 40px; }
+	}
 	.wrapper { max-width: 750px; margin: 0 auto; padding: 40px 20px 100px; }
 
 	.back-link {
@@ -175,6 +308,9 @@ const nextTitle = nextNote ? parseTitle(nextNote.data.title) : { main: '', detai
 	.level-n1 { background: #F6D2D9; color: #96132F; }
 	.level-topik1 { background: #F8E3B8; color: #8A5600; }
 	.level-topik2 { background: #F8D2BE; color: #A83415; }
+	.level-hsk1, .level-hsk2 { background: #F8D2BE; color: #A83415; }
+	.level-hsk3, .level-hsk4 { background: #F8E3B8; color: #8A5600; }
+	.level-hsk5, .level-hsk6, .level-hsk79 { background: #D8D5F3; color: #53439A; }
 
 	.tags { display: flex; gap: 12px; }
 	

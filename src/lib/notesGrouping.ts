@@ -2,7 +2,7 @@ import type { CollectionEntry } from 'astro:content';
 
 type Note = CollectionEntry<'notes'>;
 
-export const LEVEL_ORDER = ['N5', 'N4', 'N3', 'N2', 'N1', 'TOPIK I', 'TOPIK II'];
+export const LEVEL_ORDER = ['N5', 'N4', 'N3', 'N2', 'N1', 'TOPIK I', 'TOPIK II', 'HSK 1', 'HSK 2', 'HSK 3', 'HSK 4', 'HSK 5', 'HSK 6', 'HSK 7–9'];
 
 // Every lesson title carries its grammar point in the original script as a
 // trailing parenthetical — "Give and Take (あげる・くれる・もらう)". The
@@ -53,7 +53,11 @@ export function groupByLevel(sectionNotes: Note[]) {
 			level,
 			notes: sectionNotes
 				.filter(n => n.data.level === level)
-				.sort((a, b) => a.data.order - b.data.order),
+				.sort((a, b) =>
+					a.data.order - b.data.order ||
+					(a.data.sourceRecords?.[0] ?? Infinity) - (b.data.sourceRecords?.[0] ?? Infinity) ||
+					a.id.localeCompare(b.id)
+				),
 		}))
 		.filter(g => g.notes.length > 0);
 }
@@ -61,7 +65,7 @@ export function groupByLevel(sectionNotes: Note[]) {
 // The full front-to-back reading order for a language's course — used for
 // Previous/Next navigation on individual note pages, so "next" means the
 // next lesson in the curriculum, not the next note by raw creation order.
-export function courseSequence(allNotes: Note[], language: 'JAPANESE' | 'KOREAN'): Note[] {
+export function courseSequence(allNotes: Note[], language: 'JAPANESE' | 'KOREAN' | 'CHINESE'): Note[] {
 	const courseNotes = allNotes.filter(n => n.data.category.includes(language) && !isTangent(n));
 	return groupByLevel(courseNotes).flatMap(g => g.notes);
 }

@@ -1,9 +1,10 @@
 ---
 title: "And, Or Something Like It (と・や)"
-order: 166
+order: 75
 description: "田中先生と山田先生です。ラーメンや豚カツです。と lists everything; や lists a few examples out of more."
 category: ["LEARN", "JAPANESE"]
 level: "N4"
+sourceRecords: [412, 477, 506, 597]
 ---
 
 import JapaneseLessonHead from '../../components/japanese/JapaneseLessonHead.astro';
@@ -13,17 +14,27 @@ import Hint from '../../components/korean/Hint.astro';
 
 <JapaneseLessonHead />
 
+The history class has two teachers, and the cafeteria serves dishes such as ramen and tonkatsu. Sometimes you want to name the full set; other times, two examples are enough.
+
 と and や both connect nouns into a list, but と claims completeness, "these and only these," while や lists a couple of representative examples out of a larger, unstated set, closer to "things like."
+
+といった introduces concrete examples after a general category: 京都や奈良といった古い町, “old cities such as Kyoto and Nara.” それとも joins alternatives in a question and asks the listener to choose between them. It is not a list marker like や.
 
 <JSentenceBlock furigana="歴史[れきし]のクラスは二人[ふたり]の先生[せんせい]が教[おし]えています。田中[たなか]先生[せんせい]と山田[やまだ]先生[せんせい]です。" romaji="Rekishi no kurasu wa futari no sensei ga oshiete imasu. Tanaka-sensei to Yamada-sensei desu." english="Two teachers teach the history class. Tanaka-sensei and Yamada-sensei." />
 
 <JSentenceBlock furigana="大学[だいがく]の食堂[しょくどう]には私[わたし]が好[す]きなメニューがいろいろあります。ラーメンや豚[とん]カツです。" romaji="Daigaku no shokudou ni wa watashi ga suki na menyuu ga iroiro arimasu. Raamen ya tonkatsu desu." english="The university cafeteria has lots of dishes I like. Things like ramen and tonkatsu." />
 
-<Hint>田中先生と山田先生 claims there are exactly two teachers, no more. ラーメンや豚カツ names two dishes but implies there are others too, や never claims the list is finished. This distinction matters most when the completeness of the list is actually the point being made.</Hint>
+<Hint type="hint">田中先生と山田先生 claims there are exactly two teachers, no more. ラーメンや豚カツ names two dishes but implies there are others too, や never claims the list is finished. This distinction matters most when the completeness of the list is actually the point being made.</Hint>
 
-<JSentenceBlock furigana="弟[おとうと]もバイオリンやギターなど、色々[いろいろ]な楽器[がっき]ができます。" romaji="Otouto mo baiorin ya gitaa nado, iroiro na gakki ga dekimasu." english="My younger brother can also play various instruments, like violin and guitar." />
+<JSentenceBlock furigana="弟[おとうと]はバイオリンやギターなど、いろいろな楽器[がっき]を演奏[えんそう]できます。" romaji="Otouto wa baiorin ya gitaa nado, iroiro na gakki o ensou dekimasu." english="My younger brother can play various instruments, like violin and guitar." />
 
-<Hint>や very often pairs with など (etcetera) at the end of the list, making the incompleteness explicit, バイオリンやギターなど, "violin, guitar, and so on," reinforcing that more instruments could be named but aren't.</Hint>
+<Hint type="hint">や very often pairs with など (etcetera) at the end of the list, making the incompleteness explicit, バイオリンやギターなど, "violin, guitar, and so on," reinforcing that more instruments could be named but aren't.</Hint>
+
+After a noun, か何か adds a vague alternative: “or something.” It leaves the suggestion open because the exact choice is not important or the speaker is not sure.
+
+<JSentenceBlock furigana="休憩[きゅうけい]か何[なに]かしてから、続[つづ]けましょう。" romaji="Kyuukei ka nanika shite kara, tsuzukemashou." english="Let's take a break or something, then continue." />
+
+<Hint type="insight">や lists a few examples from a larger group; か何か offers an approximate possibility. Use か何か for a casual suggestion when you are deliberately leaving the choice flexible.</Hint>
 
 ### Vocabulary
 
@@ -32,11 +43,12 @@ import Hint from '../../components/korean/Hint.astro';
   { furigana: "食堂[しょくどう]", romaji: "shokudou", english: "cafeteria" },
   { furigana: "メニュー", romaji: "menyuu", english: "menu" },
   { furigana: "豚[とん]カツ", romaji: "tonkatsu", english: "pork cutlet" },
-  { furigana: "閉[し]まる", romaji: "shimaru", english: "to be closed" },
-  { furigana: "会社員[かいしゃいん]", romaji: "kaishain", english: "company employee" },
-  { furigana: "背[せ]が高[たか]い", romaji: "se ga takai", english: "to be tall" },
-  { furigana: "得意[とくい]", romaji: "tokui", english: "good at" },
-  { furigana: "専攻[せんこう]する", romaji: "senkou suru", english: "to major in" },
+  { furigana: "歴史[れきし]", romaji: "rekishi", english: "history" },
+  { furigana: "大学[だいがく]", romaji: "daigaku", english: "university" },
+  { furigana: "先生[せんせい]", romaji: "sensei", english: "teacher" },
+  { furigana: "二人[ふたり]", romaji: "futari", english: "two people" },
+  { furigana: "演奏[えんそう]する", romaji: "ensou suru", english: "to play (an instrument)" },
+  { furigana: "それとも", romaji: "soretomo", english: "or (in a question)" },
   { furigana: "バイオリン", romaji: "baiorin", english: "violin" },
   { furigana: "ギター", romaji: "gitaa", english: "guitar" },
   { furigana: "楽器[がっき]", romaji: "gakki", english: "musical instrument" },
@@ -44,7 +56,6 @@ import Hint from '../../components/korean/Hint.astro';
   { furigana: "完全[かんぜん]な", romaji: "kanzen na", english: "complete" },
   { furigana: "一部[いちぶ]", romaji: "ichibu", english: "a part, some" },
   { furigana: "例[れい]", romaji: "rei", english: "example" },
-  { furigana: "羅列[られつ]する", romaji: "raretsu suru", english: "to list, enumerate" },
   { furigana: "全部[ぜんぶ]", romaji: "zenbu", english: "all, everything" },
   { furigana: "限定[げんてい]する", romaji: "gentei suru", english: "to limit, restrict" },
   { furigana: "含[ふく]む", romaji: "fukumu", english: "to include" },
