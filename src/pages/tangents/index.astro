@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { isTangent } from '../../lib/notesGrouping';
+
+const tangents = (await getCollection('notes'))
+  .filter(isTangent)
+  .sort((a, b) => b.data.order - a.data.order);
+---
+
+<Layout title="Tangents | san serif" description="Stories, culture, and guides for curious language learners.">
+  <main class="tangents-page wrapper">
+    <a class="back-link" href="/learn">← Back to learning</a>
+    <header class="tangents-header">
+      <p class="eyebrow">CULTURE &amp; GUIDES</p>
+      <h1>Tangents <span lang="ko">여담</span></h1>
+      <p>Stories and ideas beyond the lessons. A little context for the language, and the worlds around it.</p>
+      <span class="count">{tangents.length} {tangents.length === 1 ? 'piece' : 'pieces'} · newest first</span>
+    </header>
+
+    <section class="tangent-list" aria-label="Tangents articles">
+      {tangents.map(note => (
+        <a class="tangent-card" href={`/notes/${note.slug || note.id}`}>
+          {note.data.thumbnail ? (
+            <img class="tangent-image" src={note.data.thumbnail} alt="" loading="lazy" />
+          ) : (
+            <span class="tangent-image tangent-image-fallback" aria-hidden="true">
+              <span>san serif</span>
+              <strong lang="ko">여담</strong>
+            </span>
+          )}
+          <span class="tangent-copy">
+            <span class="tangent-category">{note.data.category.filter(category => category !== 'LEARN').join(' · ')}</span>
+            <strong class="tangent-title">{note.data.title}</strong>
+            {note.data.description && <span class="tangent-description">{note.data.description}</span>}
+            <span class="tangent-footer">
+              {note.data.date && <time>{note.data.date}</time>}
+              <span class="tangent-cta">Read story <span aria-hidden="true">→</span></span>
+            </span>
+          </span>
+        </a>
+      ))}
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .tangents-page { max-width: 960px; padding-bottom: 120px; }
+  .back-link { color: #888; font-size: .82rem; text-decoration: none; }
+  .back-link:hover { color: #111; }
+  .tangents-header { max-width: 650px; padding: 38px 0 42px; }
+  .eyebrow { color: #888; font-size: .7rem; font-weight: 700; letter-spacing: .15em; margin: 0 0 18px; }
+  h1 { font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1; letter-spacing: -.07em; margin: 0 0 20px; font-weight: 650; }
+  h1 span { color: #aaa; font-family: "Noto Sans KR", sans-serif; font-size: .64em; font-weight: 400; letter-spacing: -.04em; }
+  .tangents-header > p:not(.eyebrow) { max-width: 520px; color: #666; font-size: 1rem; line-height: 1.7; margin: 0; }
+  .count { display: block; margin-top: 20px; color: #999; font-size: .75rem; }
+  .tangent-list { border-top: 1px solid #e6e6e6; }
+  .tangent-card { display: grid; grid-template-columns: minmax(200px, .85fr) minmax(0, 1.15fr); gap: 32px; align-items: center; padding: 26px 0; border-bottom: 1px solid #e6e6e6; color: inherit; text-decoration: none; }
+  .tangent-image { display: flex; width: 100%; aspect-ratio: 1.55; object-fit: cover; border-radius: 12px; background: #f2f1ef; }
+  .tangent-image-fallback { flex-direction: column; align-items: flex-start; justify-content: space-between; padding: 20px 22px; color: #9b9995; }
+  .tangent-image-fallback > span { font-size: .68rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+  .tangent-image-fallback strong { color: #d2cfca; font-family: "Noto Sans KR", sans-serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 500; line-height: 1; }
+  .tangent-copy { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; }
+  .tangent-category { margin-bottom: 11px; color: #999; font-size: .65rem; font-weight: 700; letter-spacing: .12em; }
+  .tangent-title { color: #111; font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 650; letter-spacing: -.045em; line-height: 1.2; }
+  .tangent-description { margin-top: 12px; color: #666; font-size: .9rem; line-height: 1.6; }
+  .tangent-footer { display: flex; width: 100%; justify-content: space-between; gap: 16px; margin-top: 22px; color: #999; font-size: .75rem; }
+  .tangent-cta { color: #222; font-size: .8rem; font-weight: 650; white-space: nowrap; }
+  .tangent-card:hover .tangent-cta { text-decoration: underline; text-underline-offset: 4px; }
+  .tangent-card:focus-visible { outline: 2px solid #111; outline-offset: 5px; }
+  @media (max-width: 650px) {
+    .tangents-header { padding-top: 30px; }
+    .tangent-card { grid-template-columns: 1fr; gap: 18px; padding: 22px 0; }
+    .tangent-image { aspect-ratio: 1.8; }
+    .tangent-footer { margin-top: 16px; }
+  }
+</style>

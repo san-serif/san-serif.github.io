@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "audit:korean": "node scripts/audit-korean-lessons.mjs",
+    "prebuild": "npm run audit:korean"
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.3",

@@ -13,6 +13,6 @@ Reviewed 2026-10-24. `order` is a suggested learning sequence **within each leve
 - **Japanese N4:** Opens with topic/focus, movement, and approximate quantities before giving/receiving and more complex clauses.
 - **Japanese N3:** Uses source-record order as a stable starting point for advanced topics. **N2 and N1** follow thematic progressions through time/change, conditions, comparison, scope, and formal usage. These are editorial groupings, not strict grammar prerequisites.
 - **Chinese HSK 2–6 and 7–9:** Follow the lesson numbers in the topic-grouped curriculum map. This removes several misplaced HSK 3 lessons and two HSK 7–9 additions that were colliding with earlier order numbers. The later levels are organized by topic; learners can open a specific point without completing every preceding lesson.
-- **Korean TOPIK II:** Contains only two lessons. Its current order is consistent, but the level is not a complete intermediate course.
+- **Korean TOPIK II:** Contains 50 lessons: the two existing supplementary notes followed by all 12 units each of Sejong 3A, 3B, 4A, and 4B. TOPIK I has 75 lessons, including the 2A bridge notes, all 2B units, and the added -고 lesson. See [the Sejong coverage review](korean/sejong-coverage-review.md) for the complete reference crosswalk and vocabulary audit. These navigation bands do not imply complete exam coverage.
 
 The HSK grammar crosswalk still covers all 573 source IDs exactly once. Reordering does not change source coverage or saved progress, which is keyed by lesson ID.

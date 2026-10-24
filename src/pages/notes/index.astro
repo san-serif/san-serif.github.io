@@ -1,21 +1,12 @@
 ---
-/* CULTURE NOTES - san serif
-  - Grouped by content shape, not one flat list: language courses read as a
-    syllabus in curriculum order, Tangents 여담 reads as a feed in recency
-    order. `order` means two different things depending on which bucket a
-    note is in, so each bucket sorts itself accordingly instead of sharing
-    one global sort control. Tangents leads the page (not trailing after both
-    courses) since it's the one part of this page that's actually timely.
+/* LESSON LIBRARY - san serif
+  - Language courses read as a syllabus in curriculum order.
   - Editorial index styling: no emoji, no "Course" label. Colour appears
     once per level group, not smeared across every row — earned structure,
     not decoration. Hairline rules lifted from about.astro.
-  - Progressive-disclosure filter tags: only JAPANESE/KOREAN/CULTURE/GUIDES
-    show by default. Selecting JAPANESE or KOREAN reveals that language's
-    level pills inline; deselecting collapses them and clears anything
-    active inside. CULTURE and GUIDES (Tangents' two content types) have no
-    levels and never expand. This replaced an earlier version that always
-    showed every level pill at once, which meant TOPIK options sat on
-    screen while looking at Japanese content and vice versa.
+  - Progressive-disclosure filter tags: selecting a language reveals that
+    language's level pills inline; deselecting collapses them and clears
+    anything active inside.
   - Dynamic Multi-Tag Filtering (client-side, AND semantics)
   - Live text search (client-side)
 */
@@ -29,8 +20,6 @@ const notes = await getCollection('notes');
 const japaneseNotes = notes.filter(n => n.data.category.includes('JAPANESE') && !isTangent(n));
 const koreanNotes = notes.filter(n => n.data.category.includes('KOREAN') && !isTangent(n));
 const chineseNotes = notes.filter(n => n.data.category.includes('CHINESE') && !isTangent(n));
-const tangentsNotes = notes.filter(isTangent).sort((a, b) => b.data.order - a.data.order);
-
 // Matches VocabTable's own collapse threshold elsewhere on the site — same
 // "Show all N ↓" pattern, not a new interaction. Only applies to the
 // default, unfiltered view; any active search or tag filter shows every
@@ -64,7 +53,7 @@ const rowSearch = (n: typeof notes[number]) =>
   `${n.data.title} ${n.data.description ?? ''} ${chineseTitleCue(n) ?? ''}`.toLowerCase();
 ---
 
-<Layout title="Lesson Library & Culture Notes | san serif" description="Search free Korean, Japanese, and Chinese grammar lessons and culture notes, with real example sentences and useful vocabulary.">
+<Layout title="Lesson Library | san serif" description="Search free Korean, Japanese, and Chinese grammar lessons, with real example sentences and useful vocabulary.">
 	<main class="wrapper">
 
 		<header class="page-header">
@@ -89,8 +78,6 @@ const rowSearch = (n: typeof notes[number]) =>
 					{has('JAPANESE') && <button class="filter-tag parent" data-tag="japanese" data-children="children-japanese">JAPANESE</button>}
 					{has('KOREAN') && <button class="filter-tag parent" data-tag="korean" data-children="children-korean">KOREAN</button>}
 					{has('CHINESE') && <button class="filter-tag parent" data-tag="chinese" data-children="children-chinese">CHINESE</button>}
-					{has('CULTURE') && <button class="filter-tag parent" data-tag="culture">CULTURE</button>}
-					{has('GUIDES') && <button class="filter-tag parent" data-tag="guides">GUIDES</button>}
 				</div>
 
 				{has('JAPANESE') && (LEVEL_ORDER.some(l => l.startsWith('N') && has(l))) && (
@@ -118,35 +105,6 @@ const rowSearch = (n: typeof notes[number]) =>
 				)}
 			</div>
 		</header>
-
-		<section class="idx-section" id="section-tangents">
-			<div class="idx-lang-header">
-				<h2 class="idx-lang-title">Tangents <span class="idx-lang-native">여담</span></h2>
-				<div class="idx-lang-meta" id="meta-tangents" data-count={tangentsNotes.length}>{tangentsNotes.length} {tangentsNotes.length === 1 ? 'piece' : 'pieces'} · newest first</div>
-			</div>
-			<div class="idx-misc-list">
-				{tangentsNotes.map(note => (
-					<a
-						href={`/notes/${note.slug || note.id}`}
-						class="idx-misc-card"
-						data-category={rowCategory(note)}
-						data-search={rowSearch(note)}
-					>
-						<div class="idx-misc-content">
-							<span class="idx-misc-tag">{note.data.category.join(' · ')}</span>
-							<h4>{note.data.title}</h4>
-							{note.data.thumbnail && (
-								<img src={note.data.thumbnail} alt="" class="idx-misc-thumb" loading="lazy" />
-							)}
-							<p>{note.data.description}</p>
-							<span class="idx-misc-cta">Read note →</span>
-						</div>
-					</a>
-				))}
-			</div>
-		</section>
-
-		<div class="idx-divider" id="divider-tangents-japanese" data-before="section-tangents" data-after="section-japanese"></div>
 
 		<section class="idx-section" id="section-japanese">
 			<div class="idx-lang-header">
@@ -249,8 +207,7 @@ const rowSearch = (n: typeof notes[number]) =>
 	const searchInput = document.getElementById('search-input');
 	const emptyState = document.getElementById('empty-state');
 	const idxRows = Array.from(document.querySelectorAll('.idx-row'));
-	const miscRows = Array.from(document.querySelectorAll('.idx-misc-card'));
-	const allRows = [...idxRows, ...miscRows];
+	const allRows = idxRows;
 	const levelGroups = Array.from(document.querySelectorAll('.idx-level-group'));
 	const sections = Array.from(document.querySelectorAll('.idx-section'));
 	const dividers = Array.from(document.querySelectorAll('.idx-divider'));
@@ -345,7 +302,7 @@ const rowSearch = (n: typeof notes[number]) =>
 		});
 
 		sections.forEach(section => {
-			const hasMatch = Array.from(section.querySelectorAll('.idx-row, .idx-misc-card')).some(r => !r.classList.contains('filtered-out'));
+			const hasMatch = Array.from(section.querySelectorAll('.idx-row')).some(r => !r.classList.contains('filtered-out'));
 			section.classList.toggle('hidden', !hasMatch);
 		});
 
@@ -371,7 +328,6 @@ const rowSearch = (n: typeof notes[number]) =>
 		const japaneseMeta = document.getElementById('meta-japanese');
 		const koreanMeta = document.getElementById('meta-korean');
 		const chineseMeta = document.getElementById('meta-chinese');
-		const tangentsMeta = document.getElementById('meta-tangents');
 
 		// Counts by filter match, not DOM visibility — truncation hides rows
 		// on screen without removing them from what this section "contains",
@@ -388,9 +344,6 @@ const rowSearch = (n: typeof notes[number]) =>
 		japaneseMeta.textContent = describe(document.getElementById('section-japanese'));
 		koreanMeta.textContent = describe(document.getElementById('section-korean'));
 		chineseMeta.textContent = describe(document.getElementById('section-chinese'));
-
-		const matchingMisc = Array.from(document.querySelectorAll('.idx-misc-card')).filter(r => !r.classList.contains('filtered-out'));
-		tangentsMeta.textContent = `${matchingMisc.length} ${matchingMisc.length === 1 ? 'piece' : 'pieces'} · newest first`;
 	}
 
 	// Establishes the truncated default view on load — without this, every
@@ -595,59 +548,7 @@ const rowSearch = (n: typeof notes[number]) =>
 	.idx-show-toggle:hover { color: #000; }
 	.idx-show-toggle.hidden { display: none; }
 
-	.idx-misc-list {
-		margin-top: 24px;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 24px;
-	}
 
-	.idx-misc-card {
-		display: flex;
-		flex-direction: column;
-		text-decoration: none !important;
-		border: 1px solid rgba(0, 0, 0, 0.08);
-		border-radius: 20px;
-		overflow: hidden;
-		background: #fff;
-		transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-	}
-	.idx-misc-card:hover {
-		transform: translateY(-4px);
-		border-color: rgba(0, 0, 0, 0.15);
-		box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
-	}
-	.idx-misc-card.hidden { display: none; }
-
-	.idx-misc-content { min-width: 0; padding: 24px; }
-
-	.idx-misc-tag { font-size: 0.65rem; font-weight: 800; color: #bbb; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; display: block; }
-	.idx-misc-card h4 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 16px 0; color: #000; }
-
-	.idx-misc-thumb {
-		width: 100%;
-		height: 180px;
-		object-fit: cover;
-		border-radius: 12px;
-		background: #f5f5f5;
-		margin-bottom: 16px;
-	}
-
-	.idx-misc-card p { font-size: 0.92rem; color: #666; line-height: 1.55; margin: 0; }
-
-	.idx-misc-cta {
-		display: block;
-		margin-top: 16px;
-		font-size: 0.85rem;
-		font-weight: 600;
-		color: #999;
-		transition: color 0.15s;
-	}
-	.idx-misc-card:hover .idx-misc-cta { color: #000; }
-
-	@media (max-width: 700px) {
-		.idx-misc-list { grid-template-columns: 1fr; }
-	}
 
 	.empty-state {
 		display: none;

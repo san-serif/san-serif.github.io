@@ -2,7 +2,7 @@
 
 These conventions apply to Japanese, Korean, and Chinese grammar lessons. Follow the shared lesson components and language-specific formatting already used by the site.
 
-This is the shared editorial guide. Keep language-specific files for script, readings, examples, and curriculum details only.
+This is the shared editorial guide. Keep language-specific files for script, readings, examples, and curriculum details only. Korean lessons also follow [the Korean lesson specification](./korean-lesson-style-notes.md).
 
 ## The reader's experience
 
@@ -32,7 +32,7 @@ This is the shared editorial guide. Keep language-specific files for script, rea
 
 ## Vocabulary and language-specific details
 
-- Choose vocabulary that supports the examples and the situation. Do not add unrelated words to fill a table.
+- Choose vocabulary that supports the examples and the situation. Every Korean lesson must include **at least 20 distinct, useful vocabulary entries**, with Korean, romanization, and a concise English gloss. Do not add unrelated words to fill the count. Audit every Korean lesson before delivery, including existing lessons revised during the task.
 - Preserve the required vocabulary count and deep links for Chinese. Check every script, reading, and gloss against the intended meaning.
 - Keep Japanese and Korean readings and forms consistent with their existing components. Do not add romanization or script controls to article prose.
 - For Chinese, provide both Simplified and Traditional characters and clean accented Pinyin/Jyutping readings through the existing controls. Keep toggles self-explanatory.

@@ -1,0 +1,1004 @@
+[
+  {
+    "book": "2A",
+    "unit": 11,
+    "forms": "-(으)ㄴ 적이 있다/없다",
+    "slug": "have-done-before",
+    "order": 62,
+    "level": "TOPIK I",
+    "pdfPages": [
+      100
+    ],
+    "referencePages": [
+      46,
+      47
+    ]
+  },
+  {
+    "book": "2A",
+    "unit": 11,
+    "forms": "동안; -는 동안",
+    "slug": "for-the-whole-time",
+    "order": 63,
+    "level": "TOPIK I",
+    "pdfPages": [
+      101
+    ],
+    "referencePages": [
+      46,
+      47
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 1,
+    "forms": "-(으)ㄹ래요?; -(으)ㄹ게요",
+    "slug": "want-to-ill-do-it",
+    "order": 64,
+    "level": "TOPIK I",
+    "pdfPages": [
+      20,
+      21
+    ],
+    "referencePages": [
+      28,
+      29
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 2,
+    "forms": "에서부터; -(으)ㄹ + noun",
+    "slug": "from-here-to-the-place",
+    "order": 65,
+    "level": "TOPIK I",
+    "pdfPages": [
+      28,
+      29
+    ],
+    "referencePages": [
+      30,
+      31
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 3,
+    "forms": "-(으)시-; 에게만; 에게도",
+    "slug": "respect-and-recipients",
+    "order": 66,
+    "level": "TOPIK I",
+    "pdfPages": [
+      36,
+      37
+    ],
+    "referencePages": [
+      32,
+      33
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 4,
+    "forms": "-다가; -아/어 주다",
+    "slug": "on-the-way-helping-out",
+    "order": 67,
+    "level": "TOPIK I",
+    "pdfPages": [
+      44,
+      45
+    ],
+    "referencePages": [
+      34,
+      35
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 5,
+    "forms": "-네요; -지 말다",
+    "slug": "oh-please-dont",
+    "order": 68,
+    "level": "TOPIK I",
+    "pdfPages": [
+      52,
+      53
+    ],
+    "referencePages": [
+      36,
+      37
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 6,
+    "forms": "-아/어도 되다; -(으)면 안 되다",
+    "slug": "is-it-allowed",
+    "order": 69,
+    "level": "TOPIK I",
+    "pdfPages": [
+      60,
+      61
+    ],
+    "referencePages": [
+      38,
+      39
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 7,
+    "forms": "에게서/한테서/께; -(으)니까 (discovery)",
+    "slug": "heard-from-found-out",
+    "order": 70,
+    "level": "TOPIK I",
+    "pdfPages": [
+      68,
+      69
+    ],
+    "referencePages": [
+      40,
+      41
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 8,
+    "forms": "-는데/-(으)ㄴ데 (contrast); 밖에",
+    "slug": "used-to-only-this",
+    "order": 71,
+    "level": "TOPIK I",
+    "pdfPages": [
+      76,
+      77
+    ],
+    "referencePages": [
+      42,
+      43
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 9,
+    "forms": "-기 때문에; -는데요/-(으)ㄴ데요",
+    "slug": "because-you-see",
+    "order": 72,
+    "level": "TOPIK I",
+    "pdfPages": [
+      84,
+      85
+    ],
+    "referencePages": [
+      44,
+      45
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 10,
+    "forms": "-는/-(으)ㄴ 편이다; -게 (purpose/result)",
+    "slug": "rather-adventurous",
+    "order": 73,
+    "level": "TOPIK I",
+    "pdfPages": [
+      92,
+      93
+    ],
+    "referencePages": [
+      46,
+      47
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 11,
+    "forms": "-아/어 (casual); 에는/에서는",
+    "slug": "then-and-now-ko",
+    "order": 74,
+    "level": "TOPIK I",
+    "pdfPages": [
+      100,
+      101
+    ],
+    "referencePages": [
+      48,
+      49
+    ]
+  },
+  {
+    "book": "2B",
+    "unit": 12,
+    "forms": "처럼; -게 되다",
+    "slug": "like-you-ended-up",
+    "order": 75,
+    "level": "TOPIK I",
+    "pdfPages": [
+      108,
+      109
+    ],
+    "referencePages": [
+      50,
+      51
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 1,
+    "forms": "-니?; -자; -아/어 보이다",
+    "slug": "you-look-well",
+    "order": 3,
+    "level": "TOPIK II",
+    "pdfPages": [
+      20,
+      21
+    ],
+    "referencePages": [
+      26,
+      27
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 2,
+    "forms": "-는다고/ㄴ다고/다고 하다; -나/-(으)ㄴ가 보다",
+    "slug": "they-say-it-seems",
+    "order": 4,
+    "level": "TOPIK II",
+    "pdfPages": [
+      28,
+      29
+    ],
+    "referencePages": [
+      28,
+      29
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 3,
+    "forms": "-(으)ㄹ까 하다; -지만 않으면",
+    "slug": "thinking-of-as-long-as",
+    "order": 5,
+    "level": "TOPIK II",
+    "pdfPages": [
+      36,
+      37
+    ],
+    "referencePages": [
+      30,
+      31
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 4,
+    "forms": "-고 나서; -(으)ㄹ 테니까",
+    "slug": "finish-first-ill-handle-it",
+    "order": 6,
+    "level": "TOPIK II",
+    "pdfPages": [
+      44,
+      45
+    ],
+    "referencePages": [
+      32,
+      33
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 5,
+    "forms": "-아/어 보니까; -(으)려면",
+    "slug": "tried-it-to-get-a-refund",
+    "order": 7,
+    "level": "TOPIK II",
+    "pdfPages": [
+      52,
+      53
+    ],
+    "referencePages": [
+      34,
+      35
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 6,
+    "forms": "-잖아요; -(으)려다가",
+    "slug": "you-know-i-was-going-to",
+    "order": 8,
+    "level": "TOPIK II",
+    "pdfPages": [
+      60,
+      61
+    ],
+    "referencePages": [
+      36,
+      37
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 7,
+    "forms": "-(으)ㄴ 지; -자고 하다",
+    "slug": "how-long-since-lets",
+    "order": 9,
+    "level": "TOPIK II",
+    "pdfPages": [
+      68,
+      69
+    ],
+    "referencePages": [
+      38,
+      39
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 8,
+    "forms": "-기 위해서; -아야겠다/어야겠다",
+    "slug": "in-order-to-id-better",
+    "order": 10,
+    "level": "TOPIK II",
+    "pdfPages": [
+      76,
+      77
+    ],
+    "referencePages": [
+      40,
+      41
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 9,
+    "forms": "-아/어지다; -는/-(으)ㄴ 대신에",
+    "slug": "getting-better-instead",
+    "order": 11,
+    "level": "TOPIK II",
+    "pdfPages": [
+      84,
+      85
+    ],
+    "referencePages": [
+      42,
+      43
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 10,
+    "forms": "-도록 하다; -아야/어야",
+    "slug": "make-sure-only-if",
+    "order": 12,
+    "level": "TOPIK II",
+    "pdfPages": [
+      92,
+      93
+    ],
+    "referencePages": [
+      44,
+      45
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 11,
+    "forms": "-다 보면; -더라고요",
+    "slug": "keep-at-it-i-found",
+    "order": 13,
+    "level": "TOPIK II",
+    "pdfPages": [
+      100,
+      101
+    ],
+    "referencePages": [
+      46,
+      47
+    ]
+  },
+  {
+    "book": "3A",
+    "unit": 12,
+    "forms": "-는다/ㄴ다/다; -(으)라고 하다",
+    "slug": "writing-and-reporting-instructions",
+    "order": 14,
+    "level": "TOPIK II",
+    "pdfPages": [
+      108,
+      109
+    ],
+    "referencePages": [
+      48,
+      49
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 1,
+    "forms": "-아도/어도; -아/어 드리다",
+    "slug": "even-so-help-respectfully",
+    "order": 15,
+    "level": "TOPIK II",
+    "pdfPages": [
+      20,
+      21
+    ],
+    "referencePages": [
+      28,
+      29
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 2,
+    "forms": "-(으)ㄹ까 봐; -(으)ㄹ 텐데",
+    "slug": "worried-it-might",
+    "order": 16,
+    "level": "TOPIK II",
+    "pdfPages": [
+      28,
+      29
+    ],
+    "referencePages": [
+      30,
+      31
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 3,
+    "forms": "-거든요; -는구나/구나",
+    "slug": "you-see-oh-i-see",
+    "order": 17,
+    "level": "TOPIK II",
+    "pdfPages": [
+      36,
+      37
+    ],
+    "referencePages": [
+      32,
+      33
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 4,
+    "forms": "-아/어 놓다; -(으)ㄴ 다음에",
+    "slug": "leave-it-ready-then",
+    "order": 18,
+    "level": "TOPIK II",
+    "pdfPages": [
+      44,
+      45
+    ],
+    "referencePages": [
+      34,
+      35
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 5,
+    "forms": "-자마자; -아/어 버리다",
+    "slug": "as-soon-as-all-gone",
+    "order": 19,
+    "level": "TOPIK II",
+    "pdfPages": [
+      52,
+      53
+    ],
+    "referencePages": [
+      36,
+      37
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 6,
+    "forms": "-았었/었었-; -(으)ㄹ걸 그랬다",
+    "slug": "back-then-should-have",
+    "order": 20,
+    "level": "TOPIK II",
+    "pdfPages": [
+      60,
+      61
+    ],
+    "referencePages": [
+      38,
+      39
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 7,
+    "forms": "-아/어 가지고; -는다거나/ㄴ다거나",
+    "slug": "because-and-things-like-that",
+    "order": 21,
+    "level": "TOPIK II",
+    "pdfPages": [
+      68,
+      69
+    ],
+    "referencePages": [
+      40,
+      41
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 8,
+    "forms": "-느라고; -기는요",
+    "slug": "busy-doing-oh-hardly",
+    "order": 22,
+    "level": "TOPIK II",
+    "pdfPages": [
+      76,
+      77
+    ],
+    "referencePages": [
+      42,
+      43
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 9,
+    "forms": "-는/-(으)ㄴ 모양이다; 같이",
+    "slug": "looks-like-like-a-picture",
+    "order": 23,
+    "level": "TOPIK II",
+    "pdfPages": [
+      84,
+      85
+    ],
+    "referencePages": [
+      44,
+      45
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 10,
+    "forms": "-던데요; -았더니/었더니",
+    "slug": "i-noticed-when-i-did",
+    "order": 24,
+    "level": "TOPIK II",
+    "pdfPages": [
+      92,
+      93
+    ],
+    "referencePages": [
+      46,
+      47
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 11,
+    "forms": "-아/어 가다; -아/어 두다",
+    "slug": "getting-there-ready-for-later",
+    "order": 25,
+    "level": "TOPIK II",
+    "pdfPages": [
+      100,
+      101
+    ],
+    "referencePages": [
+      48,
+      49
+    ]
+  },
+  {
+    "book": "3B",
+    "unit": 12,
+    "forms": "-기는 하다; -는 중이다",
+    "slug": "true-but-working-on-it",
+    "order": 26,
+    "level": "TOPIK II",
+    "pdfPages": [
+      108,
+      109
+    ],
+    "referencePages": [
+      50,
+      51
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 1,
+    "forms": "-는다면/ㄴ다면/다면; -았으면/었으면 하다",
+    "slug": "if-it-were-possible",
+    "level": "TOPIK II",
+    "order": 27,
+    "pdfPages": [
+      18,
+      20
+    ],
+    "referencePages": [
+      22,
+      23
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 2,
+    "forms": "-(으)ㄹ 만하다; -던데",
+    "slug": "worth-a-visit",
+    "level": "TOPIK II",
+    "order": 28,
+    "pdfPages": [
+      26,
+      28
+    ],
+    "referencePages": [
+      24,
+      25
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 3,
+    "forms": "-는대요/ㄴ대요/대요; -냬요/-(으)래요/-재요",
+    "slug": "passing-on-the-news",
+    "level": "TOPIK II",
+    "order": 29,
+    "pdfPages": [
+      34,
+      36
+    ],
+    "referencePages": [
+      26,
+      27
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 4,
+    "forms": "(으)로 인해서; -(으)면서 (turning point)",
+    "slug": "because-of-as-it-happened",
+    "level": "TOPIK II",
+    "order": 30,
+    "pdfPages": [
+      42,
+      44
+    ],
+    "referencePages": [
+      28,
+      29
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 5,
+    "forms": "-냐면; -기가 쉽다/어렵다/힘들다/편하다",
+    "slug": "if-youre-asking-which",
+    "level": "TOPIK II",
+    "order": 31,
+    "pdfPages": [
+      50,
+      52
+    ],
+    "referencePages": [
+      30,
+      31
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 6,
+    "forms": "-(으)ㄹ 뿐만 아니라; -게 하다",
+    "slug": "not-only-makes-me",
+    "level": "TOPIK II",
+    "order": 32,
+    "pdfPages": [
+      58,
+      60
+    ],
+    "referencePages": [
+      32,
+      33
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 7,
+    "forms": "-(으)ㄹ 뻔하다; 아무 N(이)나",
+    "slug": "almost-anyone",
+    "level": "TOPIK II",
+    "order": 33,
+    "pdfPages": [
+      66,
+      68
+    ],
+    "referencePages": [
+      34,
+      35
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 8,
+    "forms": "-는/-(으)ㄴ/-(으)ㄹ 듯이; passive -이/-히/-리/-기",
+    "slug": "as-if-it-were-seen",
+    "level": "TOPIK II",
+    "order": 34,
+    "pdfPages": [
+      74,
+      76
+    ],
+    "referencePages": [
+      36,
+      37
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 9,
+    "forms": "-지 않아요?; 얼마나 -는다고요/ㄴ다고요/다고요",
+    "slug": "isnt-it-so-how-much",
+    "level": "TOPIK II",
+    "order": 35,
+    "pdfPages": [
+      82,
+      84
+    ],
+    "referencePages": [
+      38,
+      39
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 10,
+    "forms": "-더니; -는/-(으)ㄴ 것이다",
+    "slug": "i-saw-it-the-fact-is",
+    "level": "TOPIK II",
+    "order": 36,
+    "pdfPages": [
+      90,
+      92
+    ],
+    "referencePages": [
+      40,
+      41
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 11,
+    "forms": "(으)로서; 에 대해서",
+    "slug": "as-a-person-about-a-place",
+    "level": "TOPIK II",
+    "order": 37,
+    "pdfPages": [
+      98,
+      100
+    ],
+    "referencePages": [
+      42,
+      43
+    ]
+  },
+  {
+    "book": "4A",
+    "unit": 12,
+    "forms": "-(으)며; -고자 하다",
+    "slug": "and-i-intend-formally",
+    "level": "TOPIK II",
+    "order": 38,
+    "pdfPages": [
+      106,
+      108
+    ],
+    "referencePages": [
+      44,
+      45
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 1,
+    "forms": "-는/-(으)ㄴ 데다가; -든지",
+    "slug": "on-top-of-that-any-choice",
+    "level": "TOPIK II",
+    "order": 39,
+    "pdfPages": [
+      18,
+      20
+    ],
+    "referencePages": [
+      22,
+      23
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 2,
+    "forms": "-는/-(으)ㄴ/-(으)ㄹ 줄 알다; -던",
+    "slug": "thought-it-was-remembered",
+    "level": "TOPIK II",
+    "order": 40,
+    "pdfPages": [
+      26,
+      28
+    ],
+    "referencePages": [
+      24,
+      25
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 3,
+    "forms": "-(으)ㄹ까 -(으)ㄹ까; -지 그래요?",
+    "slug": "this-or-that-why-not",
+    "level": "TOPIK II",
+    "order": 41,
+    "pdfPages": [
+      34,
+      36
+    ],
+    "referencePages": [
+      26,
+      27
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 4,
+    "forms": "-았어야/었어야 했는데; -았을/었을 텐데",
+    "slug": "if-only-i-had",
+    "level": "TOPIK II",
+    "order": 42,
+    "pdfPages": [
+      42,
+      44
+    ],
+    "referencePages": [
+      28,
+      29
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 5,
+    "forms": "에 비해서; -아야지/어야지",
+    "slug": "compared-with-i-should",
+    "level": "TOPIK II",
+    "order": 43,
+    "pdfPages": [
+      50,
+      52
+    ],
+    "referencePages": [
+      30,
+      31
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 6,
+    "forms": "-는지/-(으)ㄴ지 알다/모르다; -는다면서요/ㄴ다면서요/다면서요",
+    "slug": "wonder-why-you-said",
+    "level": "TOPIK II",
+    "order": 44,
+    "pdfPages": [
+      58,
+      60
+    ],
+    "referencePages": [
+      32,
+      33
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 7,
+    "forms": "-는 데에; -다 보니",
+    "slug": "kept-doing-so-i-found",
+    "level": "TOPIK II",
+    "order": 45,
+    "pdfPages": [
+      66,
+      68
+    ],
+    "referencePages": [
+      34,
+      35
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 8,
+    "forms": "-는다는/ㄴ다는/다는 점에서; -(으)ㄴ 결과",
+    "slug": "in-that-respect-as-a-result",
+    "level": "TOPIK II",
+    "order": 46,
+    "pdfPages": [
+      74,
+      76
+    ],
+    "referencePages": [
+      36,
+      37
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 9,
+    "forms": "-(으)ㄹ수록; -(으)나 (contrast)",
+    "slug": "the-more-although",
+    "level": "TOPIK II",
+    "order": 47,
+    "pdfPages": [
+      82,
+      84
+    ],
+    "referencePages": [
+      38,
+      39
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 10,
+    "forms": "-는다고/ㄴ다고/다고 생각하다; -는/-(으)ㄴ 거 아닐까 하다",
+    "slug": "i-think-it-might-be",
+    "level": "TOPIK II",
+    "order": 48,
+    "pdfPages": [
+      90,
+      92
+    ],
+    "referencePages": [
+      40,
+      41
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 11,
+    "forms": "-지 않을까 싶다; -기보다는",
+    "slug": "perhaps-rather-than",
+    "level": "TOPIK II",
+    "order": 49,
+    "pdfPages": [
+      98,
+      100
+    ],
+    "referencePages": [
+      42,
+      43
+    ]
+  },
+  {
+    "book": "4B",
+    "unit": 12,
+    "forms": "-는다니/ㄴ다니/다니; -기를 바라다",
+    "slug": "looking-back-feeling-so",
+    "level": "TOPIK II",
+    "order": 50,
+    "pdfPages": [
+      106,
+      108
+    ],
+    "referencePages": [
+      44,
+      45
+    ]
+  },
+  {
+    "book": "1B",
+    "unit": 7,
+    "forms": "-고",
+    "slug": "and-another-thing-ko",
+    "level": "TOPIK I",
+    "order": 32,
+    "referencePages": [
+      40,
+      41
+    ]
+  }
+]
