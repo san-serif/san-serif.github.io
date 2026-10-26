@@ -43,6 +43,12 @@ const stageStart = (index: number) => 1 + groups.slice(0, index).reduce((sum, gr
       <p class="progress-copy" id="progress-copy" aria-live="polite"></p>
     </header>
 
+    <form class="course-search" action="/notes" method="get" role="search">
+      <label for="course-query">Find a grammar pattern or example</label>
+      <input type="hidden" name="language" value={Astro.params.language} />
+      <div><input id="course-query" name="q" type="search" placeholder={`Search ${info.name} lessons…`} required /><button type="submit">Search lessons →</button></div>
+    </form>
+
     <div class="course-guide">
       <h2>A suggested route.</h2>
       <p>Start with the foundations, then choose the topics you need within each level. The numbers show a useful order, not a requirement. Open any lesson; your last viewed and completed lessons are marked here in this browser.</p>
@@ -104,6 +110,12 @@ const stageStart = (index: number) => 1 + groups.slice(0, index).reduce((sum, gr
 </script>
 
 <style>
+  .course-search { margin: -40px 0 36px; }
+  .course-search label { display: block; font-size: .85rem; font-weight: 600; margin-bottom: 12px; }
+  .course-search > div { display: flex; gap: 10px; flex-wrap: wrap; }
+  .course-search input[type="search"] { flex: 1; min-width: 180px; font: inherit; font-size: .88rem; padding: 13px; border: 1px solid #ccc; border-radius: 8px; }
+  .course-search button { font: inherit; font-size: .82rem; border: 1px solid #111; border-radius: 8px; background: #111; color: white; padding: 13px 18px; cursor: pointer; }
+
   .course-page { max-width: 820px; padding: 10px 20px 120px; }
   .back-link { color: #888; text-decoration: none; font-size: .82rem; font-weight: 600; }
   .back-link:hover { color: #111; }

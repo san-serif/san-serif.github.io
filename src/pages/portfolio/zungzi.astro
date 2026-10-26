@@ -1,8 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AppPurchaseGuide from '../../components/AppPurchaseGuide.astro';
+import AppPurchaseSummary from '../../components/AppPurchaseSummary.astro';
 ---
 
-<Layout title="Zungzi | san serif" description="Conquer Chinese Hanzi from anywhere. Practice HSK characters with quick-glance reviews and Mandarin/Cantonese audio." image="/images/zungzi-poster.jpg">
+<Layout title="Zungzi | san serif" description="HSK vocabulary on Apple Watch with Mandarin and Cantonese audio, Pinyin and Jyutping, simplified and traditional characters, example sentences, spaced repetition and complications." image="/images/zungzi-poster.jpg">
 	<main class="wrapper">
 
 		<section class="app-hero">
@@ -28,12 +30,13 @@ import Layout from '../../layouts/Layout.astro';
 				<h1>Zungzi</h1>
 
 				<p class="description">
-					Modern Chinese <a class="note-link" href="/notes/flashcards-and-the-science-of-vocabulary-retention?ref=zungzi">flashcards</a> built for the Apple Watch. A high-frequency character tool designed to help you master tones and Hanzi in the gaps of your day.
+					Study Mandarin and Cantonese from your Apple Watch. Choose Pinyin or Jyutping, simplified or traditional characters, and learn vocabulary through example sentences and audio.
 				</p>
 
 				<a href="https://apps.apple.com/us/app/chinese-flashcards-zungzi/id1496948615" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
+                <AppPurchaseSummary app="zungzi" />
 			</div>
 
 		</section>
@@ -71,6 +74,7 @@ import Layout from '../../layouts/Layout.astro';
 
 		</section>
 
+        <AppPurchaseGuide app="zungzi" />
 	</main>
 </Layout>
 

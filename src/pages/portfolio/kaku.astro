@@ -1,8 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AppPurchaseGuide from '../../components/AppPurchaseGuide.astro';
+import AppPurchaseSummary from '../../components/AppPurchaseSummary.astro';
 ---
 
-<Layout title="Kaku | san serif" description="A Japanese notebook for beginner-to-intermediate learners, with an instant offline dictionary, one-tap conjugated word insertion, translation, read-aloud shadowing, and OCR scanning, all built to keep you writing instead of app-switching." image="/images/kaku-poster.jpg">
+<Layout title="Kaku | san serif" description="A Japanese notebook for learning in the flow of writing: instant offline dictionary lookups, form insertion, word-by-word reading and listening, on-device writing suggestions, OCR and optional iCloud sync." image="/images/kaku-poster.jpg">
 	<main class="wrapper">
 
 		<section class="app-hero">
@@ -27,12 +29,13 @@ import Layout from '../../layouts/Layout.astro';
 			<div class="app-intro">
 				<h1>Kaku</h1>
 				<p class="description">
-					A Japanese notebook that keeps every tool exactly where you're writing. Look up any word instantly, insert the exact conjugated form you need, and translate the whole note when you want a second opinion, all without leaving the page.
+					Write Japanese with your dictionary just above the keyboard. Look up words as they change form, insert conjugations into a note, and ask for on-device writing suggestions when you want a second pair of eyes.
 				</p>
 
 				<a href="https://apps.apple.com/au/app/kaku-japanese-dictionary/id1515101339" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
+                <AppPurchaseSummary app="kaku" />
 			</div>
 
 		</section>
@@ -67,6 +70,7 @@ import Layout from '../../layouts/Layout.astro';
 
 		</section>
 
+        <AppPurchaseGuide app="kaku" />
 	</main>
 </Layout>
 

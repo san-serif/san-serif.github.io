@@ -1,8 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AppPurchaseGuide from '../../components/AppPurchaseGuide.astro';
+import AppPurchaseSummary from '../../components/AppPurchaseSummary.astro';
 ---
 
-<Layout title="Yinpin | san serif" description="Master Pinyin and you can type any Chinese character you know, no handwriting required. Yinpin drills tone-accurate recall against the full HSK vocabulary, one word at a time." image="/images/yinpin-poster.jpg">
+<Layout title="Yinpin | san serif" description="Learn Chinese through typed Pinyin or Jyutping recall, HSK vocabulary and example sentences. Choose Mandarin or Cantonese and simplified or traditional characters. Premium adds AI conversation practice with 小音." image="/images/yinpin-poster.jpg">
 	<main class="wrapper">
 
 		<section class="app-hero">
@@ -27,12 +29,13 @@ import Layout from '../../layouts/Layout.astro';
 			<div class="app-intro">
 				<h1>Yinpin</h1>
 				<p class="description">
-					Every Chinese character you'll ever type starts with Pinyin. Get the sounds and tones right, and your phone does the rest, no handwriting required. Yinpin drills tone-accurate recall against the full HSK vocabulary, one word at a time, until production is second nature.
+					Type Pinyin or Jyutping from memory, study Chinese in simplified or traditional characters, and choose Mandarin or Cantonese. Premium adds Mandarin conversation practice with 小音.
 				</p>
 
 				<a href="https://apps.apple.com/au/app/yinpin-pinyin-dictionary/id6798315086" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
+                <AppPurchaseSummary app="yinpin" />
 			</div>
 
 		</section>
@@ -67,6 +70,7 @@ import Layout from '../../layouts/Layout.astro';
 
 		</section>
 
+        <AppPurchaseGuide app="yinpin" />
 	</main>
 </Layout>
 

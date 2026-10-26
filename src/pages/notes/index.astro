@@ -68,8 +68,9 @@ const rowSearch = (n: typeof notes[number]) =>
 			</nav>
 
 			<div class="search-row">
-				<input type="text" class="search-input" id="search-input" placeholder="Search notes by title or description…" />
-			</div>
+				<input class="search-input" id="search-input" type="search" aria-label="Search lessons" aria-describedby="search-status" placeholder="Search grammar, vocabulary or example sentences…" />
+			<p id="search-status" class="search-status" role="status" aria-live="polite"></p>
+            </div>
 
 			<div class="controls-container">
 				<span class="control-label">FILTER</span>
@@ -212,6 +213,34 @@ const rowSearch = (n: typeof notes[number]) =>
 	const sections = Array.from(document.querySelectorAll('.idx-section'));
 	const dividers = Array.from(document.querySelectorAll('.idx-divider'));
 	let activeTags = new Set();
+    const searchStatus = document.getElementById('search-status');
+    const normalize = text => text.normalize('NFKC').toLowerCase().replace(/\s+/g, ' ').trim();
+    let fullIndex = null;
+    let indexRequest = null;
+    let indexFailed = false;
+    function loadIndex() {
+      if (indexRequest) return indexRequest;
+      indexFailed = false;
+      indexRequest = fetch('/lesson-search.json').then(response => {
+        if (!response.ok) throw new Error('Search unavailable');
+        return response.json();
+      }).then(index => { fullIndex = index; }).catch(() => {
+        indexFailed = true;
+        indexRequest = null;
+      }).finally(applyFilters);
+      return indexRequest;
+    }
+    searchInput.addEventListener('focus', loadIndex);
+    const params = new URLSearchParams(location.search);
+    searchInput.value = params.get('q') || '';
+    const language = params.get('language');
+    if (['japanese', 'korean', 'chinese'].includes(language)) {
+      activeTags.add(language);
+      const button = document.querySelector(`[data-tag="${language}"]`);
+      button.classList.add('active');
+      document.getElementById(button.dataset.children).hidden = false;
+    }
+    if (searchInput.value) loadIndex();
 
 	document.querySelectorAll('.filter-tag').forEach(btn => {
 		btn.addEventListener('click', () => {
@@ -249,7 +278,7 @@ const rowSearch = (n: typeof notes[number]) =>
 		});
 	});
 
-	searchInput.addEventListener('input', applyFilters);
+	searchInput.addEventListener('input', () => { if (searchInput.value.trim()) loadIndex(); applyFilters(); });
 
 	// "Show all N →" per level-group, same collapse pattern VocabTable
 	// already uses elsewhere on the site. Expanding a group persists for
@@ -263,14 +292,19 @@ const rowSearch = (n: typeof notes[number]) =>
 	};
 
 	function applyFilters() {
-		const query = searchInput.value.trim().toLowerCase();
+		const query = normalize(searchInput.value);
+        const terms = query.split(' ').filter(Boolean);
 		const filtersActive = activeTags.size > 0 || query !== '';
 		let visibleTotal = 0;
 
 		allRows.forEach(row => {
 			const rowTags = row.getAttribute('data-category').split(',');
-			const matchesTags = [...activeTags].every(t => rowTags.includes(t));
-			const matchesSearch = query === '' || row.getAttribute('data-search').includes(query);
+			const languages = [...activeTags].filter(tag => ['japanese', 'korean', 'chinese'].includes(tag));
+            const levels = [...activeTags].filter(tag => !languages.includes(tag));
+            const matchesTags = (!languages.length || languages.some(tag => rowTags.includes(tag))) && (!levels.length || levels.some(tag => rowTags.includes(tag)));
+            const slug = new URL(row.href).pathname.split('/').filter(Boolean).pop();
+            const content = fullIndex?.[slug] ?? normalize(row.getAttribute('data-search'));
+            const matchesSearch = terms.every(term => content.includes(term));
 			// "filtered-out" tracks whether a row belongs in this section at
 			// all — used for the meta count, which should keep describing
 			// the true total even while truncation hides most of it. "hidden"
@@ -317,7 +351,11 @@ const rowSearch = (n: typeof notes[number]) =>
 		});
 
 		updateMeta();
-		emptyState.classList.toggle('visible', visibleTotal === 0);
+		emptyState.classList.toggle('visible', visibleTotal === 0 && (!query || fullIndex || indexFailed));
+        searchStatus.textContent = query && !fullIndex
+          ? (indexFailed ? 'Full lesson search could not load. Showing title and description matches; type again to retry.' : 'Searching lesson text…')
+          : filtersActive ? `${visibleTotal} result${visibleTotal === 1 ? '' : 's'}` : '';
+        document.querySelectorAll('.filter-tag').forEach(button => button.setAttribute('aria-pressed', String(activeTags.has(button.dataset.tag))));
 	}
 
 	// The "114 notes · N5 → N4" line under each language heading is static
@@ -353,6 +391,7 @@ const rowSearch = (n: typeof notes[number]) =>
 </script>
 
 <style>
+    .search-status { min-height: 1.3em; margin: 10px 0 0; color: #666; font-size: .8rem; }
 	.course-shortcuts { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 24px 0 34px; }
 	.course-shortcuts a { color: #111; font-size: .82rem; font-weight: 600; text-decoration: none; }
 	.course-shortcuts a:hover { text-decoration: underline; text-underline-offset: 3px; }

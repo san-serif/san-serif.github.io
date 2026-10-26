@@ -1,8 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AppPurchaseGuide from '../../components/AppPurchaseGuide.astro';
+import AppPurchaseSummary from '../../components/AppPurchaseSummary.astro';
 ---
 
-<Layout title="Sajeon | san serif" description="A native Korean dictionary built for deep immersion, with a clipboard reader to deconstruct complex sentences, custom word lists, and a distilled interface that stays out of your way." image="/images/sajeon-poster.jpg">
+<Layout title="Sajeon | san serif" description="A Korean dictionary, Reader and vocabulary study tool. Search conjugated forms, hear words, explore speech levels, make custom lists, study them with spaced repetition, and break down complete sentences." image="/images/sajeon-poster.jpg">
 	<main class="wrapper">
 		
 		<section class="app-hero">
@@ -27,12 +29,13 @@ import Layout from '../../layouts/Layout.astro';
 			<div class="app-intro">
 				<h1>Sajeon</h1>
 				<p class="description">
-					A powerful Korean dictionary that understands context. Breakdown complex sentences, master conjugations, and access reliable definitions in a native iOS experience.
+					A Korean dictionary that takes you from a single word to a sentence you understand. Look up conjugated forms, study your own word lists with flashcards, and break down Korean text in the Reader.
 				</p>
 				
 				<a href="https://apps.apple.com/au/app/sajeon-korean-dictionary/id6761698356" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
+                <AppPurchaseSummary app="sajeon" />
 			</div>
 
 		</section>
@@ -74,6 +77,7 @@ import Layout from '../../layouts/Layout.astro';
 
 		</section>
 
+        <AppPurchaseGuide app="sajeon" />
 	</main>
 </Layout>
 

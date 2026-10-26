@@ -1,8 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AppPurchaseGuide from '../../components/AppPurchaseGuide.astro';
+import AppPurchaseSummary from '../../components/AppPurchaseSummary.astro';
 ---
 
-<Layout title="Tsugi | san serif" description="Japanese sentence flashcards for intermediate and advanced learners. Tsugi uses AI-powered n+1 selection, local text analysis, audio, furigana, dictionary lookup, and adaptive spaced repetition to make authentic Japanese easier to study." image="/images/tsugi-poster.jpg">
+<Layout title="Tsugi | san serif" description="Japanese sentence flashcards in a hand-curated n+1 order, with one target word introduced at each step. Review with adaptive spaced repetition, example audio, an offline dictionary and detailed progress." image="/images/tsugi-poster.jpg">
 	<main class="wrapper">
 
 		<section class="app-hero">
@@ -27,12 +29,13 @@ import Layout from '../../layouts/Layout.astro';
 			<div class="app-intro">
 				<h1>Tsugi</h1>
 				<p class="description">
-					Japanese flashcards built around real sentences, for learners who've outgrown isolated word lists. Tsugi finds the next useful thing to learn, explains it in context, and brings it back for review at the right time.
+					Learn Japanese words through complete sentences. Tsugi follows a hand-curated n+1 order: each new sentence introduces one target word, then spaced repetition brings the words you need to review back at the right time.
 				</p>
 
 				<a href="https://apps.apple.com/au/app/tsugi-japanese-vocab-mining/id1546470961" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
+                <AppPurchaseSummary app="tsugi" />
 			</div>
 
 		</section>
@@ -67,6 +70,7 @@ import Layout from '../../layouts/Layout.astro';
 
 		</section>
 
+        <AppPurchaseGuide app="tsugi" />
 	</main>
 </Layout>
 

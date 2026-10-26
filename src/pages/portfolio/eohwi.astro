@@ -1,8 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AppPurchaseGuide from '../../components/AppPurchaseGuide.astro';
+import AppPurchaseSummary from '../../components/AppPurchaseSummary.astro';
 ---
 
-<Layout title="Eohwi | san serif" description="Master TOPIK vocabulary on the go. Bite-sized Korean flashcards and smart spaced repetition directly on your Apple Watch." image="/images/eohwi-poster.jpg">
+<Layout title="Eohwi | san serif" description="TOPIK vocabulary on Apple Watch with spaced repetition, Korean speech in three politeness levels, tappable conjugations, etymology, example audio and vocabulary complications." image="/images/eohwi-poster.jpg">
 	<main class="wrapper">
 		
 		<section class="app-hero">
@@ -27,12 +29,13 @@ import Layout from '../../layouts/Layout.astro';
 			<div class="app-intro">
 				<h1>Eohwi</h1>
 				<p class="description">
-					Korean vocabulary mastery on your wrist. Smart <a href="/notes/flashcards-and-the-science-of-vocabulary-retention?ref=eohwi">spaced repetition</a> and TOPIK-aligned flashcards designed for consistent, discreet learning on the Apple Watch.
+					Build Korean vocabulary on Apple Watch, hear example sentences in formal, standard or casual speech, explore conjugations, and discover a word’s origins.
 				</p>
 				
 				<a href="https://apps.apple.com/us/app/korean-flashcards-eohwi/id6478456641" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
+                <AppPurchaseSummary app="eohwi" />
 			</div>
 
 		</section>
@@ -69,6 +72,7 @@ import Layout from '../../layouts/Layout.astro';
 
 		</section>
 
+        <AppPurchaseGuide app="eohwi" />
 	</main>
 </Layout>
 

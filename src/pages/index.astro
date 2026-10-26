@@ -22,79 +22,93 @@ import Layout from '../layouts/Layout.astro';
 			<h2 id="apps-title">The apps</h2>
 			<p>Choose the tool that fits what you're learning.</p>
 		</section>
-		<section class="grid" aria-label="Language learning apps">
+		<div class="app-filters" role="group" aria-label="Filter apps by language" hidden>
+            <button type="button" data-language="all" aria-pressed="true">All languages</button>
+            <button type="button" data-language="japanese" aria-pressed="false">Japanese</button>
+            <button type="button" data-language="korean" aria-pressed="false">Korean</button>
+            <button type="button" data-language="chinese" aria-pressed="false">Chinese</button>
+        </div>
+        <p class="app-count" id="app-count" role="status" aria-live="polite"></p>
+        <section class="grid" aria-label="Language learning apps">
 
 			{/* KAKU */}
-			<a href="/portfolio/kaku" class="card kaku">
+			<a data-app-language="japanese" href="/portfolio/kaku" class="card kaku">
 				<img src="/kaku-icon.png" alt="Kaku" class="app-icon standard-icon" />
 				<div class="card-content">
 					<h2>Kaku</h2>
-					<span class="category">iOS, iPadOS, macOS / JP</span>
+					<span class="category">iPhone, iPad & Mac · Japanese</span>
+                    <span class="app-purpose">For writing</span>
 					<p>
-						A Japanese notebook that keeps every tool exactly where you're writing. Highlight any word for instant offline definitions, insert the exact conjugated form you need, and translate the whole note when you want a second opinion.
+						Write Japanese with an offline dictionary beside your note. Find conjugated forms, insert a useful expression, hear what you wrote, and try on-device suggestions for your grammar.
 					</p>
 				</div>
 			</a>
 
 			{/* SAJEON */}
-			<a href="/portfolio/sajeon" class="card sajeon">
+			<a data-app-language="korean" href="/portfolio/sajeon" class="card sajeon">
 				<img src="/sajeon-icon.png" alt="Sajeon" class="app-icon standard-icon" />
 				<div class="card-content">
 					<h2>Sajeon</h2>
-					<span class="category">iOS, iPadOS, macOS / KR</span>
-					<p>A native Korean dictionary built for deep immersion, with a clipboard reader that deconstructs complex sentences.</p>
+					<span class="category">iPhone, iPad & Mac · Korean</span>
+                    <span class="app-purpose">For vocabulary &amp; reading</span>
+					<p>Look up Korean words, explore conjugations, and turn your own word lists into flashcard practice. A sentence reader helps you understand the vocabulary you meet.</p>
 				</div>
 			</a>
 
 			{/* TSUGI */}
-			<a href="/portfolio/tsugi" class="card tsugi">
+			<a data-app-language="japanese" href="/portfolio/tsugi" class="card tsugi">
 				<img src="/tsugi-icon.png" alt="Tsugi" class="app-icon standard-icon" />
 				<div class="card-content">
 					<h2>Tsugi</h2>
-					<span class="category">iOS, iPadOS, macOS / JP</span>
+					<span class="category">iPhone, iPad & Mac · Japanese</span>
+                    <span class="app-purpose">For vocabulary</span>
 					<p>Tsugi finds the next Japanese word you don't know (n+1), then teaches it in a real sentence just beyond your current level. Interactive furigana, audio, and adaptive review help each new word stick.</p>
 				</div>
 			</a>
 
 			{/* YINPIN */}
-			<a href="/portfolio/yinpin" class="card yinpin">
+			<a data-app-language="chinese" href="/portfolio/yinpin" class="card yinpin">
 				<img src="/yinpin-icon.png" alt="Yinpin" class="app-icon standard-icon" />
 				<div class="card-content">
 					<h2>Yinpin</h2>
-					<span class="category">iOS, iPadOS, macOS / CN</span>
-					<p>A faster path to Chinese fluency through Pinyin. Master tone-accurate recall and pronunciation across the full HSK vocabulary, unlocking the ability to read, speak, and type any character without handwriting.</p>
+					<span class="category">iPhone, iPad & Mac · Chinese</span>
+                    <span class="app-purpose">For vocabulary & pronunciation</span>
+					<p>A faster path to Chinese fluency through Pinyin. Type Pinyin or Jyutping from memory, review HSK vocabulary in context, and practise Mandarin conversations with 小音.</p>
 				</div>
 			</a>
 
 			{/* TOKEITANGO */}
-			<a href="/portfolio/tokeitango" class="card tokei">
+			<a data-app-language="japanese" href="/portfolio/tokeitango" class="card tokei">
 				<img src="/tokeitango-icon.png?v=20261024" alt="TokeiTango" class="app-icon standard-icon" />
 				<div class="card-content">
 					<h2>TokeiTango</h2>
-					<span class="category">watchOS / JP</span>
+					<span class="category">Apple Watch · Japanese</span>
+                    <span class="app-purpose">For vocabulary</span>
 					<p>
-						JLPT vocabulary and study sessions, reimagined for the wrist.
+						Learn Japanese words through examples, grammar and conjugations on your Watch.
 					</p>
 				</div>
 			</a>
 
 			{/* EOHWI */}
-			<a href="/portfolio/eohwi" class="card eohwi">
+			<a data-app-language="korean" href="/portfolio/eohwi" class="card eohwi">
 				<img src="/eohwi-icon.png?v=20261024" alt="Eohwi" class="app-icon standard-icon" />
 				<div class="card-content">
 					<h2>Eohwi</h2>
-					<span class="category">watchOS / KR</span>
-					<p>Master TOPIK vocabulary on the go, directly on your Apple Watch.</p>
+					<span class="category">Apple Watch · Korean</span>
+                    <span class="app-purpose">For vocabulary</span>
+					<p>TOPIK vocabulary on your Watch, with speech-level examples, conjugations and etymology.</p>
 				</div>
 			</a>
 
 			{/* ZUNGZI */}
-			<a href="/portfolio/zungzi" class="card zungzi">
+			<a data-app-language="chinese" href="/portfolio/zungzi" class="card zungzi">
 				<img src="/zungzi-icon.png?v=20261024" alt="Zungzi" class="app-icon standard-icon" />
 				<div class="card-content">
 					<h2>Zungzi</h2>
-					<span class="category">watchOS / CN</span>
-					<p>Conquer Chinese Hanzi from anywhere, one glance at a time.</p>
+					<span class="category">Apple Watch · Chinese</span>
+                    <span class="app-purpose">For vocabulary</span>
+					<p>Study Chinese in Mandarin or Cantonese, with words and sentences on your Watch.</p>
 				</div>
 			</a>
 
@@ -102,7 +116,37 @@ import Layout from '../layouts/Layout.astro';
 	</main>
 </Layout>
 
+<script>
+  const filters = document.querySelector<HTMLElement>('.app-filters');
+  const cards = [...document.querySelectorAll<HTMLElement>('[data-app-language]')];
+  const count = document.getElementById('app-count');
+  if (filters) {
+    filters.hidden = false;
+    filters.addEventListener('click', event => {
+      const button = (event.target as HTMLElement).closest<HTMLButtonElement>('button[data-language]');
+      if (!button) return;
+      for (const control of filters.querySelectorAll('button')) control.setAttribute('aria-pressed', String(control === button));
+      const language = button.dataset.language;
+      for (const card of cards) card.hidden = language !== 'all' && card.dataset.appLanguage !== language;
+      document.querySelector('.grid')?.classList.toggle('is-filtered', language !== 'all');
+      const total = cards.filter(card => !card.hidden).length;
+      if (count) count.textContent = `${total} apps${language === 'all' ? '' : ` for ${button.textContent}`}`;
+    });
+  }
+</script>
+
 <style>
+.app-filters { display: flex; flex-wrap: wrap; gap: 8px; max-width: 900px; margin: 0 auto; }
+.app-filters[hidden], .card[hidden] { display: none; }
+.app-filters button { font: inherit; font-size: .8rem; padding: 9px 14px; border: 1px solid #ddd; border-radius: 999px; background: #fff; color: #555; cursor: pointer; }
+.app-filters button[aria-pressed="true"] { background: #111; color: #fff; border-color: #111; }
+.app-filters button:focus-visible { outline: 2px solid #111; outline-offset: 3px; }
+.app-count { max-width: 900px; margin: 10px auto 18px; font-size: .76rem; color: #666; }
+.app-purpose { font-size: .77rem; font-weight: 600; color: #333; }
+.grid.is-filtered { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid.is-filtered .card { grid-column: auto; grid-row: auto; }
+@media (max-width: 650px) { .grid.is-filtered { grid-template-columns: 1fr; } }
+
 .home-intro { display: grid; grid-template-columns: 1.2fr .8fr; gap: 60px; align-items: center; max-width: 900px; margin: 0 auto 50px; padding: 0 0 42px; border-bottom: 1px solid #e9e9e9; }
 .eyebrow { margin: 0 0 18px; color: #888; font-size: .7rem; font-weight: 700; letter-spacing: .15em; }
 .home-copy h1 { margin: 0 0 18px; font-size: clamp(2.5rem, 4.5vw, 4.1rem); line-height: 1.07; letter-spacing: -.06em; font-weight: 650; }

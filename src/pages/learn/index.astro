@@ -27,6 +27,7 @@ const courses = [
       <span aria-hidden="true">→</span>
     </a>
 
+    <p class="library-link"><a href="/notes">Search all lessons by grammar, word or example →</a></p>
     <section class="course-list" aria-label="Languages">
       {courses.map(course => {
         const sequence = courseSequence(notes, course.key);
@@ -75,6 +76,8 @@ const courses = [
 </script>
 
 <style>
+  .library-link { margin: 0 0 24px; font-size: .85rem; }
+  .library-link a { color: #333; text-underline-offset: 4px; }
   .learn-page { max-width: 960px; padding-bottom: 120px; }
   .learn-header { padding: 12px 0 52px; max-width: 690px; }
   .eyebrow { color: #888; font-size: .7rem; font-weight: 700; letter-spacing: .15em; margin: 0 0 20px; }

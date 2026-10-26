@@ -1,8 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import AppPurchaseGuide from '../../components/AppPurchaseGuide.astro';
+import AppPurchaseSummary from '../../components/AppPurchaseSummary.astro';
 ---
 
-<Layout title="TokeiTango | san serif" description="JLPT vocabulary and study sessions, reimagined for the wrist. Discreet, haptic-driven reviews designed for Japanese immersion on the go, on Apple Watch." image="/images/tokeitango-poster.jpg">
+<Layout title="TokeiTango | san serif" description="Japanese vocabulary on Apple Watch, ordered by JLPT or word frequency. Explore example sentences, conjugations and grammar patterns, with review scheduling and watch face complications." image="/images/tokeitango-poster.jpg">
 	<main class="wrapper">
 		
 		<section class="app-hero">
@@ -27,12 +29,13 @@ import Layout from '../../layouts/Layout.astro';
 			<div class="app-intro">
 				<h1>TokeiTango</h1>
 				<p class="description">
-					Japanese vocabulary <a href="/notes/flashcards-and-the-science-of-vocabulary-retention">flashcards</a> refined for watchOS. Discreet, haptic-driven study sessions designed for the persistent learner.
+					Learn Japanese on your Apple Watch with JLPT and frequency-based study. Every word can lead to an example sentence, a conjugation, or a grammar pattern.
 				</p>
 				
 				<a href="https://apps.apple.com/us/app/japanese-flashcards-tokeitango/id1492526803" class="app-store-link">
 					<img src="/images/app-store-badge.svg" alt="Download on the App Store" class="badge-svg" />
 				</a>
+                <AppPurchaseSummary app="tokeitango" />
 			</div>
 
 		</section>
@@ -72,6 +75,7 @@ import Layout from '../../layouts/Layout.astro';
 
 		</section>
 
+        <AppPurchaseGuide app="tokeitango" />
 	</main>
 </Layout>
 

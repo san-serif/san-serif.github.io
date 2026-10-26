@@ -1,0 +1,11 @@
+---
+import { appDetails, type AppSlug } from '../data/app-details';
+interface Props { app: AppSlug; }
+const { app } = Astro.props;
+const paid = appDetails[app].purchase === 'paid';
+---
+<p class="purchase-summary">{paid ? 'Paid download · No in-app upgrade' : 'Free download · Optional Premium upgrade'}<br /><a href={`#${app}-guide-title`}>See what’s included →</a></p>
+<style>
+  .purchase-summary { margin: 16px 0 0; color: #666; font-size: .78rem; line-height: 1.8; text-align: center; }
+  .purchase-summary a { color: #333; text-underline-offset: 3px; font-weight: 500; }
+</style>

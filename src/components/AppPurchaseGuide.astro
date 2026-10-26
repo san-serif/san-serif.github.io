@@ -1,0 +1,72 @@
+---
+import { appDetails, type AppSlug } from '../data/app-details';
+import { appFeatures } from '../data/app-features';
+interface Props { app: AppSlug; }
+const { app } = Astro.props;
+const details = appDetails[app];
+const features = appFeatures[app];
+const isPaid = details.purchase === 'paid';
+const freeFeatures = features.filter(feature => feature.access === 'Free');
+const premiumFeatures = features.filter(feature => feature.access === 'Premium');
+const includedFeatures = features.filter(feature => feature.access === 'Included');
+const oneLiner = (description: string) => {
+  return description.split(/(?<=[.!?])\s/)[0] ?? description;
+};
+---
+
+<section class="feature-guide" aria-labelledby={`${app}-guide-title`}>
+  <header class="feature-header">
+    <p class="guide-eyebrow">MADE FOR THE WAY YOU STUDY</p>
+    <h2 id={`${app}-guide-title`}>{details.name}, in detail.</h2>
+    <p class="guide-purpose">{details.purpose}</p>
+    <p class="guide-devices">{details.devices}</p>
+  </header>
+  <div class:list={['plans-grid', { 'plans-paid': isPaid }]} aria-label={`${details.name} features`}>
+    {isPaid ? <section class="plan-column included-column" aria-labelledby={`${app}-included-title`}>
+      <header class="plan-heading"><h3 id={`${app}-included-title`}>Included with the app</h3><p>One paid download. Every feature below is included.</p></header>
+      {includedFeatures.map(feature => <article class="feature-card">
+        <span class="feature-mark" aria-hidden="true">✓</span><div><h4>{feature.title}</h4><p>{oneLiner(feature.description)}</p></div>
+      </article>)}
+    </section> : <>
+      <section class="plan-column" aria-labelledby={`${app}-free-title`}>
+        <header class="plan-heading"><h3 id={`${app}-free-title`}>Free</h3><p>Free to download</p></header>
+        {freeFeatures.map(feature => <article class="feature-card">
+          <span class="feature-mark" aria-hidden="true">✓</span><div><h4>{feature.title}</h4><p>{oneLiner(feature.description)}</p></div>
+        </article>)}
+      </section>
+      <section class="plan-column premium-column" aria-labelledby={`${app}-premium-title`}>
+        <header class="plan-heading"><h3 id={`${app}-premium-title`}>Premium</h3><p>Optional in-app upgrade</p></header>
+        {premiumFeatures.map(feature => <article class="feature-card">
+          <span class="feature-mark" aria-hidden="true">✦</span><div><h4>{feature.title}</h4><p>{oneLiner(feature.description)}</p></div>
+        </article>)}
+      </section>
+    </>}
+  </div>
+</section>
+
+<style>
+  .feature-guide { max-width: 1080px; margin: 70px auto 90px; padding: 36px 0 0; border-top: 1px solid #e5e5e5; text-align: left; }
+  .feature-header { margin-bottom: 36px; }
+  .guide-eyebrow { color: #777; font-size: .68rem; font-weight: 700; letter-spacing: .14em; margin: 0 0 15px; }
+  h2 { margin: 0 0 12px; color: #111; font-size: clamp(1.65rem, 3vw, 2.25rem); line-height: 1.2; letter-spacing: -.045em; }
+  .guide-purpose { max-width: 48rem; color: #555; font-size: 1rem; line-height: 1.65; margin: 0 0 16px; }
+  .guide-devices { display: inline-block; font-size: .76rem; color: #444; border: 1px solid #ddd; border-radius: 999px; padding: 7px 12px; margin: 0; }
+  .plans-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 16px; }
+  .plans-paid { grid-template-columns: minmax(0, 1fr); }
+  .plan-column { min-width: 0; padding: 20px 22px; border: 1px solid #e9e9e9; border-radius: 14px; background: #fff; box-shadow: 0 4px 18px rgb(0 0 0 / 3%); }
+  .premium-column { border-color: #e9dfcb; background: linear-gradient(160deg, #fffdf8, #fff 55%); }
+  .plan-heading { min-height: 58px; padding-bottom: 12px; border-bottom: 1px solid #eee; }
+  .plan-heading h3 { margin: 0 0 4px; color: #222; font-size: 1rem; line-height: 1.3; letter-spacing: -.02em; }
+  .plan-heading p { margin: 0; color: #777; font-size: .75rem; line-height: 1.5; }
+  .feature-card { display: grid; grid-template-columns: 19px minmax(0, 1fr); align-items: start; gap: 9px; padding: 11px 0 0; }
+  .feature-mark { display: grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; color: #315846; background: #edf5ef; font-size: .66rem; font-weight: 700; }
+  .premium-column .feature-mark { color: #75591f; background: #f7f0df; }
+  .feature-card h4 { margin: 0 0 2px; color: #222; font-size: .82rem; line-height: 1.3; letter-spacing: -.01em; }
+  .feature-card p { color: #737373; font-size: .72rem; line-height: 1.4; margin: 0; }
+  @media (max-width: 520px) {
+    .feature-guide { margin: 45px auto 65px; }
+    .plans-grid { grid-template-columns: 1fr; }
+    .plan-column { padding: 16px; }
+    .plan-heading { min-height: auto; }
+  }
+</style>
