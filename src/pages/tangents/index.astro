@@ -34,7 +34,6 @@ const tangents = (await getCollection('notes'))
             <strong class="tangent-title">{note.data.title}</strong>
             {note.data.description && <span class="tangent-description">{note.data.description}</span>}
             <span class="tangent-footer">
-              {note.data.date && <time>{note.data.date}</time>}
               <span class="tangent-cta">Read story <span aria-hidden="true">→</span></span>
             </span>
           </span>
@@ -64,8 +63,8 @@ const tangents = (await getCollection('notes'))
   .tangent-category { margin-bottom: 11px; color: #999; font-size: .65rem; font-weight: 700; letter-spacing: .12em; }
   .tangent-title { color: #111; font-size: clamp(1.3rem, 2.5vw, 1.8rem); font-weight: 650; letter-spacing: -.045em; line-height: 1.2; }
   .tangent-description { margin-top: 12px; color: #666; font-size: .9rem; line-height: 1.6; }
-  .tangent-footer { display: flex; width: 100%; justify-content: space-between; gap: 16px; margin-top: 22px; color: #999; font-size: .75rem; }
-  .tangent-cta { color: #222; font-size: .8rem; font-weight: 650; white-space: nowrap; }
+  .tangent-footer { display: flex; width: 100%; align-items: baseline; gap: 16px; margin-top: 22px; color: #999; font-size: .75rem; }
+  .tangent-cta { margin-left: auto; color: #222; font-size: .8rem; font-weight: 650; white-space: nowrap; }
   .tangent-card:hover .tangent-cta { text-decoration: underline; text-underline-offset: 4px; }
   .tangent-card:focus-visible { outline: 2px solid #111; outline-offset: 5px; }
   @media (max-width: 650px) {

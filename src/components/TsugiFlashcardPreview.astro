@@ -1,0 +1,53 @@
+---
+const faces = ['front', 'back'] as const;
+---
+
+<figure class="flashcard-preview">
+  <div class="card-pair">
+    {faces.map(face => <div class="card-example">
+      <span class="face-label">{face === 'front' ? 'Japanese · Front' : 'Answer · Back'}</span>
+      <div class="study-card">
+        <span class="level">N3</span>
+        <div class="card-content">
+          {face === 'front' ? <>
+            <p class="japanese" lang="ja"><mark>数</mark>が多いので、時間がかかります。</p>
+            <p class="romaji">kazu ga ooi node, jikan ga kakarimasu.</p>
+          </> : <>
+            <p class="definition">number</p>
+            <img src="/images/codex-projects/flashcard-number.jpg" width="256" height="256" alt="ChatGPT-generated illustration for 数: groups of apples, oranges, bananas, and plums arranged for counting." loading="lazy" />
+            <p class="translation">There are many, so it takes time.</p>
+          </>}
+        </div>
+        <div class="review-tray" aria-hidden="true">
+          <span class="wrong">×</span>
+          <span class="audio"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5 6 9H3v6h3l5 4Z" fill="currentColor"/><path d="M15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/></svg></span>
+          <span class="correct">✓</span>
+        </div>
+      </div>
+    </div>)}
+  </div>
+  <figcaption>The illustration appears after the flip, connecting the word’s meaning to a visual cue.</figcaption>
+</figure>
+
+<style>
+  .flashcard-preview { margin: 2.5rem 0 3rem; }
+  .card-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding: 28px; background: #f7f7f5; border-radius: 14px; }
+  .face-label { display: block; margin-bottom: 14px; color: #666; font: 500 .75rem/1.5 system-ui, sans-serif; text-align: center; }
+  .study-card { display: flex; flex-direction: column; min-height: 440px; padding: 16px; border-radius: 24px; background: #e9eeea; border: 1px solid #0000000a; box-shadow: 0 8px 16px #00000014; color: #191919; font-family: system-ui, sans-serif; }
+  .level { align-self: flex-start; border-radius: 20px; padding: 3px 10px; font-size: 11px; font-weight: 600; background: #ffffff80; }
+  .card-content { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 18px 0; text-align: center; }
+  .card-content p { margin: 0; }
+  .japanese { font-size: 28px; font-weight: 600; line-height: 1.6; overflow-wrap: anywhere; }
+  mark { background: #f5b9428c; color: inherit; border-radius: 6px; padding: 2px; }
+  .romaji { font-size: 15px; font-style: italic; line-height: 1.5; opacity: .85; }
+  .definition { font-size: 22px; font-weight: 700; }
+  .card-content img { display: block; width: min(100%, 240px); height: auto; border-radius: 16px; margin: 0; }
+  .translation { font-size: 14px; line-height: 1.5; color: #666; }
+  .review-tray { display: flex; justify-content: center; align-items: center; gap: 28px; padding-bottom: 4px; }
+  .wrong, .correct { display: grid; place-items: center; border-radius: 50%; width: 38px; height: 38px; color: white; font-size: 30px; line-height: 1; }
+  .wrong { background: #ff3b30; }
+  .correct { background: #34c759; font-size: 25px; }
+  .audio { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: #0000000d; color: #bb8a00; }
+  figcaption { margin-top: 12px; color: #777; font-size: .8rem; line-height: 1.65; }
+  @media (max-width: 600px) { .card-pair { grid-template-columns: 1fr; padding: 20px; } .card-example { width: 100%; max-width: 340px; margin: auto; } }
+</style>

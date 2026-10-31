@@ -69,7 +69,7 @@ const linkedApp = language === 'korean'
 
 <Layout title={`${entry.data.title} | san serif`} description={entry.data.description}>
 	<main class="wrapper">
-		<a href={language ? `/learn/${language}` : '/notes'} class="back-link">← {language ? `Back to ${language[0].toUpperCase() + language.slice(1)} course` : 'Back to notes'}</a>
+		<a href={language ? `/learn/${language}` : isTangent(entry) ? '/tangents' : '/notes'} class="back-link">← {language ? `Back to ${language[0].toUpperCase() + language.slice(1)} course` : isTangent(entry) ? 'Back to Tangents' : 'Back to notes'}</a>
 
 		<article class="post">
 			<header class="post-header">

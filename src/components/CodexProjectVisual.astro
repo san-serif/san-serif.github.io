@@ -1,0 +1,56 @@
+---
+interface Props { kind: 'gallery' | 'search' | 'mascots' | 'icons' }
+const { kind } = Astro.props;
+const screenshots = {
+  gallery: { src: 'gallery', width: 1800, height: 1020, alt: 'Tsugi flashcard art review gallery, with Japanese words, readings, and English meanings beneath the illustrations.', caption: 'Tsugi’s searchable review gallery pairs each illustration with its Japanese word, reading, and English meaning. Cropped browser screenshot.' },
+  search: { src: 'gallery-search', width: 1800, height: 597, alt: 'The Tsugi gallery filtered by the English word number, returning 20 illustrated vocabulary entries.', caption: 'Searching “number” brings related vocabulary together for comparison. A valid asset can still be an unclear learning cue; the gallery makes that easier to spot. Cropped browser screenshot.' },
+};
+const mascots = [
+  { src: 'kaku-study', name: 'Kaku · Study', alt: 'Kaku’s smiling ink mascot holding a brush while studying at a desk.' },
+  { src: 'kaku-listening', name: 'Kaku · Listening', alt: 'Kaku’s ink mascot in its listening illustration.' },
+  { src: 'sajeon-welcome', name: 'Sajeon · Welcome', alt: 'Sajeon’s magpie mascot in its welcome illustration.' },
+  { src: 'sajeon-listening', name: 'Sajeon · Listening', alt: 'Sajeon’s magpie mascot in its listening illustration.' },
+];
+const icons = [
+  { src: '/tokeitango-icon.png', name: 'TokeiTango', language: 'Japanese', href: '/portfolio/tokeitango', alt: 'TokeiTango icon: cream hiragana と over Mount Fuji against a red sun and navy background.' },
+  { src: '/eohwi-icon.png', name: 'Eohwi', language: 'Korean', href: '/portfolio/eohwi', alt: 'Eohwi icon: cream Hangul 어 above a stylised roof of Gyeongbokgung against a pink circle and purple background.' },
+  { src: '/zungzi-icon.png?v=20261031', name: 'Zungzi', language: 'Chinese', href: '/portfolio/zungzi', alt: 'Zungzi icon: cream Chinese character 字 above the Great Wall against a golden-yellow sky and red hills.' },
+];
+---
+
+<figure class:list={['project-visual', { 'asset-board': kind === 'mascots' || kind === 'icons' }]}>
+  {(kind === 'gallery' || kind === 'search') && (() => {
+    const shot = screenshots[kind];
+    return <><a href={`/images/codex-projects/${shot.src}.webp`} aria-label="Open full-size gallery screenshot"><img src={`/images/codex-projects/${shot.src}.webp`} width={shot.width} height={shot.height} alt={shot.alt} loading="lazy" /></a><figcaption>{shot.caption} <a href={`/images/codex-projects/${shot.src}.webp`}>View larger ↗</a></figcaption></>;
+  })()}
+  {kind === 'mascots' && <>
+    <div class="mascot-grid">{mascots.map(item => <div class="mascot"><img src={`/images/codex-projects/${item.src}.webp`} alt={item.alt} width="900" height="600" loading="lazy" /><span>{item.name}</span></div>)}</div>
+    <figcaption>Artwork board assembled from the apps’ asset catalogs. Kaku’s study and listening illustrations and Sajeon’s welcome and listening illustrations are used in onboarding.</figcaption>
+  </>}
+  {kind === 'icons' && <>
+    <div class="icon-grid">{icons.map(item => <a href={item.href} class="icon-card"><img class="main-icon" src={item.src} alt={item.alt} width="512" height="512" loading="lazy" /><strong>{item.name}</strong><span>{item.language}</span></a>)}</div>
+    <figcaption>The watch app series: TokeiTango, Eohwi, and Zungzi. Each pairs a character with a landmark and its own palette.</figcaption>
+  </>}
+</figure>
+
+<style>
+  .project-visual { margin: 2.5rem 0 3rem; }
+  .project-visual > a { display: block; }
+  .project-visual img { display: block; width: 100%; height: auto; margin: 0; border-radius: 10px; }
+  .project-visual figcaption { margin-top: 12px; color: #777; font-size: .8rem; line-height: 1.65; }
+  .mascot-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .mascot { overflow: hidden; background: #f6f4ef; border: 1px solid #eeeae3; border-radius: 12px; }
+  .mascot img { aspect-ratio: 1.5; object-fit: contain; border-radius: 0; }
+  .mascot > span { display: block; padding: 10px 14px 14px; font-size: .75rem; color: #666; }
+  .icon-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; padding: 24px; background: #f7f7f5; border-radius: 14px; }
+  .icon-card { display: flex; min-width: 0; align-items: center; flex-direction: column; text-align: center; text-decoration: none; }
+  .icon-card .main-icon { border-radius: 50%; }
+  .icon-card > strong { margin-top: 15px; font-size: .9rem; }
+  .icon-card > span { margin-top: 4px; font-size: .75rem; color: #777; }
+  @media (max-width: 500px) {
+    .icon-grid { padding: 16px 10px; gap: 10px; }
+    .icon-card > strong { font-size: .72rem; }
+    .mascot-grid { gap: 8px; }
+    .mascot > span { padding: 8px; font-size: .68rem; }
+  }
+</style>
