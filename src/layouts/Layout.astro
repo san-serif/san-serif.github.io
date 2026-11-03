@@ -2,7 +2,7 @@
 const pathname = new URL(Astro.request.url).pathname;
 const {
 	title,
-	description = "Free Japanese, Korean, and Chinese lessons, alongside Apple-native tools for learning and practising the languages.",
+	description = "Apple-native apps for learning Japanese, Korean, and Chinese, with free lessons and culture notes.",
 	image = "/sanserif-og.jpg",
 } = Astro.props;
 
@@ -22,7 +22,7 @@ const organizationSchema = {
 	name: "san serif",
 	url: Astro.site?.toString(),
 	logo: logoURL.toString(),
-	description: "Free Japanese, Korean, and Chinese lessons, alongside Apple-native tools for learning and practising the languages.",
+	description: "Apple-native apps for learning Japanese, Korean, and Chinese, with free lessons and culture notes.",
 	sameAs: ["https://x.com/sanserif_studio"],
 };
 
@@ -70,7 +70,7 @@ const isAbout = pathname.startsWith("/about");
 				<a href="/" class="logo">
 					<img src="/sanserif.jpg" alt="san serif" class="logo-img" />
 				</a>
-				<p class="subtitle">language apps & lessons</p>
+				<p class="subtitle">language, apps &amp; culture notes</p>
 			</div>
 
 			<div class="links">

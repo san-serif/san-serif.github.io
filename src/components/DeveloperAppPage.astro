@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+interface Feature {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  name: string;
+  summary: string;
+  description: string;
+  premiumHeading: string;
+  premiumSummary: string;
+  icon: string;
+  screenshots: { src: string; alt: string }[];
+  premiumFeatures: Feature[];
+  coreFeatures: Feature[];
+}
+
+const { name, summary, description, premiumHeading, premiumSummary, icon, screenshots, premiumFeatures, coreFeatures } = Astro.props;
+---
+
+<Layout title={`${name} | san serif`} description={description} image={screenshots[0].src}>
+  <main class="wrapper product-page">
+    <a class="back-link" href="/#apps">← All apps</a>
+    <header class="product-header">
+      <img class="product-icon" src={icon} alt={`${name} app icon`} />
+      <p class="eyebrow">NATIVE MAC APP · IN DEVELOPMENT</p>
+      <h1>{name}</h1>
+      <p class="summary">{summary}</p>
+      <p class="description">{description}</p>
+    </header>
+
+    <section class="premium" aria-labelledby="premium-title">
+      <div class="premium-heading">
+        <p class="eyebrow">THE NEXT RELEASE</p>
+        <h2 id="premium-title">{premiumHeading}</h2>
+        <p>{premiumSummary}</p>
+      </div>
+      <div class="premium-grid">
+        {premiumFeatures.map((feature, index) => <div class="premium-feature">
+          <span class="feature-number">0{index + 1}</span>
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
+        </div>)}
+      </div>
+      <p class="availability">These Premium features are planned for a later release and are not part of the initial free version.</p>
+    </section>
+
+    <div class="screenshots" aria-label={`${name} screenshots`}>
+      {screenshots.map((shot) => <img src={shot.src} alt={shot.alt} loading="lazy" />)}
+    </div>
+
+    <section class="features" aria-labelledby="features-title">
+      <h2 id="features-title">A capable foundation</h2>
+      <div class="feature-grid">
+        {coreFeatures.map((feature) => <div class="feature">
+          <h3>{feature.title}</h3>
+          <p>{feature.description}</p>
+        </div>)}
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .product-page { max-width: 1000px; padding-bottom: 110px; }
+  .back-link { display: inline-block; margin: 0 0 46px; color: #666; font-size: .85rem; text-decoration: none; }
+  .back-link:hover { color: #111; text-decoration: underline; text-underline-offset: 3px; }
+  .product-header { max-width: 740px; margin: 0 auto 54px; text-align: center; }
+  .product-icon { width: 104px; height: 104px; border-radius: 23%; object-fit: cover; margin-bottom: 26px; }
+  .eyebrow { color: #888; font-size: .7rem; font-weight: 700; letter-spacing: .14em; margin: 0 0 12px; }
+  h1 { font-size: clamp(3rem, 6vw, 4.5rem); line-height: 1.05; letter-spacing: -.06em; margin: 0 0 16px; }
+  .summary { color: #111; font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 600; line-height: 1.3; letter-spacing: -.03em; margin: 0 0 16px; }
+  .description { color: #666; font-size: 1rem; line-height: 1.7; margin: 0; }
+  .premium { background: #f5f5f3; border: 1px solid #e9e9e5; border-radius: 20px; padding: clamp(28px, 5vw, 50px); margin-bottom: 60px; }
+  .premium-heading { max-width: 640px; margin-bottom: 32px; }
+  .premium-heading h2 { font-size: clamp(1.8rem, 3.4vw, 2.7rem); letter-spacing: -.045em; line-height: 1.15; margin: 0 0 13px; }
+  .premium-heading > p:last-child { color: #555; font-size: 1rem; line-height: 1.65; margin: 0; }
+  .premium-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .premium-feature { background: #fff; border: 1px solid #e7e7e3; border-radius: 12px; padding: 24px; }
+  .feature-number { display: block; margin-bottom: 23px; font-size: .72rem; font-weight: 700; color: #9b9b96; letter-spacing: .1em; }
+  .premium-feature h3 { margin: 0 0 10px; font-size: 1.1rem; letter-spacing: -.02em; }
+  .premium-feature p { margin: 0; color: #666; font-size: .9rem; line-height: 1.65; }
+  .availability { color: #777; font-size: .78rem; line-height: 1.5; margin: 22px 0 0; }
+  .screenshots { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 70px; }
+  .screenshots img { display: block; width: 100%; height: auto; border: 1px solid #e5e5e5; border-radius: 12px; box-shadow: 0 16px 40px rgba(0,0,0,.07); }
+  .features { border-top: 1px solid #e9e9e9; padding-top: 36px; }
+  .features h2 { margin: 0 0 26px; font-size: 1.4rem; letter-spacing: -.03em; }
+  .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+  .feature h3 { margin: 0 0 10px; font-size: 1rem; }
+  .feature p { margin: 0; color: #666; font-size: .9rem; line-height: 1.65; }
+  @media (max-width: 700px) {
+    .back-link { margin-bottom: 32px; }
+    .premium-grid { grid-template-columns: 1fr; }
+    .premium-feature { padding: 20px; }
+    .feature-number { margin-bottom: 12px; }
+    .screenshots { grid-template-columns: 1fr; margin-bottom: 55px; }
+    .feature-grid { grid-template-columns: 1fr; gap: 25px; }
+  }
+</style>

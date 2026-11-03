@@ -1,0 +1,27 @@
+---
+import DeveloperAppPage from '../../components/DeveloperAppPage.astro';
+---
+
+<DeveloperAppPage
+  name="Reji"
+  summary="Turn App Store reports into decisions you can act on."
+  description="Reji brings App Store Connect sales, downloads, and prices into a native Mac workspace. Explore what changed across apps and markets, then use the planned Premium intelligence tools to investigate opportunities and review pricing with evidence in view."
+  premiumHeading="Know what changed. See what to review next."
+  premiumSummary="The next release is being shaped around clearer answers and better weekly decisions: ask questions about sales, review what changed, and compare regional prices before acting."
+  icon="/reji-icon.png"
+  screenshots={[
+    { src: '/images/reji/overview.jpg', alt: 'Reji overview showing App Store sales and download trends' },
+    { src: '/images/reji/sales.jpg', alt: 'Reji sales history and breakdowns' },
+  ]}
+  premiumFeatures={[
+    { title: 'Ask Reji about your sales', description: 'Ask a question about an app, period, or market and get a coverage-aware answer with follow-up context and the numbers behind it.' },
+    { title: 'Start the week with a review', description: 'See sales, refunds, and changes together. Review grouped attention items with their evidence, then open the relevant app or market.' },
+    { title: 'Compare regional prices', description: 'Explore purchasing-power references, inspect suggested regional prices, and review a plan before any change is confirmed.' },
+    { title: 'Catch what needs attention', description: 'Use product-specific pricing tolerances, price-ending choices, and performance flags to focus the next review.' },
+  ]}
+  coreFeatures={[
+    { title: 'See the whole picture', description: 'Follow sales and downloads across apps, products, countries, and dates, with previous-year comparisons.' },
+    { title: 'Work with current prices', description: 'Inspect App Store prices and preview manual changes before confirming them.' },
+    { title: 'Keep your data close', description: 'Connect with an App Store Connect API key; store reports locally, export data, and back up your workspace.' },
+  ]}
+/>

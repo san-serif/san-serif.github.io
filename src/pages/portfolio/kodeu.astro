@@ -1,0 +1,27 @@
+---
+import DeveloperAppPage from '../../components/DeveloperAppPage.astro';
+---
+
+<DeveloperAppPage
+  name="Kodeu"
+  summary="A beautiful Mac editor, ready out of the box."
+  description="Kodeu gives code and Markdown a clean, native Mac workspace. Built-in themes, ligature fonts, and clear syntax highlighting make it comfortable to read and write from the first launch."
+  premiumHeading="Keep the whole coding loop in one place."
+  premiumSummary="Stay in the editor when a project gets complex. Kodeu Premium is being built for the work around the code, from reviewing changes to finding your way through a project and running commands."
+  icon="/kodeu-icon.png"
+  screenshots={[
+    { src: '/images/kodeu/editor.jpg', alt: 'Kodeu editing Swift code with a project sidebar' },
+    { src: '/images/kodeu/markdown.jpg', alt: 'Kodeu editing a Markdown document' },
+  ]}
+  premiumFeatures={[
+    { title: 'Review every change', description: 'See Git status and diffs beside your files. For connected coding agents, inspect captured edits and choose whether to keep or restore them.' },
+    { title: 'Find the code you need', description: 'In Swift projects, compiler completion, SourceKit diagnostics, and Go to Definition help you trace errors to the relevant code.' },
+    { title: 'Build without switching apps', description: 'Run commands in an integrated terminal, build a project, and keep multiple files in view with a split editor.' },
+    { title: 'Shape the editor to your work', description: 'Use multiple carets, regex search and replacement across files, imported themes and snippets, and project-specific settings.' },
+  ]}
+  coreFeatures={[
+    { title: 'Beautiful by default', description: 'Built-in themes, ligature fonts, syntax highlighting, and clear line numbers make code easy to read from the start.' },
+    { title: 'Move through a project', description: 'Browse files, open quickly, search the project, and find and replace in the current file.' },
+    { title: 'Keep work local', description: 'Format supported files locally, recover unsaved edits, and work without an account.' },
+  ]}
+/>
