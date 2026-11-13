@@ -1,32 +1,138 @@
 ---
-import DeveloperAppPage from '../../components/DeveloperAppPage.astro';
+import Layout from '../../layouts/Layout.astro';
+
+const appStoreUrl = 'https://apps.apple.com/au/app/kodeu-code-text-editor/id6826537145?mt=12';
+
+const codeSnippet = `struct Trail: Identifiable, Codable {
+  let id: UUID
+  var name: String
+  var distance: Double
+  var elevation: Int
+  var isFavourite: Bool
+}`;
+
 ---
 
-<DeveloperAppPage
-  name="Kodeu"
-  status="NATIVE MAC APP"
-  summary="A native Mac editor for code, scripts, and Markdown."
-  description="Kodeu is a free, native code editor for macOS. Open a project, work across files, and write code in a focused Mac editor with syntax highlighting, formatting, and everything you need — no account required."
-  appStoreUrl="https://apps.apple.com/au/app/kodeu-code-text-editor/id6826537145?mt=12"
-  premiumHeading="Keep the whole coding loop in one place."
-  premiumSummary="Stay in the editor when a project gets complex. Kodeu Premium is being built for the work around the code, from reviewing changes to finding your way through a project and running commands."
-  icon="/kodeu-icon.png"
-  screenshots={[
-    { src: '/images/kodeu/editor.jpg', alt: 'Kodeu editing Swift code with a project sidebar' },
-    { src: '/images/kodeu/markdown.jpg', alt: 'Kodeu editing a Markdown document' },
-  ]}
-  premiumFeatures={[
-    { title: 'Review every change', description: 'See Git status and diffs beside your files. For connected coding agents, inspect captured edits and choose whether to keep or restore them.' },
-    { title: 'Find the code you need', description: 'In Swift projects, compiler completion, SourceKit diagnostics, and Go to Definition help you trace errors to the relevant code.' },
-    { title: 'Build without switching apps', description: 'Run commands in an integrated terminal, build a project, and keep multiple files in view with a split editor.' },
-    { title: 'Shape the editor to your work', description: 'Use multiple carets, regex search and replacement across files, imported themes and snippets, and project-specific settings.' },
-  ]}
-  coreFeatures={[
-    { title: 'Write in any language', description: 'Syntax highlighting for Swift, C-family languages, JavaScript, TypeScript, Python, HTML, CSS, JSON, Markdown, Rust, and many more — with code folding, bracket matching, and automatic indentation.' },
-    { title: 'Move through a project', description: 'Browse files, open quickly, search the project, find and replace in a file, go to a line, and browse document symbols.' },
-    { title: 'Format locally', description: 'Format supported languages locally with bundled Prettier for JavaScript, TypeScript, HTML, CSS, Markdown, and JSONC — no cloud, no account.' },
-    { title: 'Work your way', description: 'Work in tabs or separate windows, recover unsaved edits after a restart, use built-in snippets, and save project-specific indentation defaults.' },
-    { title: 'Print and export', description: 'Print the active document or save it as a PDF through the macOS print dialog.' },
-    { title: 'Private by design', description: 'Kodeu does not require an account or upload your source code. It is an independent editor built for the Mac.' },
-  ]}
-/>
+<Layout title="Kodeu | san serif" description="A free, native Mac editor for code, scripts, and Markdown — with syntax highlighting, formatting, and project browsing." image="/images/kodeu/editor.jpg">
+  <main class="wrapper kodeu-page">
+    <a class="back-link" href="/#apps">← All apps</a>
+
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-text">
+        <p class="eyebrow">NATIVE MAC APP</p>
+        <h1>Kodeu</h1>
+        <p class="tagline">A free, native Mac editor for code, scripts, and Markdown.</p>
+        <p class="subtag">Open a project, work across files, and write in a focused editor with syntax highlighting, formatting, and everything you need — no account required.</p>
+        <a href={appStoreUrl} class="app-store-link" target="_blank" rel="noopener">
+          <img src="/images/app-store-badge.svg" alt="Download on the Mac App Store" class="badge-svg" />
+        </a>
+      </div>
+      <div class="hero-visual">
+        <div class="code-window">
+          <div class="code-window-bar">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+            <span class="code-window-title">Trail.swift</span>
+          </div>
+          <pre class="code-block"><code>{codeSnippet}</code></pre>
+        </div>
+        <img src="/images/kodeu/editor.jpg" alt="Kodeu editing Swift code with a project sidebar" class="hero-screenshot" loading="lazy" />
+      </div>
+    </header>
+
+    <!-- FEATURES -->
+    <section class="features" aria-labelledby="features-title">
+      <h2 id="features-title">Everything you need, nothing you don't.</h2>
+      <ul class="feature-list">
+        <li>
+          <strong>Write in any language</strong>
+          <span>Swift, TypeScript, Python, Rust, HTML, CSS, Markdown, and more — with code folding, bracket matching, and automatic indentation.</span>
+        </li>
+        <li>
+          <strong>Move through a project</strong>
+          <span>Browse files, search, find and replace, go to a line, browse document symbols, and set bookmarks.</span>
+        </li>
+        <li>
+          <strong>Format locally</strong>
+          <span>Bundled Prettier for JavaScript, TypeScript, HTML, CSS, Markdown, and JSONC — no cloud, no account.</span>
+        </li>
+        <li>
+          <strong>Review every change</strong>
+          <span>See Git status and diffs beside your files. Inspect captured edits from coding agents and choose whether to keep or restore them.</span>
+        </li>
+        <li>
+          <strong>Find the code you need</strong>
+          <span>In Swift projects, compiler completion, SourceKit diagnostics, and Go to Definition help you trace errors to the relevant code.</span>
+        </li>
+        <li>
+          <strong>Build without switching apps</strong>
+          <span>Run commands in an integrated terminal, build a project, and keep multiple files in view with a split editor.</span>
+        </li>
+        <li>
+          <strong>Work your way</strong>
+          <span>Tabs or separate windows, recover unsaved edits, built-in snippets, configurable themes and fonts.</span>
+        </li>
+        <li>
+          <strong>Private by design</strong>
+          <span>No account. No uploads. An independent editor built for the Mac.</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- FOOTER CTA -->
+    <section class="final-cta">
+      <a href={appStoreUrl} class="app-store-link" target="_blank" rel="noopener">
+        <img src="/images/app-store-badge.svg" alt="Download on the Mac App Store" class="badge-svg" />
+      </a>
+    </section>
+
+  </main>
+</Layout>
+
+<style>
+  .kodeu-page { max-width: 1100px; padding-bottom: 120px; }
+  .back-link { display: inline-block; margin: 0 0 46px; color: #666; font-size: .85rem; text-decoration: none; }
+  .back-link:hover { color: #111; text-decoration: underline; text-underline-offset: 3px; }
+  .eyebrow { color: #888; font-size: .7rem; font-weight: 700; letter-spacing: .14em; margin: 0 0 14px; }
+
+  /* HERO */
+  .hero { display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items: center; margin-bottom: 100px; }
+  .hero-text h1 { font-size: clamp(3.5rem, 7vw, 5.5rem); line-height: 1; letter-spacing: -.07em; margin: 0 0 18px; font-weight: 650; }
+  .tagline { font-size: clamp(1.3rem, 2.4vw, 1.7rem); font-weight: 600; line-height: 1.3; letter-spacing: -.03em; color: #111; margin: 0 0 14px; }
+  .subtag { color: #666; font-size: 1rem; line-height: 1.7; margin: 0 0 28px; max-width: 480px; }
+  .app-store-link { display: inline-block; margin-top: 8px; }
+  .badge-svg { height: 32px; width: auto; }
+
+  /* CODE WINDOW */
+  .hero-visual { position: relative; }
+  .code-window { background: #1e1e1e; border-radius: 12px; padding: 0 0 16px; margin-bottom: 20px; box-shadow: 0 20px 60px rgba(0,0,0,.12); border: 1px solid #e5e5e5; }
+  .code-window-bar { display: flex; align-items: center; gap: 6px; padding: 12px 16px 0; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red { background: #ff5f57; }
+  .dot.yellow { background: #febc2e; }
+  .dot.green { background: #28c840; }
+  .code-window-title { margin-left: 10px; font-size: .72rem; color: #888; font-family: ui-monospace, SFMono-Regular, monospace; }
+  .code-block { margin: 0; padding: 16px; font-family: ui-monospace, SFMono-Regular, monospace; font-size: .78rem; line-height: 1.6; color: #d4d4d4; overflow-x: auto; }
+  .code-block code { font-family: inherit; }
+  .hero-screenshot { display: block; width: 100%; border-radius: 12px; border: 1px solid #e5e5e5; box-shadow: 0 16px 40px rgba(0,0,0,.07); }
+
+  /* FEATURES LIST */
+  .features { margin-bottom: 80px; }
+  .features h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); letter-spacing: -.045em; line-height: 1.15; margin: 0 0 32px; }
+  .feature-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px 40px; }
+  .feature-list li { padding: 0; }
+  .feature-list strong { display: block; font-size: .95rem; margin-bottom: 4px; letter-spacing: -.01em; }
+  .feature-list span { color: #666; font-size: .88rem; line-height: 1.55; }
+
+  /* FINAL CTA */
+  .final-cta { text-align: center; padding: 40px 0 0; border-top: 1px solid #e9e9e9; }
+
+  /* RESPONSIVE */
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; margin-bottom: 70px; }
+    .hero-visual { order: -1; }
+    .feature-list { grid-template-columns: 1fr; gap: 16px; }
+  }
+</style>
