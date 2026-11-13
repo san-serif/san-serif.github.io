@@ -4,8 +4,10 @@ import DeveloperAppPage from '../../components/DeveloperAppPage.astro';
 
 <DeveloperAppPage
   name="Kodeu"
-  summary="A beautiful Mac editor, ready out of the box."
-  description="Kodeu gives code and Markdown a clean, native Mac workspace. Built-in themes, ligature fonts, and clear syntax highlighting make it comfortable to read and write from the first launch."
+  status="NATIVE MAC APP"
+  summary="A native Mac editor for code, scripts, and Markdown."
+  description="Kodeu is a free, native code editor for macOS. Open a project, work across files, and write code in a focused Mac editor with syntax highlighting, formatting, and everything you need — no account required."
+  appStoreUrl="https://apps.apple.com/au/app/kodeu-code-text-editor/id6826537145?mt=12"
   premiumHeading="Keep the whole coding loop in one place."
   premiumSummary="Stay in the editor when a project gets complex. Kodeu Premium is being built for the work around the code, from reviewing changes to finding your way through a project and running commands."
   icon="/kodeu-icon.png"
@@ -20,8 +22,11 @@ import DeveloperAppPage from '../../components/DeveloperAppPage.astro';
     { title: 'Shape the editor to your work', description: 'Use multiple carets, regex search and replacement across files, imported themes and snippets, and project-specific settings.' },
   ]}
   coreFeatures={[
-    { title: 'Beautiful by default', description: 'Built-in themes, ligature fonts, syntax highlighting, and clear line numbers make code easy to read from the start.' },
-    { title: 'Move through a project', description: 'Browse files, open quickly, search the project, and find and replace in the current file.' },
-    { title: 'Keep work local', description: 'Format supported files locally, recover unsaved edits, and work without an account.' },
+    { title: 'Write in any language', description: 'Syntax highlighting for Swift, C-family languages, JavaScript, TypeScript, Python, HTML, CSS, JSON, Markdown, Rust, and many more — with code folding, bracket matching, and automatic indentation.' },
+    { title: 'Move through a project', description: 'Browse files, open quickly, search the project, find and replace in a file, go to a line, and browse document symbols.' },
+    { title: 'Format locally', description: 'Format supported languages locally with bundled Prettier for JavaScript, TypeScript, HTML, CSS, Markdown, and JSONC — no cloud, no account.' },
+    { title: 'Work your way', description: 'Work in tabs or separate windows, recover unsaved edits after a restart, use built-in snippets, and save project-specific indentation defaults.' },
+    { title: 'Print and export', description: 'Print the active document or save it as a PDF through the macOS print dialog.' },
+    { title: 'Private by design', description: 'Kodeu does not require an account or upload your source code. It is an independent editor built for the Mac.' },
   ]}
 />
